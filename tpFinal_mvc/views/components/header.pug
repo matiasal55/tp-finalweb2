@@ -1,0 +1,16 @@
+header
+    nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+        a(href="home.html")
+            img(src="imagenes/logoMatanza.png" alt="logo" width="100")
+        button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation")
+            span(class="navbar-toggler-icon")
+        .collapse.navbar-collapse#navbarTogglerDemo01
+            ul.navbar-nav.justify-content-center.nav-tabs.mx-3
+                each pagina in paginas
+                    - var estilo;
+                    if pagina==titulo
+                        - estilo="active text-dark";
+                    else
+                        - estilo="text-light";
+                    li.nav-item
+                        a(class=`nav-link ${estilo}` href=`${pagina.toLowerCase()}.html`) #{pagina}

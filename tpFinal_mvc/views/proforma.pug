@@ -1,0 +1,144 @@
+extends ../components/template
+block titulo
+    - titulo="Proforma";
+block body
+    include ../components/header
+    h1.text-center.mt-3 Proforma
+    .container.my-5
+        form(action="")
+            .row
+                .form-group.col-md-6
+                    label(for="numero") Número
+                    input.form-control(type="number")
+                .form-group.col-md-6
+                    label(for="fecha") Fecha
+                    input.form-control(type="date" name="fecha")
+            h3 Datos del cliente
+            .row
+                .form-group.col-md-6
+                    label(for="dni_cliente") CUIT de cliente
+                    input.form-control(type="number" name="cuit_cliente")
+                    button.btn.btn-primary.mt-2(type="button") Buscar cliente
+                    button.btn.btn-outline-primary.mt-2(type="button") Agregar cliente
+                .form-group.col-md-6
+                    .d-flex.flex-column
+                    	small CUIT: 12345678901
+                    	small Denominación: Pirulo S.A.
+                    	small Dirección: Florencio Varela 1835 - San Justo
+                    	small Teléfono: 1135857412
+                    	small Email: pirulo@hotmail.com
+                    	small Contacto 1:-
+                    	small Contacto 2: -
+            h3 Datos de viaje
+            .row
+                .form-group.col-md-6
+                    label(for="origen") Origen:
+                    input.form-control(type="text" name="origen")
+                .form-group.col-md-6
+                    label(for="destino") Destino:
+                    input.form-control(type="text" name="destino")
+		    .row
+                .form-group.col-md-6
+                    label(for="fecha_carga") Fecha de carga:
+                    input.form-control(type="date" name="origen")
+                .form-group.col-md-6
+                    label(for="ETA") ETA (Estimated Time Arrival):
+                    input.form-control(type="date" name="eta")
+            h3 Datos de carga
+            .row
+                .form-group.col-md-6
+                    label(for="tipo") Tipo de carga
+                    select.form-control
+                        option 20"
+                        option 40"
+                        option CarCarrier
+                        option Granel
+                        option Jaula
+                        option Líquida
+                .form-group.col-md-6
+                    label(for="peso_neto") Peso Neto
+                    input.form-control(type="number" name="peso_neto")
+            .row
+                .form-group.col-md-6
+                    label(for="hazard") Hazard
+                    input.form-control(type="text" name="hazard")
+                .form-group.col-md-6
+                    label(for="refeer") Reefer
+                    input.form-control(type="text" name="reefer")
+            h3 Datos de costeo
+            .table-responsive
+                table.table
+                    thead
+                        tr
+                            th Concepto
+                            th Estimado
+                            th Real
+                    tbody
+                        tr
+                            th(scope="row") Kilometros
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Combustible
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") ETD
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") ETA
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Viáticos
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Peajes y Pesajes
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Extras
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Hazard
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            <th scope="row">Reefer</th>
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr
+                            th(scope="row") Fee
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+                        tr.table-info
+                            th(scope="row") Total
+                            td
+                                input(type="number" name="")
+                            td
+                                input(type="number" name="")
+            button.btn.btn-success(type="submit") Guardar
+            button.btn.btn-outline-dark"(type="reset") Reestablecer
