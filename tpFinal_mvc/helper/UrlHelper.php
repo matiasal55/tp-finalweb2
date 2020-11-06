@@ -1,5 +1,7 @@
 <?php
 
+// localhost/mapa => localhost/index.php?module=mapa&action=execute
+// module=mapa
 
 class UrlHelper
 {
