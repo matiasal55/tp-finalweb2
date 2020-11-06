@@ -1,31 +1,48 @@
 <?php
 
-include_once "./helper/Render.php";
+// localhost/mapa => localhost/index.php?module=mapa&action=execute
 
-$render=new Render();
+include_once "./helper/Configuration.php";
 
-if(!isset($_GET['pagina'])){
-    $render->render("./views/login.pug");
-    die();
-}
+$configuration=new Configuration();
 
-$pagina=$_GET['pagina'];
+$urlHelper=$configuration->getUrlHelper();
+$module=$urlHelper->getModule("login");
+$action=$urlHelper->getAction("execute");
 
-switch ($pagina){
-    case "registro":{
-        echo $render->render("./views/registro.pug");
-        break;
-    }
-    case "home":{
-        echo $render->render("./views/home.pug");
-        break;
-    }
-    case "proforma":{
-        echo $render->render("./views/proforma.pug");
-        break;
-    }
-    case "mapa":{
-        echo $render->render("./views/mapa.pug");
-        break;
-    }
-}
+$router=$configuration->getRouter();
+$router->executeActionFromModule($action,$module);
+
+
+//include_once "./helper/Render.php";
+//
+//$render=new Render();
+//
+//if(!isset($_GET['pagina'])){
+//    echo $render->render("./views/login.pug");
+//    exit();
+//}
+//
+//$pagina=$_GET['pagina'];
+//
+//switch ($pagina){
+//    case "registro":{
+//        echo $render->render("./views/registro.pug");
+//        break;
+//    }
+//    case "home":{
+//        echo $render->render("./views/home.pug");
+//        break;
+//    }
+//    case "proforma":{
+//        echo $render->render("./views/proforma.pug");
+//        break;
+//    }
+//    case "mapa":{
+//        echo $render->render("./views/mapa.pug");
+//        break;
+//    }
+//    case "registrar":{
+//        echo $render->render("./views/registrar.pug");
+//    }
+//}

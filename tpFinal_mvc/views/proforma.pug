@@ -1,8 +1,8 @@
-extends ../components/template
+extends ./components/template
 block titulo
     - titulo="Proforma";
 block body
-    include ../components/header
+    include ./components/header
     h1.text-center.mt-3 Proforma
     .container.my-5
         form(action="")
@@ -22,7 +22,7 @@ block body
                     button.btn.btn-outline-primary.mt-2(type="button") Agregar cliente
                 .form-group.col-md-6
                     .d-flex.flex-column
-                    	small CUIT: 12345678901
+                        small CUIT: 12345678901
                     	small Denominación: Pirulo S.A.
                     	small Dirección: Florencio Varela 1835 - San Justo
                     	small Teléfono: 1135857412
@@ -123,7 +123,7 @@ block body
                             td
                                 input(type="number" name="")
                         tr
-                            <th scope="row">Reefer</th>
+                            th(scope="row") Reefer
                             td
                                 input(type="number" name="")
                             td
@@ -141,4 +141,4 @@ block body
                             td
                                 input(type="number" name="")
             button.btn.btn-success(type="submit") Guardar
-            button.btn.btn-outline-dark"(type="reset") Reestablecer
+            button.btn.btn-outline-dark(type="reset") Reestablecer

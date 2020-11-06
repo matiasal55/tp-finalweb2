@@ -16,9 +16,20 @@ class Router
         $this->executeMethodFromController($controller,$action);
     }
 
-    private function executeMethodFromController($controller, $action)
+    // FINAL
+    private function executeMethodFromController($controller, $method)
     {
-        $valid
+        $validMethod=method_exists($controller,$method) ? $method : "execute";
+        call_user_func([$controller,$validMethod]);
+    }
+    //
+
+    private function getControllerFrom($module)
+    {
+        $controllerName="get".ucfirst($module)."Controller";
+        $validController=method_exists($this->configuration,$controllerName) ? $controllerName : "getIndexController";
+        return call_user_func([$this->configuration,$validController]);
+        // new Render()
     }
 
 

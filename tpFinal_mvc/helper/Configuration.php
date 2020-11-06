@@ -1,8 +1,13 @@
 <?php
 
-include_once "../models/UsuariosModel.php";
-include_once "./MySqlDatabase.php";
-include_once "./UrlHelper.php";
+include_once "models/UsuariosModel.php";
+include_once "helper/MySqlDatabase.php";
+include_once "helper/UrlHelper.php";
+include_once "helper/Render.php";
+include_once "controller/IndexController.php";
+include_once "Router.php";
+include_once "controller/HomeController.php";
+include_once "controller/ProformaController.php";
 
 class Configuration
 {
@@ -18,7 +23,7 @@ class Configuration
 
     private function getConfig()
     {
-        return parse_ini_file("../config/config.ini");
+        return parse_ini_file("config/config.ini");
     }
 
     public function getUrlHelper(){
@@ -28,5 +33,26 @@ class Configuration
     public function getRouter()
     {
         return new Router($this);
+    }
+
+    public function getIndexController(){
+        return new IndexController($this->getRender());
+    }
+
+    public function getMapaController(){
+        return new MapaController($this->getRender());
+    }
+
+    public function getProformaController(){
+        return new ProformaController($this->getRender());
+    }
+
+    public function getHomeController(){
+        return new HomeController($this->getRender());
+    }
+
+    private function getRender()
+    {
+        return new Render();
     }
 }
