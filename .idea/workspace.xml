@@ -20,27 +20,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22460154-09e0-4dc8-a830-cf6ff9ccb9da" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/RegistrarController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetado/logout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetado/validarLogin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/MapaController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/mapa.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/proforma.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/views/Usuario/insert.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/views/Usuario/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/.idea/tpFinal_mvc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/.idea/tpFinal_mvc.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/config/config.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/IndexController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/ProformaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/ProformaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/RegistrarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/RegistrarController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/UsuariosController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/UsuariosController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/helper/Configuration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/MySqlDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/helper/MySqlDatabase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/Render.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/helper/Render.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/UrlHelper.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/home.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/models/UsuariosModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/models/UsuariosModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/components/card.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/components/card.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/components/header.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/components/header.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/login.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/login.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/mapa.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/mapa.pug" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/registrar.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/registrar.pug" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,6 +103,7 @@
       <workItem from="1604803314620" duration="1776000" />
       <workItem from="1604851225204" duration="4623000" />
       <workItem from="1604873633998" duration="8519000" />
+      <workItem from="1604883437603" duration="1384000" />
     </task>
     <servers />
   </component>

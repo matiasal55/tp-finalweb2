@@ -3,7 +3,11 @@
 session_start();
 include_once "helper/Configuration.php";
 
+
 $configuration=new Configuration();
+
+$router=$configuration->getRouter();
+$router->executeActionFromModule($action,$module);
 
 $module=$_GET['module'] ?? "index";
 $action=$_GET['action'] ?? "execute";

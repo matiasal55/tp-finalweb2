@@ -9,6 +9,7 @@ include_once "controller/HomeController.php";
 include_once "controller/ProformaController.php";
 include_once "controller/UsuariosController.php";
 include_once "controller/RegistrarController.php";
+include_once "controller/MapaController.php";
 
 class Configuration
 {
@@ -19,7 +20,7 @@ class Configuration
 
     private function getDatabase(){
         $config=$this->getConfig();
-        return new MySqlDatabase($config['host'],$config['user'],$config['password'],$config['database'],$config['port']);
+        return new MySqlDatabase($config['host'],$config['user'],$config['password'],$config['database']);
     }
 
     private function getConfig()
@@ -27,8 +28,7 @@ class Configuration
         return parse_ini_file("config/config.ini");
     }
 
-    public function getRouter()
-    {
+    public function getRouter(){
         return new Router($this);
     }
 
@@ -36,6 +36,9 @@ class Configuration
         return new IndexController($this->getRender());
     }
 
+    public function getRegistrarController(){
+        return new RegistrarController($this->getRender());
+    }
     public function getMapaController(){
         return new MapaController($this->getRender());
     }
@@ -57,8 +60,7 @@ class Configuration
         return new RegistrarController($this->getRender());
     }
 
-    private function getRender()
-    {
+    private function getRender(){
         return new Render();
     }
 }

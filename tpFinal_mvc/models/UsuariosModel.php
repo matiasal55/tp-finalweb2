@@ -19,7 +19,6 @@ class UsuariosModel{
         return $this->database->execute($sql);
     }
 
-    // Recibia $datos por parametro, lo cambie para que reciba un email y password
     public function getLogin($email,$password){
         $encriptada=md5($password);
         $sql="SELECT * FROM Usuarios WHERE email='$email' AND password='$encriptada'";
