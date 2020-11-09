@@ -15,11 +15,11 @@ class UsuariosController{
         $password=$_POST['password'];
         $data["usuarios"]=$this->usuariosModel->getLogin($email,$password);
         if($data['usuarios']){
-            echo $this->render->render("../views/home.pug");
+            echo $this->render->render("views/home.pug");
         }
         else {
             $data['error']="Email y/o contraseña incorrecta";
-            echo $this->render->render("../views/login.pug",$data);
+            echo $this->render->render("views/login.pug",$data);
         }
     }
 
