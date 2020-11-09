@@ -1,6 +1,6 @@
 <?php
 
-include './third-party/vendor/autoload.php';
+include 'third-party/vendor/autoload.php';
 
 class Render
 {

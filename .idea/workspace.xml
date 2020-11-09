@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="22460154-09e0-4dc8-a830-cf6ff9ccb9da" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/maquetado/logout.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/maquetado/validarLogin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/MapaController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/mapa.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/proforma.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/views/Usuario/insert.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tpFinal_mvc/views/Usuario/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/config/config.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/IndexController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/ProformaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/ProformaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/RegistrarController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/RegistrarController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/controller/UsuariosController.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/controller/UsuariosController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/helper/Configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/helper/MySqlDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/helper/MySqlDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/models/UsuariosModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/models/UsuariosModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/components/header.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/components/header.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/login.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/login.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/mapa.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/mapa.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tpFinal_mvc/views/registrar.pug" beforeDir="false" afterPath="$PROJECT_DIR$/tpFinal_mvc/views/registrar.pug" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Pug File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP7.2" />
+  <component name="ProjectId" id="1jtCKX9C5SNvjHrW6B0XQw1qrUv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tpFinal_mvc/controller" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tpFinal_mvc/views" />
+      <recent name="$PROJECT_DIR$/tpFinal_mvc" />
+      <recent name="$PROJECT_DIR$/tpFinal_mvc/public" />
+      <recent name="$PROJECT_DIR$/public" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="22460154-09e0-4dc8-a830-cf6ff9ccb9da" name="Default Changelist" comment="" />
+      <created>1604613950878</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1604613950878</updated>
+      <workItem from="1604613958858" duration="17076000" />
+      <workItem from="1604632291463" duration="88000" />
+      <workItem from="1604707068847" duration="6239000" />
+      <workItem from="1604803314620" duration="1776000" />
+      <workItem from="1604851225204" duration="4623000" />
+      <workItem from="1604873633998" duration="8519000" />
+      <workItem from="1604883437603" duration="1384000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="641" y="177" width="700" height="759" key="#PHP" timestamp="1604615858963">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="641" y="177" width="700" height="759" key="#PHP/72.27.1848.1053@72.27.1848.1053" timestamp="1604615858963" />
+    <state x="773" y="315" width="424" height="491" key="FileChooserDialogImpl" timestamp="1604713088608">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="773" y="315" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1604713088608" />
+    <state x="634" y="273" width="713" height="568" key="NewPhpClassDialog" timestamp="1604879156582">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="634" y="273" width="713" height="568" key="NewPhpClassDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1604879156582" />
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog" timestamp="1604621521105">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="791" y="479" width="399" height="156" key="NewPhpFileDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1604621521105" />
+    <state x="751" y="454" width="480" height="206" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1604627608723">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="751" y="454" width="480" height="206" key="git4idea.remote.GitConfigureRemotesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1604627608723" />
+    <state x="731" y="453" width="519" height="207" key="git4idea.ui.GitStashDialog" timestamp="1604627639162">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="731" y="453" width="519" height="207" key="git4idea.ui.GitStashDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1604627639162" />
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1604622287383">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="659" y="259" width="672" height="678" key="search.everywhere.popup/72.27.1848.1053@72.27.1848.1053" timestamp="1604622287383" />
+  </component>
+</project>

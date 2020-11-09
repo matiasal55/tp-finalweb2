@@ -1,17 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ec8516ac-b68d-4f2c-8f6b-d1ff7fb949fb" name="Default Changelist" comment="" />
+    <list default="true" id="ec8516ac-b68d-4f2c-8f6b-d1ff7fb949fb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/controller/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tpFinal_mvc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tpFinal_mvc.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/Configuration.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Configuration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/MySqlDatabase.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/MySqlDatabase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helper/Render.php" beforeDir="false" afterPath="$PROJECT_DIR$/helper/Render.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/UsuariosModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/UsuariosModel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/components/header.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/components/header.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/imagenes/logoMatanza.png" beforeDir="false" afterPath="$PROJECT_DIR$/public/imagenes/logoMatanza.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/imagenes/mapa.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/public/imagenes/mapa.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/login.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.pug" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="DONT_SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/third-party/composer.json</pharConfigPath>
     <execution />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP7.2" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP7.2">
+    <include_path>
+      <path value="$PROJECT_DIR$/third-party/vendor/phug/phug" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-phpize/js-phpize" />
+      <path value="$PROJECT_DIR$/third-party/vendor/phug/js-transformer-filter" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/third-party/vendor/composer" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-transformer/js-transformer" />
+      <path value="$PROJECT_DIR$/third-party/vendor/pug-php/pug" />
+      <path value="$PROJECT_DIR$/third-party/vendor/nodejs-php-fallback/nodejs-php-fallback" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-phpize/js-phpize-phug" />
+    </include_path>
+  </component>
   <component name="ProjectId" id="1jqfOAdsGG9JJ0Tpj7TWay1RjMt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -37,6 +72,7 @@
       <option name="presentableId" value="Default" />
       <updated>1604536507932</updated>
       <workItem from="1604536509253" duration="8272000" />
+      <workItem from="1604872988943" duration="557000" />
     </task>
     <servers />
   </component>
