@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/js-phpize/js-phpize" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/js-phpize/js-phpize-phug" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/js-transformer/js-transformer" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/nodejs-php-fallback/nodejs-php-fallback" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/phug/js-transformer-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/phug/phug" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/pug-php/pug" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/symfony/polyfill-php80" />
+      <excludeFolder url="file://$MODULE_DIR$/third-party/vendor/symfony/var-dumper" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

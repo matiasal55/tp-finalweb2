@@ -2,12 +2,13 @@
 
 include_once "models/UsuariosModel.php";
 include_once "helper/MySqlDatabase.php";
-include_once "helper/UrlHelper.php";
 include_once "helper/Render.php";
 include_once "controller/IndexController.php";
 include_once "Router.php";
 include_once "controller/HomeController.php";
 include_once "controller/ProformaController.php";
+include_once "controller/UsuariosController.php";
+include_once "controller/RegistrarController.php";
 
 class Configuration
 {
@@ -24,10 +25,6 @@ class Configuration
     private function getConfig()
     {
         return parse_ini_file("config/config.ini");
-    }
-
-    public function getUrlHelper(){
-        return new UrlHelper();
     }
 
     public function getRouter()
@@ -49,6 +46,15 @@ class Configuration
 
     public function getHomeController(){
         return new HomeController($this->getRender());
+    }
+
+    public function getUsuariosController(){
+        $modelo=$this->getUsuariosModel();
+        return new UsuariosController($modelo,$this->getRender());
+    }
+
+    public function getRegistrarController(){
+        return new RegistrarController($this->getRender());
     }
 
     private function getRender()

@@ -10,6 +10,11 @@ class HomeController
     }
 
     public function execute(){
-        echo $this->render->render("views/home.pug");
+        if($_SESSION['iniciada'])
+            echo $this->render->render("views/home.pug");
+        else{
+            $data['error']="Para acceder al sistema debe loguearse";
+            echo $this->render->render("views/login.pug",$data);
+        }
     }
 }

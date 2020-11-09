@@ -12,12 +12,12 @@ class MySqlDatabase{
     }
 
     publIc function query($sql){
-        $resultado=mysqli_connect($this->conexion,$sql);
+        $resultado=mysqli_query($this->conexion,$sql);
         return mysqli_fetch_all($resultado,MYSQLI_ASSOC);
     }
 
     public function execute($sql){
-        mysqli_query($this->conexion,$sql);
+        return mysqli_query($this->conexion,$sql);
     }
 
 }

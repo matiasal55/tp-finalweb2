@@ -16,7 +16,6 @@ class Router
         $this->executeMethodFromController($controller,$action);
     }
 
-    // FINAL
     private function executeMethodFromController($controller, $method)
     {
         $validMethod=method_exists($controller,$method) ? $method : "execute";
@@ -29,7 +28,6 @@ class Router
         $controllerName="get".ucfirst($module)."Controller";
         $validController=method_exists($this->configuration,$controllerName) ? $controllerName : "getIndexController";
         return call_user_func([$this->configuration,$validController]);
-        // new Render()
     }
 
 

@@ -4,19 +4,16 @@ block titulo
 block body
     .col-md-4.mx-auto
             .text-center
-                img(src="./views/imagenes/logoMatanza.png" alt="" class="mt-3" style="width: 150px")
-            div
-                h1.text-center.m-2
-                    i.m-2.fas.fa-user
-                    | Iniciar sesión
-                form(action="home.html")
-                    .form-group
-                        input(type="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
-                    .form-group
-                        input(type="password" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña")
-                        a(href="#") ¿Olvidaste tu contraseña?
-                    .form-group.form-check
-                        input(type="checkbox" class="form-check-input" id="exampleCheck1")
-                        label.form-check-label(for="exampleCheck1") Recuerdame
-                    a(href="/home" class="btn btn-block  btn-primary ") Ingresar
-                    a(href="/registrar" type="submit" class="btn btn-block  btn-outline-primary") Registrarse
+                img(src="views/imagenes/logoMatanza.png" alt="Logo" class="mt-3" style="width: 150px")
+            h1.text-center.m-2
+                i.m-2.fas.fa-user
+                | Iniciar sesión
+            form(action="usuarios/login" method="POST")
+                .form-group
+                    input(type="email" name="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
+                .form-group
+                    input(type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña")
+                    a(href="#") ¿Olvidaste tu contraseña?
+                small.text-danger= error
+                button(class="btn btn-block btn-primary" name="login" type="submit") Ingresar
+                a(href="registrar" type="submit" class="btn btn-block  btn-outline-primary") Registrarse

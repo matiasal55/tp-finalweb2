@@ -9,14 +9,20 @@ class UsuariosModel{
     }
 
     public function setRegistro($datos){
-        $encriptada=md5($datos->password);
-        $sql="INSERT INTO Usuarios VALUES ($datos->dni,$datos->nombre,$datos->apellido,$datos->fecha_nacimiento,$datos->email,$encriptada)";
-        return $this->database->query($sql);
+        $encriptada=md5($datos['password']);
+        $dni=$datos["dni"];
+        $nombre=$datos["nombre"];
+        $apellido=$datos["apellido"];
+        $fecha_nacimiento=$datos["fecha_nacimiento"];
+        $email=$datos["email"];
+        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT)";
+        return $this->database->execute($sql);
     }
 
-    public function getLogin($datos){
-        $encriptada=md5($datos->password);
-        $sql="SELECT * FROM Usuarios WHERE email='$datos->email' AND password='$encriptada'";
+    // Recibia $datos por parametro, lo cambie para que reciba un email y password
+    public function getLogin($email,$password){
+        $encriptada=md5($password);
+        $sql="SELECT * FROM Usuarios WHERE email='$email' AND password='$encriptada'";
         return $this->database->query($sql);
     }
 }

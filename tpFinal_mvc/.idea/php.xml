@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/third-party/vendor/phug/phug" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-phpize/js-phpize" />
+      <path value="$PROJECT_DIR$/third-party/vendor/phug/js-transformer-filter" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/third-party/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/third-party/vendor/composer" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-transformer/js-transformer" />
+      <path value="$PROJECT_DIR$/third-party/vendor/pug-php/pug" />
+      <path value="$PROJECT_DIR$/third-party/vendor/nodejs-php-fallback/nodejs-php-fallback" />
+      <path value="$PROJECT_DIR$/third-party/vendor/js-phpize/js-phpize-phug" />
+    </include_path>
+  </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
 </project>

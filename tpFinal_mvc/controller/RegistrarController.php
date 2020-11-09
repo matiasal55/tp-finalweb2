@@ -1,7 +1,7 @@
 <?php
 
 
-class IndexController
+class RegistrarController
 {
     private $render;
 
@@ -13,6 +13,6 @@ class IndexController
     public function execute(){
         if($_SESSION['iniciada'])
             header("location:home");
-        echo $this->render->render("views/login.pug");
+        echo $this->render->render("views/registrar.pug");
     }
 }
