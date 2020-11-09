@@ -8,6 +8,10 @@ include_once "controller/IndexController.php";
 include_once "Router.php";
 include_once "controller/HomeController.php";
 include_once "controller/ProformaController.php";
+include_once "controller/MapaController.php";
+include_once "controller/RegistrarController.php";
+//me falto incluir el imppppport de reguistrarcotrloler
+
 
 class Configuration
 {
@@ -18,11 +22,10 @@ class Configuration
 
     private function getDatabase(){
         $config=$this->getConfig();
-        return new MySqlDatabase($config['host'],$config['user'],$config['password'],$config['database'],$config['port']);
+        return new MySqlDatabase($config['host'],$config['user'],$config['password'],$config['database']);
     }
 
-    private function getConfig()
-    {
+    private function getConfig(){
         return parse_ini_file("config/config.ini");
     }
 
@@ -30,8 +33,7 @@ class Configuration
         return new UrlHelper();
     }
 
-    public function getRouter()
-    {
+    public function getRouter(){
         return new Router($this);
     }
 
@@ -54,8 +56,7 @@ class Configuration
         return new HomeController($this->getRender());
     }
 
-    private function getRender()
-    {
+    private function getRender(){
         return new Render();
     }
 }

@@ -13,8 +13,9 @@ class UsuariosModel{
         $sql="INSERT INTO Usuarios VALUES ($datos->dni,$datos->nombre,$datos->apellido,$datos->fecha_nacimiento,$datos->email,$encriptada)";
         return $this->database->query($sql);
     }
+//cambiarrrrr
+    public function getLogin($email.$password){
 
-    public function getLogin($datos){
         $encriptada=md5($datos->password);
         $sql="SELECT * FROM Usuarios WHERE email='$datos->email' AND password='$encriptada'";
         return $this->database->query($sql);

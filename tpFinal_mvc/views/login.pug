@@ -1,6 +1,6 @@
 extends ./components/template
 block titulo
-    - titulo="Home";
+    - titulo="Login";//cambie el titulo por login
 block body
     .col-md-4.mx-auto
             .text-center
@@ -11,9 +11,9 @@ block body
                     | Iniciar sesión
                 form(action="home.html")
                     .form-group
-                        input(type="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
+                        input(type="email" name="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
                     .form-group
-                        input(type="password" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña")
+                        input(type="password" name="pass" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña")
                         a(href="#") ¿Olvidaste tu contraseña?
                     .form-group.form-check
                         input(type="checkbox" class="form-check-input" id="exampleCheck1")
