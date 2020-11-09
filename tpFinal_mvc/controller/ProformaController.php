@@ -11,7 +11,7 @@ class ProformaController
     }
 
     public function execute(){
-        if($_SESSION['iniciada'])
+        if(isset($_SESSION['iniciada']))
             echo $this->render->render("views/proforma.pug");
         else{
             $data['error']="Para acceder al sistema debe loguearse";

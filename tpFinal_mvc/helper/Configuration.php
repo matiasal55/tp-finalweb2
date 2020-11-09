@@ -36,9 +36,6 @@ class Configuration
         return new IndexController($this->getRender());
     }
 
-    public function getRegistrarController(){
-        return new RegistrarController($this->getRender());
-    }
     public function getMapaController(){
         return new MapaController($this->getRender());
     }
