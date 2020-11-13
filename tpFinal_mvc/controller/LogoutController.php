@@ -3,12 +3,17 @@
 
 class LogoutController
 {
+    private $render;
 
-    /**
-     * LogoutController constructor.
-     * @param Render $getRender
-     */
-    public function __construct(\Render $getRender)
+    public function __construct($render)
     {
+        $this->render=$render;
+    }
+
+    public function execute(){
+        if(isset($_SESSION['iniciada'])){
+            session_destroy();
+        }
+        header("location:index");
     }
 }

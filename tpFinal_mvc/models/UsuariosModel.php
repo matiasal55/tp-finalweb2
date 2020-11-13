@@ -15,7 +15,9 @@ class UsuariosModel{
         $apellido=$datos["apellido"];
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
-        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT)";
+        $cod_area =$datos['area'];
+        $licencia=$datos['licencia'] ?? null;
+        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area','$licencia')";
         return $this->database->execute($sql);
     }
 
@@ -23,5 +25,15 @@ class UsuariosModel{
         $encriptada=md5($password);
         $sql="SELECT * FROM Usuarios WHERE email='$email' AND password='$encriptada'";
         return $this->database->query($sql);
+    }
+
+    public function getEmpleados(){
+        $sql="SELECT * FROM Usuarios";
+        return $this->database->query($sql);
+    }
+
+    public function deleteUser($dni){
+        $sql="DELETE FROM Usuarios WHERE dni='$dni'";
+        return $this->database->execute($sql);
     }
 }

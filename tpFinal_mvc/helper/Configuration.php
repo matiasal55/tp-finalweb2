@@ -10,6 +10,7 @@ include_once "controller/ProformaController.php";
 include_once "controller/UsuariosController.php";
 include_once "controller/RegistrarController.php";
 include_once "controller/MapaController.php";
+include_once "controller/LogoutController.php";
 
 class Configuration
 {
@@ -25,7 +26,7 @@ class Configuration
 
     private function getConfig()
     {
-        return parse_ini_file("config/config.ini");
+        return parse_ini_file("config/online.ini");
     }
 
     public function getRouter(){
@@ -34,6 +35,10 @@ class Configuration
 
     public function getIndexController(){
         return new IndexController($this->getRender());
+    }
+
+    public function getLogoutController(){
+        return new LogoutController($this->getRender());
     }
 
     public function getMapaController(){

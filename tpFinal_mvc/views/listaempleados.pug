@@ -1,0 +1,9 @@
+extends ./components/template
+block titulo
+    - titulo="Lista de empleados";
+block body
+    include ./components/header
+    .container.my-5
+        each empleado in empleados
+            h1= empleado['nombre']
+            a(href=`eliminar?id=${empleado['dni']}`) Eliminar
