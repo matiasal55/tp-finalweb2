@@ -58,6 +58,9 @@ class UsuariosController{
             header("location:index");
             die();
         }
+        if($_SESSION['rol']!=1){
+            header("location:../index");
+        }
         $data['empleados']=$this->modelo->getEmpleados();
         echo $this->render->render("views/listaempleados.pug",$data);
     }

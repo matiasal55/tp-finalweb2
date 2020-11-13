@@ -1,0 +1,42 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} Vehículo`;
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center #{accion} Vehículo
+        form(action="procesar" method="post")
+            .form-group
+                label(for="patente") Patente
+                input(type="text" class="form-control" name="patente" value=`${info['patente']}` placeholder="Ingrese la patente del vehículo")
+            .form-group
+                label(for="marca") Marca
+                select(name="marca" class="form-control")
+                    option(value="0" selected disabled) Seleccione la marca del vehículo
+                    each marca in marcas
+                        if marca['codigo']==info['cod_marca']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${marca['codigo']}` selected=`${selected}`)= marca['nombre']
+            .form-group
+                label(for="marca") Modelo
+                select(name="modelo" class="form-control")
+                    option(value="0" selected disabled) Seleccione el modelo del vehículo
+                    each modelo in modelos
+                        if marca['codigo'] == info['cod_marca']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${modelo['cod_marca']}` selected=`${selected}`)= modelo['descripcion']
+            .form-group
+                label(for="patente") Chasis
+                input(type="text" class="form-control" name="chasis" value=`${info['chasis']}` placeholder="Ingrese el número de chasis del vehículo")
+            .form-group
+                label(for="patente") Motor
+                input(type="text" class="form-control" name="motor" value=`${info['motor']}` placeholder="Ingrese el número de motor del vehículo")
+            if(!info)
+                .form-group
+                    label(for="kilometraje") Kilometraje
+                    input(type="number" class="form-control" name="km_total" value=`${info['km total']}` placeholder="Ingrese el kilometraje que posee el vehículo")
+            button(type="submit" class="btn btn-success" name="vehiculo") #{accion} Vehículo

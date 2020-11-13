@@ -1,6 +1,8 @@
 <?php
 
 include_once "models/UsuariosModel.php";
+include_once "models/TallerModel.php";
+include_once "models/VehiculoModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
 include_once "controller/IndexController.php";
@@ -11,6 +13,8 @@ include_once "controller/UsuariosController.php";
 include_once "controller/RegistrarController.php";
 include_once "controller/MapaController.php";
 include_once "controller/LogoutController.php";
+include_once "controller/TallerController.php";
+include_once "controller/VehiculoController.php";
 
 class Configuration
 {
@@ -62,7 +66,27 @@ class Configuration
         return new RegistrarController($this->getRender());
     }
 
+    public function getTallerModel(){
+        $database=$this->getDatabase();
+        return new TallerModel($database);
+    }
+
+    public function getTallerController(){
+        $modelo=$this->getTallerModel();
+        return new TallerController($modelo,$this->getRender());
+    }
+
     private function getRender(){
         return new Render();
+    }
+
+    public function getVehiculoModel(){
+        $database=$this->getDatabase();
+        return new VehiculoModel($database);
+    }
+
+    public function getVehiculoController(){
+        $modelo=$this->getVehiculoModel();
+        return new VehiculoController($modelo,$this->getRender());
     }
 }

@@ -1,0 +1,23 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} Taller`;
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center #{accion} Taller
+        form(action="procesar" method="post")
+            .form-group
+                label(for="cuit") CUIT
+                input(type="number" name="cuit" class="form-control" value=`${info['CUIT']}` placeholder="Ingrese el CUIT del taller")
+            .form-group
+                label(for="nombre") Nombre del Taller
+                input(type="text" name="nombre" class="form-control" value=`${info['nombre']}` placeholder="Ingrese el nombre del taller")
+            .form-group
+                // Direccion y localidad separados?
+                label(for="direccion") Domicilio del Taller
+                input(type="text" name="direccion" class="form-control" value=`${info['direccion']}` placeholder="Ingrese la dirección del taller junto a la localidad")
+            .form-group
+                // Tambien email?
+                label(for="telefono") Teléfono del Taller
+                input(type="tel" name="telefono" class="form-control" value=`${info['telefono']}` placeholder="Ingrese el teléfono del taller")
+            button(type="submit" name="taller.pug" class="btn btn-success") #{accion} Taller

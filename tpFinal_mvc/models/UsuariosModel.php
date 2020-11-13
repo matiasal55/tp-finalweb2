@@ -28,7 +28,7 @@ class UsuariosModel{
     }
 
     public function getEmpleados(){
-        $sql="SELECT * FROM Usuarios";
+        $sql="SELECT * FROM `Usuarios` INNER JOIN `Area` ON `Usuarios`.`cod_area`=`Area`.`codigo`";
         return $this->database->query($sql);
     }
 
