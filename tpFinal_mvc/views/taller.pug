@@ -20,4 +20,6 @@ block body
                 // Tambien email?
                 label(for="telefono") Teléfono del Taller
                 input(type="tel" name="telefono" class="form-control" value=`${info['telefono']}` placeholder="Ingrese el teléfono del taller")
+            if editar
+                input(type="hidden" name="editar" value="editar")
             button(type="submit" name="taller.pug" class="btn btn-success") #{accion} Taller

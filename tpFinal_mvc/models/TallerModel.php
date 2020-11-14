@@ -20,7 +20,7 @@ class TallerModel
         return $this->database->query($sql);
     }
 
-    public function editarTaller($datos){
+    public function editTaller($datos){
         $cuit=$datos['CUIT'];
         $nombre=$datos['nombre'];
         $direccion=$datos['direccion'];
