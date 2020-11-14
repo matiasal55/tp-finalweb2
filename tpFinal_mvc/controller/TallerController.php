@@ -12,11 +12,13 @@ class TallerController
         $this->render=$render;
     }
 
+    // Renderiza el formulario para agregar, no para editar
     public function nuevo(){
         $data['accion']="Agregar";
         echo $this->render->render("views/taller.pug",$data);
     }
 
+    // Lista los talleres
     public function consultar(){
         if(isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];

@@ -1,26 +1,39 @@
+// El proposito de esta vista es hacer una unica vista con un unico formato para lista que reciba
+// titulo_listado: Lo que se va a listar. Se ubica tanto en el titulo del header como en el body
+// listado: la lista con todos los datos solicitados a la BD
+// cabeceras: al ser una vista unica le tenemos que pasar la cabecera por el controller
+
 extends ./components/template
 block titulo
+    // titulo_listado
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
     .container.my-5
         h2 Listado de #{titulo_listado}
+        // listado
         if listado.length>0
             .table-responsive
                 table.table
                     tr
+                        // cabecera
                         each th in cabeceras
                             th= th
                         th Acciones
+                        // each de listado
                     each datos in listado
                         tr
+                            // each de cada dato del registro para que se inserte en la tabla
                             each dato in datos
                                 td= dato
                             td
                                 .d-flex
+                                    // dato principal=el nombre de la PK para que al eliminar o editar le pase por GET ese dato
                                     a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
                                     a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3 No hay información disponible
+            // Sector= nombre de la tabla
         a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
+        // viene de la variable superglobal $_SESSION['mensaje']
         small= mensaje

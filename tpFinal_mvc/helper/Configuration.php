@@ -3,6 +3,7 @@
 include_once "models/UsuariosModel.php";
 include_once "models/TallerModel.php";
 include_once "models/VehiculoModel.php";
+include_once "models/ProformaModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
 include_once "controller/IndexController.php";
@@ -50,7 +51,8 @@ class Configuration
     }
 
     public function getProformaController(){
-        return new ProformaController($this->getRender());
+        $modelo=$this->getProformaModel();
+        return new ProformaController($modelo,$this->getRender());
     }
 
     public function getHomeController(){
@@ -88,5 +90,11 @@ class Configuration
     public function getVehiculoController(){
         $modelo=$this->getVehiculoModel();
         return new VehiculoController($modelo,$this->getRender());
+    }
+
+    public function getProformaModel()
+    {
+        $database=$this->getDatabase();
+        return new ProformaModel($database);
     }
 }
