@@ -48,7 +48,7 @@ class VehiculoController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        $data['cabeceras']=['Patente','Marca','Modelo','Chasis','Motor','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
+        $data['cabeceras']=['Patente','Marca','Modelo','Año','Chasis','Motor','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
         $data['listado']=$this->modelo->getVehiculos();
         $data['titulo_listado']="vehículos";
         $data['sector']="Vehículo";

@@ -10,6 +10,18 @@ class MantenimientoModel
         $this->database = $database;
     }
 
+    public function registrar($datos){
+        $patente=$datos['patente'];
+        $inicio=$datos['fecha_inicio'];
+        $final=$datos['fecha_final'];
+        $kilometraje=$datos['kilometraje'];
+        $costo=$datos['costo'];
+        $taller=$datos['cod_taller'];
+        $mecanico=$datos['dni_mecanico'];
+        $sql="INSERT INTO Mantenimiento VALUES (DEFAULT,'$patente','$inicio','$final','$kilometraje','$costo','$cod_taller','$mecanico')";
+        return $this->database->execute($sql);
+    }
+
 
     public function getMantenimientos(){
         $sql="SELECT * FROM Mantenimiento";
@@ -42,9 +54,17 @@ class MantenimientoModel
     }
 
     public function editMantenimiento($datos){
-//        $codigo=$datos['codigo'];
-//        $sql="UPDATE Mantenimiento SET CUIT='$cuit', nombre='$nombre', direccion='$direccion', telefono='$telefono' WHERE cuit='$cuit'";
-//        return $this->database->execute($sql);
+        $codigo=$datos['codigo'];
+        $patente=$datos['patente'];
+        $inicio=$datos['fecha_inicio'];
+        $final=$datos['fecha_final'];
+        $kilometraje=$datos['kilometraje'];
+        $costo=$datos['costo'];
+        $taller=$datos['cod_taller'];
+        $mecanico=$datos['dni_mecanico'];
+//        var_dump($datos);
+        $sql="UPDATE Mantenimiento SET patente_vehiculo='$patente',`fecha inicio`='$inicio',`fecha final`='$final',kilometraje='$kilometraje',costo='$costo',cod_taller='$taller',dni_mecanico='$mecanico' WHERE codigo='$codigo'";
+        return $this->database->execute($sql);
     }
 
     public function deleteMantenimiento($codigo){

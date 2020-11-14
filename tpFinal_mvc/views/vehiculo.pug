@@ -14,21 +14,21 @@ block body
                 select(name="marca" class="form-control")
                     option(value="0" selected disabled) Seleccione la marca del vehículo
                     each marca in marcas
-                        if marca['codigo']==info['cod_marca']
+                        if info && marca['codigo']==info['cod_marca']
                             - selected=true
                         else
                             - selected=false
-                        option(value=`${marca['codigo']}` selected=`${selected}`)= marca['nombre']
+                        option(value=`${marca['codigo']}` selected=selected)= marca['nombre']
             .form-group
                 label(for="marca") Modelo
                 select(name="modelo" class="form-control")
                     option(value="0" selected disabled) Seleccione el modelo del vehículo
                     each modelo in modelos
-                        if marca['codigo'] == info['cod_marca']
+                        if info && modelo['cod_modelo'] == info['cod_modelo']
                             - selected=true
                         else
                             - selected=false
-                        option(value=`${modelo['cod_marca']}` selected=`${selected}`)= modelo['descripcion']
+                        option(value=`${modelo['cod_modelo']}` selected=selected)= modelo['descripcion']
             .form-group
                 label(for="patente") Chasis
                 input(type="text" class="form-control" name="chasis" value=`${info['chasis']}` placeholder="Ingrese el número de chasis del vehículo")
