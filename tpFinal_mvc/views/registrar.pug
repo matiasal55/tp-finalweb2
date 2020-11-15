@@ -1,0 +1,37 @@
+extends ./components/template
+block titulo
+    - titulo="Registrar";
+block body
+    .col-md-4.mx-auto
+        .row
+            .col-12.text-center
+                img(src="./views/imagenes/logoMatanza.png" alt="" class="mt-3" style="width: 150px")
+            .col-12
+                h1.text-center.mt-2 Registrarse
+                form(action="usuarios/registrar" method="POST")
+                    .form-group
+                        input(type="number" name="dni" class="form-control" placeholder="Ingrese su DNI")
+                    .form-group
+                        input(type="text" name="nombre" class="form-control" placeholder="Ingrese su nombre")
+                    .form-group
+                        input(type="text" name="apellido" class="form-control" placeholder="Ingrese su apellido")
+                    .form-group
+                        input(type="date" name="fecha_nacimiento" class="form-control" placeholder="dd/mm/aaaa")
+                    .form-group
+                        select(name="area" class="form-control" id="area")
+                            option(value="0" selected disabled) Seleccione su area
+                            option(value="1") Administrador
+                            option(value="2") Supervisor
+                            option(value="3") Encargado de taller
+                            option(value="4") Chofer
+                            option(value="5") Mecanico
+                    .form-group#licencia
+                    .form-group
+                        input(type="email" name="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
+                    .form-group
+                        input(type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Ingrese su contraseña")
+                    .form-group
+                        input(type="password" name="rewritePassword" class="form-control" placeholder="Confirme su contraseña")
+                    button(type="submit" name="registrar" class="btn btn-block  btn-primary") Crear cuenta
+                    button(type="button" class="btn btn-block  btn-outline-primary") Cancelar
+    script(src="views/js/registrar.js");

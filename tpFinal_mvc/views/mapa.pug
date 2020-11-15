@@ -1,0 +1,14 @@
+extends ./components/template
+block titulo
+    - titulo="Mapa";
+block body
+    include ./components/header
+    .container
+        h1.text-center.m-3 Seguimiento del vehículo
+        .row
+            .col-md-8.text-center.p-2
+                img(src="./views/imagenes/mapa.jpeg" alt="" width="350")
+            .col-md-4
+                h5.font-weight-light Su posición actual
+                h5.font-weight-light Kilometros recorridos: 101km
+                h5.font-weight-light Combustible consumido: 75lts

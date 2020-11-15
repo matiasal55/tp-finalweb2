@@ -1,0 +1,37 @@
+extends ./components/template
+block titulo
+    - titulo="Lista de empleados";
+block body
+    include ./components/header
+    .container.my-5
+        if empleados.length>0
+            .table-responsive
+                table.table
+                    tr
+                        th DNI
+                        th Apellido
+                        th Nombre
+                        th Fecha de nacimiento
+                        th Area
+                        th Email
+                        th Rol
+                        th Acciones
+                    each empleado in empleados
+                        tr
+                            td= empleado['dni']
+                            td= empleado['apellido']
+                            td= empleado['nombre']
+                            td= empleado['fecha de nacimiento']
+                            td= empleado['descripcion']
+                            td= empleado['email']
+                            if rol==0
+                                td.text-danger Sin rol
+                            else
+                                td= empleado['descripcion']
+                            td
+                                a(href=`modificar?dni=${empleado['dni']}` class="btn btn-primary") Editar Rol
+                                a(href=`eliminar?dni=${empleado['dni']}` class="btn btn-danger") Eliminar
+        else
+                        h3 No hay información disponible
+                        a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
+                        small= mensaje

@@ -1,0 +1,10 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .row
+            include ./components/card
+            +card("Proforma","En esta pagina se muestra los detalles de cada operación.","proforma")
+            +card("Seguimiento del vehículo","En esta pagina se muestra la ubicación del vehículo.","mapa")

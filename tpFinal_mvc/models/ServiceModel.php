@@ -35,9 +35,9 @@ class ServiceModel
         return $this->database->execute($sql);
     }
 
-    public function deleteTaller($cuit){
-        $sql="DELETE FROM Service WHERE CUIT='$cuit'";
+    public function deleteService($id){
+        $sql="DELETE FROM Service WHERE id='$id'";
         return $this->database->execute($sql);;
     }
-}
+
 }
