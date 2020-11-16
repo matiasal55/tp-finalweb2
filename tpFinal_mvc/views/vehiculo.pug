@@ -30,12 +30,15 @@ block body
                             - selected=false
                         option(value=`${modelo['cod_modelo']}` selected=selected)= modelo['descripcion']
             .form-group
+                label(for="año") Año de fabricación:
+                input.form-control(type="number" name="anio_fabricacion" value=`${info['anio_fabricacion']}` placeholder="xxxx")
+            .form-group
                 label(for="patente") Chasis
                 input(type="text" class="form-control" name="chasis" value=`${info['chasis']}` placeholder="Ingrese el número de chasis del vehículo")
             .form-group
                 label(for="patente") Motor
                 input(type="text" class="form-control" name="motor" value=`${info['motor']}` placeholder="Ingrese el número de motor del vehículo")
-            if(!info)
+            if !info
                 .form-group
                     label(for="kilometraje") Kilometraje
                     input(type="number" class="form-control" name="km_total" value=`${info['km total']}` placeholder="Ingrese el kilometraje que posee el vehículo")

@@ -16,12 +16,19 @@ block body
                     each datos in listado
                         tr
                             each dato in datos
-                                td= dato
+                                if !dato
+                                    td Desconocido
+                                else
+                                    td= dato
                             td
                                 .d-flex
+                                    button(type='button' class='btn btn-success mr-2' data-toggle='modal' data-target='#exampleModal' data-codigo=`${datos[datoPrincipal]}`) Ver
                                     a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
                                     a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3 No hay información disponible
         a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
         small= mensaje
+        include components/modal
+block script
+    scrit(src="views/js/modal.js")

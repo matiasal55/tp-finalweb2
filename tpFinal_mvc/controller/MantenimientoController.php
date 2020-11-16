@@ -26,11 +26,15 @@ class MantenimientoController
             "fecha_final"=>date('Y-m-d',strtotime($_POST['fecha_final'])),
             "kilometraje"=>intval($_POST['kilometraje']),
             "costo"=>intval($_POST['costo']),
-            "cod_taller"=>intval($_POST['cod_taller']),
-            "dni_mecanico"=>intval($_POST['dni_mecanico'])
+            "dni_mecanico"=>intval($_POST['dni_mecanico']),
+            "fecha_proximo"=>$_POST['fecha_proximo']
         ];
+        if($_POST['taller']=="Empresa")
+            $datos['cod_taller']=$this->cod_taller;
+        else $datos['cod_taller']=$_POST['cod_taller'];
         if(isset($_POST['editar'])){
             $datos['codigo']=intval($_POST['editar']);
+            $datos['service']=intval($_POST['id_service']);
             if($this->modelo->editMantenimiento($datos))
                 $_SESSION['mensaje']="Los datos han sido editados correctamente";
             else
@@ -53,7 +57,7 @@ class MantenimientoController
             $_SESSION['mensaje']=null;
         }
         if($_SESSION['rol']==1 || $_SESSION['rol']==2) {
-            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico'];
+            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service'];
             $data['listado'] = $this->modelo->getMantenimientos();
         }
         else if($_SESSION['rol']==3){
@@ -67,6 +71,7 @@ class MantenimientoController
         $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "mantenimientos";
         $data['sector'] = "Mantenimiento";
+//        var_dump($data['listado']);
         echo $this->render->render("views/listas.pug",$data);
     }
 

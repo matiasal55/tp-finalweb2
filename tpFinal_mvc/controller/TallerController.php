@@ -61,6 +61,7 @@ class TallerController
             "direccion"=>$_POST['direccion'],
             "telefono"=>intval($_POST['telefono'])
         ];
+
         if(isset($_POST['editar'])){
             if($this->modelo->editTaller($datos))
                 $_SESSION['mensaje']="Los datos han sido editados correctamente";
@@ -73,8 +74,11 @@ class TallerController
             else
                 $_SESSION['mensaje']="Hubo un error en la carga de datos";
         }
-        header("location:consultar");
+//        header("location:consultar");
     }
 
+    public function execute(){
+        header("location:consultar");
+    }
 
 }

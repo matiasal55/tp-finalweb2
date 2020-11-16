@@ -4,6 +4,7 @@ include_once "models/UsuariosModel.php";
 include_once "models/TallerModel.php";
 include_once "models/VehiculoModel.php";
 include_once "models/ProformaModel.php";
+include_once "models/ViajeModel.php";
 include_once "models/MantenimientoModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
@@ -18,6 +19,7 @@ include_once "controller/LogoutController.php";
 include_once "controller/TallerController.php";
 include_once "controller/VehiculoController.php";
 include_once "controller/MantenimientoController.php";
+include_once "controller/ViajeController.php";
 
 class Configuration
 {
@@ -108,5 +110,15 @@ class Configuration
     public function getMantenimientoController(){
         $modelo=$this->getMantenimientoModel();
         return new MantenimientoController($modelo,$this->getRender());
+    }
+
+    public function getViajeModel(){
+        $database=$this->getDatabase();
+        return new ViajeModel($database);
+    }
+
+    public function getViajeController(){
+        $modelo=$this->getViajeModel();
+        return new ViajeController($modelo,$this->getRender());
     }
 }

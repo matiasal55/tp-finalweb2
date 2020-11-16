@@ -7,5 +7,4 @@ listaRoles.addEventListener("change",()=>{
         licencia.innerHTML=campo;
     }
     else licencia.innerHTML="";
-
 })

@@ -24,7 +24,7 @@ block body
             .form-group
                 label(for="taller") Tipo de taller
                 .form-check
-                    input.form-check-input(type="radio" checked=interno id="interno" name="taller" value=`${info['cuit']}`)
+                    input.form-check-input(type="radio" checked=interno id="interno" name="taller" value="Empresa")
                     label.form-check-label(for="interno") Interno
                 .form-check
                     input.form-check-input(type="radio" checked=externo name="taller" id="externo")
@@ -35,7 +35,11 @@ block body
             .form-group
                 label(for="") DNI del mecánico:
                 input(type="number" name="dni_mecanico" value=`${info['dni_mecanico']}` class="form-control" placeholder="Ingrese el DNI del mecánico")
+            .form-group
+                label(for="") Fecha del próximo service:
+                input(type="date" class="form-control" name="fecha_proximo" placeholder="dd/mm/aaaa")
             if editar
                 input(type="hidden" name="editar" value=`${info['codigo']}`)
+                input(type="hidden" name="id_service" value=`${info['id_proximo']}`)
             button(type="submit" name="taller.pug" class="btn btn-success") #{accion} Mantenimiento
     script(src="../views/js/tipo_taller.js")

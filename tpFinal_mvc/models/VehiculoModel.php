@@ -14,10 +14,11 @@ class VehiculoModel
         $patente=$datos['patente'];
         $marca=$datos['marca'];
         $modelo=$datos['modelo'];
+        $anio=$datos['anio_fabricacion'];
         $chasis=$datos['chasis'];
         $motor=$datos['motor'];
         $kmtotal=$datos['km_total'];
-        $sql="INSERT INTO Vehiculo VALUES ('$patente','$marca','$modelo','$chasis','$motor',DEFAULT ,'$kmtotal',DEFAULT,DEFAULT)";
+        $sql="INSERT INTO Vehiculo VALUES ('$patente','$marca','$modelo','$anio','$chasis','$motor',DEFAULT ,'$kmtotal',DEFAULT,DEFAULT)";
         return $this->database->execute($sql);
     }
 
@@ -45,14 +46,15 @@ class VehiculoModel
         $patente=$datos['patente'];
         $marca=$datos['marca'];
         $modelo=$datos['modelo'];
+        $anio=$datos['anio_fabricacion'];
         $chasis=$datos['chasis'];
         $motor=$datos['motor'];
-        $sql="UPDATE Vehiculo SET cod_marca='$marca', cod_modelo='$modelo', chasis='$chasis', motor='$motor' WHERE patente='$patente'";
+        $sql="UPDATE Vehiculo SET cod_marca='$marca', cod_modelo='$modelo', anio_fabricacion='$anio', chasis='$chasis', motor='$motor' WHERE patente='$patente'";
         return $this->database->execute($sql);
     }
 
-    public function deleteTaller($patente){
+    public function deleteVehiculo($patente){
         $sql="DELETE FROM Vehiculo WHERE patente='$patente'";
-        return true;
+        return $this->database->execute($sql);
     }
 }

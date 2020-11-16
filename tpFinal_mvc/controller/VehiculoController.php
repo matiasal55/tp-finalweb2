@@ -24,6 +24,7 @@ class VehiculoController
           "patente"=>$_POST['patente'],
           "marca"=>intval($_POST['marca']),
           "modelo"=>intval($_POST['modelo']),
+          "anio_fabricacion"=>intval($_POST['anio_fabricacion']),
           "chasis"=>$_POST['chasis'],
           "motor"=>$_POST['motor']
         ];
@@ -78,4 +79,9 @@ class VehiculoController
             $_SESSION['mensaje']="El vehículo no se pudo eliminar";
         header("location:consultar");
     }
+
+    public function execute(){
+        header("location:consultar");
+    }
+
 }
