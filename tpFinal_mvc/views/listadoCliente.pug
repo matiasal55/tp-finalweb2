@@ -11,15 +11,15 @@ block body
                     tr
                         each th in cabeceras
                             th= th
-                        th Acciones
+                        th.text-center Acciones
                     each datos in listado
                         tr
                             each dato in datos
                                 td= dato
                             td
-                                .d-flex
+                                .d-flex.text-center.aling-middle
                                     a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
                                     a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
-            h3 No hay información disponible
+            h3(class="alert alert-info") No hay información disponible
         small= mensaje

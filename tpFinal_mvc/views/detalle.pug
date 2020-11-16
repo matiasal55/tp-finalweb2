@@ -1,0 +1,12 @@
+extends ./components/template
+block titulo
+    - titulo="Detalle del Viaje";
+block body
+    include ./components/header
+    .container.my-5
+        h2 Detalle del Viaje
+
+
+           p=listado[0]['patente_vehiculo']
+
+        a(href='consultar') Regresar
