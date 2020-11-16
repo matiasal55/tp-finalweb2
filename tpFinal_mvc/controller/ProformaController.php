@@ -41,16 +41,16 @@ class ProformaController
         $data['accion'] = "Agregar";
         echo $this->render->render("views/cliente.pug", $data);
     }
-//    public function consultar(){
-//        if(isset($_SESSION['mensaje'])) {
-//            $data['mensaje'] = $_SESSION['mensaje'];
-//            $_SESSION['mensaje']=null;
-//        }
-//        $data['cabeceras']=['Número','Origen','Destino','Fecha de carga','ETA','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
-//        $data['listado']=$this->modelo->getVehiculos();
-//        $data['titulo_listado']="vehículos";
-//        $data['sector']="Vehículo";
-//        $data['datoPrincipal']="patente";
-//        echo $this->render->render("views/listas.pug",$data);
-//    }
+    public function consultar(){
+        if(isset($_SESSION['mensaje'])) {
+            $data['mensaje'] = $_SESSION['mensaje'];
+            $_SESSION['mensaje']=null;
+        }
+        $data['cabeceras']=['CUIT','Denominación','Dirección','Teléfono','Email','Contacto 1','Contacto 2'];
+        $data['listado']=$this->modelo->getClientes();
+        $data['titulo_listado']="Clientes";
+        $data['sector']="Cliente";
+        $data['datoPrincipal']="CUIT";
+        echo $this->render->render("views/listadoCliente.pug",$data);
+    }
 }

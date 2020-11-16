@@ -21,7 +21,9 @@ class UsuariosController{
         $password=$_POST['password'];
         $data["usuario"]=$this->modelo->getLogin($email,$password);
         if($data['usuario']){
-            $_SESSION['rol']=$data['usuario'][0]['rol'];
+            $datos= $this->modelo->getDatos($email);
+            $_SESSION['rol']= $data['usuario'][0]['rol'];
+            $_SESSION['datos']= $datos[0];
             $_SESSION['iniciada']=true;
             header("location:../home");
         }

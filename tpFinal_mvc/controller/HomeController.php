@@ -11,7 +11,7 @@ class HomeController
 
     public function execute(){
         if(isset($_SESSION['iniciada'])) {
-            $data['rol']=$_SESSION['rol'];
+            $data['datos']=$_SESSION['datos'];
             echo $this->render->render("views/home.pug",$data);
         }
         else{

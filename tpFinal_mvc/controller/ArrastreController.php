@@ -11,10 +11,11 @@ class ArrastreController
         $this->modelo=$modelo;
         $this->render=$render;
     }
-    public function execute(){
-        header("location:home");
+     public function execute(){
+        header("location:consultar");
     }
     public function nuevo(){
+        $data['tipo_arrastres']=$this->modelo->getTipoArrastre();
         $data['accion']="Agregar";
         echo $this->render->render("views/arrastre.pug",$data);
     }
@@ -26,7 +27,7 @@ class ArrastreController
         }
         $data['cabeceras']=['Patente','Chasis','tipo de Arrastre' ];
         $data['listado']=$this->modelo->getArrastres();
-        $data['titulo_listado']="Arrastres";
+        $data['titulo_listado']="arrastres";
         $data['sector']="Arrastre";
         $data['datoPrincipal']="patente";
         echo $this->render->render("views/listas.pug",$data);
@@ -40,8 +41,9 @@ class ArrastreController
         $patente = $_GET['patente'];
         $info = $this->modelo->getArrastre($patente);
         $data['info'] = $info[0];
+        $data['tipo_arrastres']=$this->modelo->getTipoArrastre();;
         $data['accion'] = "Editar";
-        $data['editar'] = true;
+        $data['editar']=true;
         echo $this->render->render("views/arrastre.pug", $data);
     }
 
@@ -60,19 +62,20 @@ class ArrastreController
         $datos = [
             "patente" => $_POST['patente'],
             "chasis" => $_POST['chasis'],
-            "tipoArrastre" => $_POST['tipo_arrastre']
+            "codigo_tipoArrastre" => $_POST['tipo_arrastre']
         ];
-        if (isset($_POST['editar'])) {
+
             if ($this->modelo->editArrastre($datos))
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
-        } else {
+        header("location:consultar");
+
             if ($this->modelo->registrar($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
-        }
+
         header("location:consultar");
     }
 

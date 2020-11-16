@@ -20,20 +20,20 @@ class ClienteController
         echo $this->render->render("views/cliente.pug",$data);
     }
 
-    // Lista los clientes
-    public function consultar(){
-        if(isset($_SESSION['mensaje'])) {
-            $data['mensaje'] = $_SESSION['mensaje'];
-            $_SESSION['mensaje']=null;
-        }
-        $data['cabeceras']=['CUIT','Denominación','Dirección','Teléfono','Email','Contacto 1','Contacto 2'];
-        $data['listado']=$this->modelo->getClientes();
-        $data['titulo_listado']="Clientes";
-        $data['sector']="Cliente";
-        $data['datoPrincipal']="CUIT";
-        // a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}`
-        echo $this->render->render("views/listas.pug",$data);
-    }
+        // Lista los clientes
+        public function consultar(){
+            if(isset($_SESSION['mensaje'])) {
+                $data['mensaje'] = $_SESSION['mensaje'];
+                $_SESSION['mensaje']=null;
+            }
+            $data['cabeceras']=['CUIT','Denominación','Dirección','Teléfono','Email','Contacto 1','Contacto 2'];
+            $data['listado']=$this->modelo->getClientes();
+            $data['titulo_listado']="Clientes";
+            $data['sector']="Cliente";
+            $data['datoPrincipal']="CUIT";
+            //a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}`);
+            echo $this->render->render("views/listadoCliente.pug",$data);
+        } /**/
 
     public function editar(){
         $cuit=$_GET['cuit'];

@@ -12,7 +12,7 @@ class Render
     }
 
     public function render($content,$data=[]){
-        $data['paginas']=["Home","Proforma","Mapa"];
+        $data['paginas']=["Home","Proforma","Mapa","Vehiculos","Mantenimiento","Viaje"];
         return $this->pug->render($content,$data);
     }
 }

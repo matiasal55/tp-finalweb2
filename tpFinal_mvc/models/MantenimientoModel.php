@@ -12,7 +12,7 @@ class MantenimientoModel
 
 
     public function getMantenimientos(){
-        $sql="SELECT * FROM Mantenimiento";
+        $sql="SELECT `Mantenimiento`.`codigo`,`Mantenimiento`.`patente_vehiculo`,`Mantenimiento`.`fecha_inicio`,`Mantenimiento`.`fecha_final`,`Mantenimiento`.`kilometraje`,`Mantenimiento`.`costo`,`Mantenimiento`.`cod_taller`,`Mantenimiento`.`dni_mecanico`,`Service`.`fecha`, FROM Mantenimiento,Service WHERE `Mantenimiento`.`id_proximo`=`Service`.`id`";
         return $this->database->query($sql);
     }
 
