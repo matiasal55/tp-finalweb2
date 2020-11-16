@@ -5,11 +5,13 @@ class MantenimientoController
 {
     private $modelo;
     private $render;
+    private $cod_taller;
 
     public function __construct($modelo, $render)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->cod_taller=2014125982;
     }
 
     public function nuevo(){
@@ -20,23 +22,29 @@ class MantenimientoController
     public function procesar(){
         $datos=[
             "patente"=>$_POST['patente'],
-            "marca"=>intval($_POST['marca']),
-            "modelo"=>intval($_POST['modelo']),
-            "chasis"=>$_POST['chasis'],
-            "motor"=>$_POST['motor']
+            "fecha_inicio"=>date('Y-m-d',strtotime($_POST['fecha_inicio'])),
+            "fecha_final"=>date('Y-m-d',strtotime($_POST['fecha_final'])),
+            "kilometraje"=>intval($_POST['kilometraje']),
+            "costo"=>intval($_POST['costo']),
+            "dni_mecanico"=>intval($_POST['dni_mecanico']),
+            "fecha_proximo"=>$_POST['fecha_proximo']
         ];
-        if(isset($_POST['km_total'])){
-            $datos['km_total']=intval($_POST['km_total']);
+        if($_POST['taller']=="Empresa")
+            $datos['cod_taller']=$this->cod_taller;
+        else $datos['cod_taller']=$_POST['cod_taller'];
+        if(isset($_POST['editar'])){
+            $datos['codigo']=intval($_POST['editar']);
+            $datos['service']=intval($_POST['id_service']);
+            if($this->modelo->editMantenimiento($datos))
+                $_SESSION['mensaje']="Los datos han sido editados correctamente";
+            else
+                $_SESSION['mensaje']="Hubo un error en la edición de datos";
+        }
+        else {
             if($this->modelo->registrar($datos))
                 $_SESSION['mensaje']="Los datos han sido agregados correctamente";
             else
                 $_SESSION['mensaje']="Hubo un error en la carga de datos";
-        }
-        else {
-            if($this->modelo->editVehiculo($datos))
-                $_SESSION['mensaje']="Los datos han sido editados correctamente";
-            else
-                $_SESSION['mensaje']="Hubo un error en la edición de datos";
         }
         header("location:consultar");
     }
@@ -49,7 +57,7 @@ class MantenimientoController
             $_SESSION['mensaje']=null;
         }
         if($_SESSION['rol']==1 || $_SESSION['rol']==2) {
-            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico'];
+            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service'];
             $data['listado'] = $this->modelo->getMantenimientos();
         }
         else if($_SESSION['rol']==3){
@@ -60,9 +68,10 @@ class MantenimientoController
             header("location:../index");
             die();
         }
-        $data['datoPrincipal'] = "mantenimiento";
+        $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "mantenimientos";
         $data['sector'] = "Mantenimiento";
+//        var_dump($data['listado']);
         echo $this->render->render("views/listas.pug",$data);
     }
 
@@ -75,6 +84,10 @@ class MantenimientoController
         $info=$this->modelo->getMantenimiento($codigo);
         $data['info']=$info[0];
         $data['accion']="Editar";
+        $data['editar']=true;
+        if($info[0]['cod_taller']==$this->cod_taller)
+            $data['interno']=true;
+        else $data['externo']=true;
         echo $this->render->render("views/mantenimiento.pug",$data);
     }
 
