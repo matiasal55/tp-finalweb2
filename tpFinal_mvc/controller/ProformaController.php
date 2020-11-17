@@ -26,11 +26,10 @@ class ProformaController
 //    }
 
     public function execute(){
-        if(isset($_SESSION['iniciada']))
-            echo $this->render->render("views/proforma.pug");
-        else{
-            $data['error']="Para acceder al sistema debe loguearse";
-            echo $this->render->render("views/login.pug",$data);
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
         }
+        echo $this->render->render("views/proforma.pug");
     }
 }

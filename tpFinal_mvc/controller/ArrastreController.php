@@ -19,6 +19,10 @@ class ArrastreController
 
     public function nuevo()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $data['tipo_arrastres'] = $this->modelo->getTipoArrastre();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/arrastre.pug", $data);
@@ -27,6 +31,10 @@ class ArrastreController
     // Lista los arrastres
     public function consultar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
@@ -43,8 +51,8 @@ class ArrastreController
 
     public function editar()
     {
-        if (!isset($_GET['patente'])) {
-            header("location: consultar");
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+            header("location:../index");
             die();
         }
         $patente = $_GET['patente'];
@@ -58,6 +66,10 @@ class ArrastreController
 
     public function eliminar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+            header("location:../index");
+            die();
+        }
         $patente = $_GET['patente'];
         if ($this->modelo->deleteArrastre($patente))
             $_SESSION['mensaje'] = "El arrastre se eliminó correctamente";
@@ -68,6 +80,10 @@ class ArrastreController
 
     public function procesar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_POST['patente'])){
+            header("location:../index");
+            die();
+        }
         $datos = [
             "patente" => $_POST['patente'],
             "chasis" => $_POST['chasis'],

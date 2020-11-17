@@ -73,14 +73,14 @@ class ClienteController
         ];
         if (isset($_POST['editar'])) {
             if ($this->modelo->editCliente($datos))
-                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
+                $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
         } else {
             if ($this->modelo->registrar($datos))
-                $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
+                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
-                $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
+                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
         }
         header("location:consultar");
     }
