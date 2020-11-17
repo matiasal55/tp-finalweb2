@@ -76,6 +76,7 @@ class MantenimientoController
             $data['listado'] = $this->modelo->getMantenimientosPorTaller($_SESSION['taller']);
         }
         $data['botones']=true;
+        $data['botonNuevo']=true;
         $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "mantenimientos";
         $data['sector'] = "Mantenimiento";

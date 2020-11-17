@@ -34,6 +34,7 @@ class ServiceController
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
         $data['datoPrincipal'] = "id";
+        $data['botones']=true;
         echo $this->render->render("views/listas.pug", $data);
     }
 

@@ -29,6 +29,8 @@ class ArrastreController
         $data['listado']=$this->modelo->getArrastres();
         $data['titulo_listado']="arrastres";
         $data['sector']="Arrastre";
+        $data['botones']=true;
+        $data['botonNuevo']=true;
         $data['datoPrincipal']="patente";
         echo $this->render->render("views/listas.pug",$data);
     }

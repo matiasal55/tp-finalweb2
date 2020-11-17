@@ -35,6 +35,7 @@ class TallerController
         $data['listado']=$this->modelo->getTalleres();
         $data['titulo_listado']="talleres";
         $data['sector']="Taller";
+        $data['botonNuevo']=true;
         $data['datoPrincipal']="CUIT";
         echo $this->render->render("views/listas.pug",$data);
     }
