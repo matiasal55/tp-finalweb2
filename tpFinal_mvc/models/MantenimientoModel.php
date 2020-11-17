@@ -51,16 +51,6 @@ class MantenimientoModel
         return $this->database->query($sql);
     }
 
-    public function registrarMantenimientoRepuesto($mantenimiento,$repuesto,$cantidad){
-        $sql="INSERT INTO Mantenimiento_Repuesto VALUES ('$mantenimiento','$repuesto','$cantidad')";
-        return $this->database->execute($sql);
-    }
-
-    public function editMantenimientoRepuesto($mantenimiento,$repuesto,$cantidad){
-        $sql="UPDATE Mantenimiento_Repuesto SET cantidad='$cantidad' WHERE cod_mantenimiento='$mantenimiento' AND cod_repuesto='$repuesto'";
-        return $this->database->execute($sql);
-    }
-
     public function editMantenimiento($datos){
         $codigo=$datos['codigo'];
         $patente=$datos['patente'];
@@ -73,9 +63,13 @@ class MantenimientoModel
         $proximo=$datos['fecha_proximo'];
         $service=$datos['service'];
         $sql="UPDATE Mantenimiento SET patente_vehiculo='$patente',`fecha inicio`='$inicio',`fecha final`='$final',kilometraje='$kilometraje',costo='$costo',cod_taller='$taller',dni_mecanico='$mecanico' WHERE codigo='$codigo';";
+
         if($this->database->execute($sql)){
-            $sql="UPDATE Service SET fecha='$proximo' WHERE id='$service'";
-            return $this->database->execute($sql);
+            if($proximo!="") {
+                $sql = "UPDATE Service SET fecha='$proximo' WHERE id='$service'";
+                return $this->database->execute($sql);
+            }
+            return true;
         }
         return false;
     }
@@ -84,11 +78,6 @@ class MantenimientoModel
         $sql="DELETE FROM Mantenimiento WHERE codigo='$codigo'";
         return $this->database->execute($sql);
     }
-
-//    public function deleteMantenimientoRepuesto($mantenimiento,$repuesto){
-//        $sql="DELETE FROM Mantenimiento WHERE cod_mantenimiento='$codigo' AND cod_repuesto='$repuesto'";
-//        return true;
-//    }
 
     public function registrarService($patente,$fecha){
         $sql="INSERT INTO Service VALUES (DEFAULT ,'$patente','$fecha')";

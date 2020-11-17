@@ -3,7 +3,7 @@ block titulo
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
-    .container-fluid.my-5
+    .container-fluid.my-2
         h2 Listado de #{titulo_listado}
         // listado
         if listado.length>0
@@ -28,7 +28,7 @@ block body
                                         a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3(class="alert alert-info") No hay información disponible
-    if botonNuevo
-        .container
+    .container
+        if botonNuevo
             a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
-    small= mensaje
+        small= mensaje

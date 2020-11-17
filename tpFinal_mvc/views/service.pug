@@ -6,13 +6,15 @@ block body
     .container.my-5
         h1.text-center Service
         form(action="procesar" method="POST")
-             .form-group
-                 label(for="id") Número de id
-                 input(type="text" name="id" class="form-control" value=`${info['id']}` placeholder="Ingrese su id")
-             .form-group
-                 label(for="patente") Patente
-                 input(type="text" name="patente" class="form-control" value=`${info['patente']}` placeholder="Ingrese su patente")
-             .form-group
-                 label(for="fecha") Fecha
-                 input(type="date" name="fecha" class="form-control" value=`${info['Fecha']}` placeholder="Ingrese su fecha")
-             button(type="submit" name="service" class="btn btn-success") #{accion} Service
+            .form-group
+                label(for="id") Número de id
+                input(type="text" name="id" readonly class="form-control" value=`${info['id']}` placeholder="Ingrese su id")
+            .form-group
+                label(for="patente") Patente
+                input(type="text" name="patente" class="form-control" value=`${info['patente_vehiculo']}` placeholder="Ingrese su patente")
+            .form-group
+                label(for="fecha") Fecha
+                input(type="date" name="fecha" class="form-control" value=`${info['fecha']}` placeholder="Ingrese su fecha")
+            if editar
+                input(type="hidden" name="editar" value=`${info['id']}`)
+            button(type="submit" name="service" class="btn btn-success") #{accion} Service

@@ -62,6 +62,5 @@ class UsuariosModel{
     public function editRol($dni,$rol){
         $sql="UPDATE Usuarios SET rol='$rol' WHERE dni='$dni'";
         return $this->database->execute($sql);
-//        return true;
     }
 }
