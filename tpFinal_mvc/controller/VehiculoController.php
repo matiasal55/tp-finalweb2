@@ -65,6 +65,7 @@ class VehiculoController
             $data['cabeceras']=['Patente','Marca','Modelo','Año','Chasis','Motor','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
             $data['listado']=$this->modelo->getVehiculos();
             $data['botones']=true;
+            $data['botonNuevo']=true;
         }
         else {
             $data['cabeceras']=['Patente','Marca','Modelo','Año','Kilometraje actual','Posicion actual','Estado'];

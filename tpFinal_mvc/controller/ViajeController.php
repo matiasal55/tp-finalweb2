@@ -106,6 +106,7 @@ class ViajeController
         $data['sector']="Viaje";
         $data['datoPrincipal']="codigo";
         $data['botones']=true;
+        $data['botonNuevo']=true;
         echo $this->render->render("views/listas.pug",$data);
     }
 
