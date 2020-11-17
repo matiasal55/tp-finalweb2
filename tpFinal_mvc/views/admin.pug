@@ -1,0 +1,13 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .d-flex.flex-column
+            small DNI: #{datos["dni"]}
+            small Nombre: #{datos["nombre"]}
+            small Apellido: #{datos["apellido"]}
+        .row
+            include ./components/card
+            +card("Usuarios","En esta pagina se muestran los usuarios con rol asignado.","usuarios/consultar")

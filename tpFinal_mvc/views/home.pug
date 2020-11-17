@@ -4,7 +4,12 @@ block titulo
 block body
     include ./components/header
     .container.my-5
+        .d-flex.flex-column
+            small DNI: #{datos["dni"]}
+            small Nombre: #{datos["nombre"]}
+            small Apellido: #{datos["apellido"]}
         .row
             include ./components/card
             +card("Proforma","En esta pagina se muestra los detalles de cada operación.","proforma")
             +card("Seguimiento del vehículo","En esta pagina se muestra la ubicación del vehículo.","mapa")
+            +card("Usuarios","En esta pagina se muestran los usuarios con rol asignado.","usuarios/consultar")
