@@ -1,0 +1,27 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} Arrastres`;
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center Arrastre
+        form(action="procesar" method="POST")
+            .form-group
+                label(for="patente") Patente
+                input(type="text" name="patente" class="form-control" value=`${info['patente']}` placeholder="Ingrese su patente")
+            .form-group
+                 label(for="chasis") Número de Chasis
+                 input(type="text" name="chasis" class="form-control" value=`${info['chasis']}` placeholder="Ingrese su número de chasis")
+            .form-group
+                label(for="tipo_arrastre") Tipo de Arrastre
+                select(name="tipo_arrastre" class="form-control")
+                    option(value="0" selected disabled) Seleccione el tipo de arrastre
+                    each tipo_arrastre in tipo_arrastres
+                        if tipo_arrastre['codigo']==info['cod_arrastre']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${tipo_arrastre['codigo']}` selected=`${selected}`)= tipo_arrastre['nombre']
+            if editar
+               input(type="hidden" name="editar" value=`${info['codigo']}`)
+            button(type="submit" name="enviarArrastre" class="btn btn-success") #{accion} Arrastre
