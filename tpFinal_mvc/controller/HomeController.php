@@ -22,7 +22,7 @@ class HomeController
             else
                 echo $this->render->render("views/sinrol.pug",$data);
         }
-        else{
+        else{/**/
             $data['error']="Para acceder al sistema debe loguearse";
             echo $this->render->render("views/login.pug",$data);
         }
