@@ -3,7 +3,7 @@ block titulo
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
-    .container.my-5
+    .container-fluid.my-5
         h2 Listado de #{titulo_listado}
         // listado
         if listado.length>0
@@ -12,23 +12,23 @@ block body
                     tr
                         each th in cabeceras
                             th= th
-                        th Acciones
+                        th.text-center Acciones
                     each datos in listado
-                        tr
+                        tr.datos
                             each dato in datos
                                 if !dato
                                     td Desconocido
                                 else
                                     td= dato
-                            td
-                                .d-flex
-                                    button(type='button' class='btn btn-success mr-2' data-toggle='modal' data-target='#exampleModal' data-codigo=`${datos[datoPrincipal]}`) Ver
-                                    a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
-                                    a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
+                            td.text-center.align-middle
+                                .d-flex.justify-content-center
+                                    a(href=`detalle?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-success mr-2") Ver
+                                    if botones
+                                        a(href=`editar/${datoPrincipal.toLowerCase()}/${datos[datoPrincipal]}` class="btn btn-primary") Editar
+                                        a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3 No hay información disponible
-        a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
+        if botonNuevo
+            a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
         small= mensaje
         include components/modal
-block script
-    scrit(src="views/js/modal.js")

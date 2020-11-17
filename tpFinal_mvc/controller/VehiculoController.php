@@ -13,6 +13,10 @@ class VehiculoController
     }
 
     public function nuevo(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $data['marcas']=$this->modelo->getMarcas();
         $data['modelos']=$this->modelo->getModelos();
         $data['accion']="Agregar";
@@ -20,6 +24,10 @@ class VehiculoController
     }
 
     public function procesar(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+            header("location:../index");
+            die();
+        }
         $datos=[
           "patente"=>$_POST['patente'],
           "marca"=>intval($_POST['marca']),
@@ -49,8 +57,19 @@ class VehiculoController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        $data['cabeceras']=['Patente','Marca','Modelo','Año','Chasis','Motor','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
-        $data['listado']=$this->modelo->getVehiculos();
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
+        }
+        if($_SESSION['rol']==2){
+            $data['cabeceras']=['Patente','Marca','Modelo','Año','Chasis','Motor','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
+            $data['listado']=$this->modelo->getVehiculos();
+            $data['botones']=true;
+        }
+        else {
+            $data['cabeceras']=['Patente','Marca','Modelo','Año','Kilometraje actual','Posicion actual','Estado'];
+            $data['listado']=$this->modelo->getVehiculoParaChofer($_SESSION['datos']['vehiculo_asignado']);
+        }
         $data['titulo_listado']="vehículos";
         $data['sector']="Vehículo";
         $data['datoPrincipal']="patente";
@@ -58,6 +77,10 @@ class VehiculoController
     }
 
     public function editar(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         if(!isset($_GET['patente'])){
             header("location: consultar");
             die();
@@ -72,6 +95,10 @@ class VehiculoController
     }
 
     public function eliminar(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+            header("location:../index");
+            die();
+        }
         $patente=$_GET['patente'];
         if($this->modelo->deleteVehiculo($patente))
             $_SESSION['mensaje']="El vehículo se eliminó correctamente";

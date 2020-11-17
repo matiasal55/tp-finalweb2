@@ -40,6 +40,6 @@ class TallerModel
 
     public function deleteTaller($cuit){
         $sql="DELETE FROM Taller WHERE CUIT='$cuit'";
-        return true;
+        return $this->database->execute($sql);
     }
 }

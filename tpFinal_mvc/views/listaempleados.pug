@@ -24,12 +24,15 @@ block body
                             td= empleado['fecha de nacimiento']
                             td= empleado['descripcion']
                             td= empleado['email']
-                            if rol==0
+                            if empleado['rol']==0
                                 td.text-danger Sin rol
+                            else if empleado['rol']!=empleado['cod_area']
+                                td.text-danger #{empleado['rol']} - Revisar
                             else
-                                td= empleado['descripcion']
+                                td= empleado['rol']
                             td
-                                a(href=`modificar?dni=${empleado['dni']}` class="btn btn-primary") Editar Rol
+                                a(href=`modificar?dni=${empleado['dni']}` class="btn btn-primary mr-2") Editar Rol
                                 a(href=`eliminar?dni=${empleado['dni']}` class="btn btn-danger") Eliminar
         else
             h2 No hay usuarios registrados
+        small= mensaje

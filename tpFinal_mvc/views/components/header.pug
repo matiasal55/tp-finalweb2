@@ -6,13 +6,12 @@ header
             span(class="navbar-toggler-icon")
         .collapse.navbar-collapse#navbarTogglerDemo01
             ul.navbar-nav.justify-content-center.nav-tabs.mx-3
-                each pagina in paginas
-                    - var estilo;
-                    if pagina==titulo
-                        - estilo="active text-dark";
-                    else
-                        - estilo="text-light";
-                    li.nav-item
-                        a(class=`nav-link ${estilo}` href=`${pagina.toLowerCase()}`) #{pagina}
-                    li.nav-item
+                 each pagina in paginas
+                     - var estilo;
+                     if pagina==titulo
+                         - estilo="active text-dark";
+                     else
+                         - estilo="text-light";
+                     li.nav-item
+                         a(class=`nav-link ${estilo}` href=`${pagina.toLowerCase()}`) #{pagina}
             div.ml-auto: a(href="logout" class="text-white d-block d-sm-block btn btn-primary ml-auto my-2") Cerrar Sesión

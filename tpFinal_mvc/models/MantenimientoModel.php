@@ -32,22 +32,22 @@ class MantenimientoModel
 
 
     public function getMantenimientos(){
-        $sql="SELECT `Mantenimiento`.`codigo`,`Mantenimiento`.`patente_vehiculo`,`Mantenimiento`.`fecha inicio`,`Mantenimiento`.`fecha final`,`Mantenimiento`.`kilometraje`,`Mantenimiento`.`costo`,`Mantenimiento`.`cod_taller`,`Mantenimiento`.`dni_mecanico`,`Service`.`fecha` FROM Mantenimiento, Service WHERE `Mantenimiento`.`id_proximo`=`Service`.`id`";
+        $sql="SELECT `Mantenimiento`.`codigo`,`Mantenimiento`.`patente_vehiculo`,`Mantenimiento`.`fecha inicio`,`Mantenimiento`.`fecha final`,`Mantenimiento`.`kilometraje`,`Mantenimiento`.`costo`,`Mantenimiento`.`cod_taller`,`Mantenimiento`.`dni_mecanico`,`Service`.`fecha` FROM Mantenimiento, Service WHERE `Mantenimiento`.`id_proximo`=`Service`.`id` ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
     public function getMantenimiento($codigo){
-        $sql="SELECT * FROM Mantenimiento WHERE codigo='$codigo'";
+        $sql="SELECT * FROM Mantenimiento WHERE codigo='$codigo' ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
     public function getMantenimientosPorTaller($codigo){
-        $sql="SELECT codigo,patente_vehiculo,`fecha inicio`,`fecha final`,kilometraje,costo,dni_mecanico FROM Mantenimiento WHERE cod_taller='$codigo'";
+        $sql="SELECT codigo,patente_vehiculo,`fecha inicio`,`fecha final`,kilometraje,costo,dni_mecanico FROM Mantenimiento WHERE cod_taller='$codigo' ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
     public function getMantenimientoVehiculo($patente){
-        $sql="SELECT * FROM Mantenimiento WHERE patente_vehiculo='$patente'";
+        $sql="SELECT * FROM Mantenimiento WHERE patente_vehiculo='$patente' ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
@@ -82,13 +82,13 @@ class MantenimientoModel
 
     public function deleteMantenimiento($codigo){
         $sql="DELETE FROM Mantenimiento WHERE codigo='$codigo'";
-        return true;
+        return $this->database->execute($sql);
     }
 
-    public function deleteMantenimientoRepuesto($mantenimiento,$repuesto){
-        $sql="DELETE FROM Mantenimiento WHERE cod_mantenimiento='$codigo' AND cod_repuesto='$repuesto'";
-        return true;
-    }
+//    public function deleteMantenimientoRepuesto($mantenimiento,$repuesto){
+//        $sql="DELETE FROM Mantenimiento WHERE cod_mantenimiento='$codigo' AND cod_repuesto='$repuesto'";
+//        return true;
+//    }
 
     public function registrarService($patente,$fecha){
         $sql="INSERT INTO Service VALUES (DEFAULT ,'$patente','$fecha')";

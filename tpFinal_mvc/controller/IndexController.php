@@ -15,7 +15,7 @@ class IndexController
             header("location:home");
         $data=[];
         if(isset($_SESSION['error'])) {
-            $data['valueEmail']=$_SESSION['email'];
+            $data['valueEmail']=$_SESSION['email'] ?? "";
             $data['error'] = $_SESSION['error'];
             session_destroy();
         }

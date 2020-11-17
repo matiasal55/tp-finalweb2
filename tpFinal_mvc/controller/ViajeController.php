@@ -42,6 +42,42 @@ class ViajeController
         header("location:consultar");
     }
 
+    public function editViaje($datos){
+        $codigo=$datos['codigo'];
+        $fecha=$datos['fecha'];
+        $direccion_origen=$datos['direccion_origen'];
+        $localidad_origen=$datos['localidad_origen'];
+        $provincia_origen=$datos['provincia_origen'];
+        $pais_origen = $datos['pais_origen'];
+        $direccion_destino = $datos['direccion_destino'];
+        $localidad_destino = $datos['localidad_destino'];
+        $provincia_destino = $datos['provincia_destino'];
+        $pais_destino= $datos['pais_destino'];
+        $estado= $datos['estado'];
+        $peso= $datos['peso_neto'];
+        $ETA= $datos['ETA'];
+        $km_estimados= $datos['km_estimados'];
+        $desviaciones= $datos['desviaciones'];
+        $combustible_previsto= $datos['combustible_previsto'];
+        $combustible_total= $datos['combustible_total'];
+        $patente_vehiculo= $datos['patente_vehiculo'];
+        $patente_arrastre= $datos['patente_arrastre'];
+        $dni_chofer= $datos['dni_chofer'];
+        $sql="UPDATE Viaje SET fecha='$fecha',direccion_origen='$direccion_origen',localidad_origen='$localidad_origen',provincia_origen='$provincia_origen',pais_origen='$pais_origen',direccion_destino='$direccion_destino',localidad_destino='$localidad_destino',provincia_destino='$provincia_destino',pais_destino='$pais_destino',peso='$peso',ETA='$ETA' WHERE codigo='$codigo'";
+        return $this->database->execute($sql);
+    }
+
+    public function detalle()
+    {
+        if (isset($_GET['codigo'])) {
+            $codigo = $_GET['codigo'];
+            $info = $this->modelo->getViajeDetalles($codigo);
+            $data['info'] = $info;
+            $data['datoPrincipal'] = "codigo";
+            echo $this->render->render("views/detalle.pug", $data);
+        }
+    }
+
     public function editar(){
         if(!isset($_GET['codigo'])){
             header("location: consultar");
@@ -60,15 +96,24 @@ class ViajeController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        $data['cabeceras']=[];
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
+        }
+        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad_origen', 'Localidad_destino', 'estado', 'patente_vehiculo', 'patente_arrastre', 'dni_chofer'];
         $data['listado']=$this->modelo->getViajes();
         $data['titulo_listado']="viajes";
         $data['sector']="Viaje";
         $data['datoPrincipal']="codigo";
+        $data['botones']=true;
         echo $this->render->render("views/listas.pug",$data);
     }
 
     public function eliminar(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $codigo=$_GET['codigo'];
         if($this->modelo->deleteViaje($codigo))
             $_SESSION['mensaje']="El viaje se eliminó correctamente";

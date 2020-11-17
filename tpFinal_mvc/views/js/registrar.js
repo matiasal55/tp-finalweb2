@@ -1,10 +1,17 @@
 const listaRoles=document.getElementById("area");
-const licencia=document.getElementById("licencia");
+const adicional=document.getElementById("adicional");
 
 listaRoles.addEventListener("change",()=>{
+    let campo="";
     if(listaRoles.value==4){
-        const campo="<input class='form-control' type='text' name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
-        licencia.innerHTML=campo;
+        campo="<input class='form-control' type='text' value=`${$datos['cuit_taller']}` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
+        adicional.innerHTML=campo;
     }
-    else licencia.innerHTML="";
+    else if(listaRoles.value=="3"){
+        campo="<input class='form-control' type='number' name='cuit_taller' placeholder='Ingrese el CUIT de su taller a cargo'>";
+        adicional.innerHTML=campo;
+    }
+    else {
+        adicional.innerHTML = "";
+    }
 })
