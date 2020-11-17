@@ -71,12 +71,12 @@ class TallerController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || empty($_POST['taller'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
         $datos=[
-            "cuit"=>intval($_POST['cuit']),
+            "CUIT"=>intval($_POST['cuit']),
             "nombre"=>$_POST['nombre'],
             "direccion"=>$_POST['direccion'],
             "telefono"=>intval($_POST['telefono'])

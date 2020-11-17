@@ -31,7 +31,7 @@ class ServiceModel
         $id=$datos['id'];
         $patente=$datos['patente'];
         $fecha=$datos['fecha'];
-        $sql="UPDATE Service SET id='$id', patente_vehiculo='$patente',fecha=$fecha WHERE id='$id'";
+        $sql="UPDATE Service SET patente_vehiculo='$patente',fecha='$fecha' WHERE id='$id'";
         return $this->database->execute($sql);
     }
 

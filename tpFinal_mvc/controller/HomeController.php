@@ -16,7 +16,7 @@ class HomeController
             if($data['rol']==1)
                 echo $this->render->render("views/admin.pug",$data);
             else if($data['rol']==2)
-                echo $this->render->render("views/supervisor.pug",$data);
+                echo $this->render->render("views/home.pug",$data);
             else if($data['rol']==4)
                 echo $this->render->render("views/chofer.pug",$data);
             else

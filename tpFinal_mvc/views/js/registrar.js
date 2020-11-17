@@ -7,10 +7,6 @@ listaRoles.addEventListener("change",()=>{
         campo="<input class='form-control' type='text' value=`${$datos['cuit_taller']}` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
         adicional.innerHTML=campo;
     }
-    else if(listaRoles.value=="3"){
-        campo="<input class='form-control' type='number' name='cuit_taller' placeholder='Ingrese el CUIT de su taller a cargo'>";
-        adicional.innerHTML=campo;
-    }
     else {
         adicional.innerHTML = "";
     }

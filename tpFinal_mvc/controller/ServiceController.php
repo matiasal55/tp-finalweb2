@@ -1,4 +1,5 @@
 <?php
+
 class ServiceController
 {
     private $modelo;
@@ -15,26 +16,25 @@ class ServiceController
         header("location: consultar");
     }
 
-    // Renderiza el formulario para agregar, no para editar
     public function nuevo()
     {
         $data['accion'] = "Agregar";
         echo $this->render->render("views/service.pug", $data);
     }
 
-    // Lista los talleres
     public function consultar()
     {
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        $data['cabeceras'] = ['Id','Patente', 'Fecha'];
+        $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
         $data['listado'] = $this->modelo->getTodoslosService();
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
         $data['datoPrincipal'] = "id";
-        $data['botones']=true;
+        $data['botones'] = true;
+        $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
     }
 
@@ -71,14 +71,14 @@ class ServiceController
         ];
         if (isset($_POST['editar'])) {
             if ($this->modelo->editService($datos))
-                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
-            else
-                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
-        } else {
-            if ($this->modelo->registrar($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
+        } else {
+            if ($this->modelo->registrar($datos))
+                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
+            else
+                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
         }
         header("location:consultar");
     }

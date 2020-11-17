@@ -14,6 +14,11 @@ class MantenimientoController
         $this->cod_taller=2014125982;
     }
 
+    public function execute()
+    {
+        header("location:consultar");
+    }
+
     public function nuevo(){
         if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
             header("location:../index");
@@ -24,7 +29,7 @@ class MantenimientoController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3 || empty($_POST['mantenimiento'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
@@ -35,7 +40,8 @@ class MantenimientoController
             "kilometraje"=>intval($_POST['kilometraje']),
             "costo"=>intval($_POST['costo']),
             "dni_mecanico"=>intval($_POST['dni_mecanico']),
-            "fecha_proximo"=>$_POST['fecha_proximo']
+            "fecha_proximo"=>$_POST['fecha_proximo'] ?? null,
+            "repuestos_cambiados"=>$_POST['repuestos_cambiados']
         ];
         if($_POST['taller']=="Empresa")
             $datos['cod_taller']=$this->cod_taller;
@@ -117,11 +123,6 @@ class MantenimientoController
             $_SESSION['mensaje']="El mantenimiento se eliminó correctamente";
         else
             $_SESSION['mensaje']="El mantenimiento no se pudo eliminar";
-        header("location:consultar");
-    }
-
-    public function execute()
-    {
         header("location:consultar");
     }
 }
