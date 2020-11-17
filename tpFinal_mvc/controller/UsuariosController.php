@@ -71,35 +71,35 @@ class UsuariosController
         echo $this->render->render("views/listaempleados.pug", $data);
     }
 
-//    public function modificar()
-//    {
-//        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-//            header("location:../index");
-//            die();
-//        }
-//        $dni = $_GET['dni'];
-//        $data['dni'] = $dni;
-//        $data['roles'] = $this->modelo->getRoles();
-//        $rol = $this->modelo->getDatos($dni);
-//        $data['rol'] = $rol[0]['rol'];
-//        if ($data['rol'] || $data['rol']==0)
-//            echo $this->render->render("views/rol_usuario.pug", $data);
-//        else header("location: consultar");
-//    }
+    public function modificar()
+    {
+        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
+            header("location:../index");
+            die();
+        }
+        $dni = $_GET['dni'];
+        $data['dni'] = $dni;
+        $data['roles'] = $this->modelo->getRoles();
+        $rol = $this->modelo->getDatos($dni);
+        $data['rol'] = $rol[0]['rol'];
+        if ($data['rol'] || $data['rol']==0)
+            echo $this->render->render("views/rol_usuario.pug", $data);
+        else header("location: consultar");
+    }
 
-//    public function modificardatos()
-//    {
-//        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['datos']['dni'] != $_GET['dni']) {
-//            header("location:../index");
-//            die();
-//        }
-//        $dni = $_GET['dni'];
-//        $data['roles'] = $this->modelo->getRoles();
-//        $datos=$this->modelo->getDatos($dni);
-//        $data['datos'] = $datos[0];
-//        $data['area']=$datos[0]['cod_area'];
-//        echo $this->render->render("views/modificar_usuario.pug", $data);
-//    }
+    public function modificardatos()
+    {
+        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['datos']['dni'] != $_GET['dni']) {
+            header("location:../index");
+            die();
+        }
+        $dni = $_GET['dni'];
+        $data['roles'] = $this->modelo->getRoles();
+        $datos=$this->modelo->getDatos($dni);
+        $data['datos'] = $datos[0];
+        $data['area']=$datos[0]['cod_area'];
+        echo $this->render->render("views/modificar_usuario.pug", $data);
+    }
 
     public function eliminar()
     {
@@ -115,38 +115,38 @@ class UsuariosController
         header("location:consultar");
     }
 
-//    public function procesar()
-//    {
-//        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada'])) {
-//            header("location:../index");
-//            die();
-//        }
-//        $dni = intval($_GET['dni']);
-//        if (isset($_POST['rol'])) {
-//            $rol = $_POST['rol'];
-//            if ($this->modelo->editRol($dni, $rol))
-//                $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
-//            else
-//                $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
-//            header("location:consultar");
-//            die();
-//        } else {
-//            $datos = [
-//                "dni" => intval($_POST['dni']),
-//                "nombre" => $_POST['nombre'],
-//                "apellido" => $_POST['apellido'],
-//                "fecha_nacimiento" => $_POST['fecha_nacimiento'],
-//                "cod_area" => intval($_POST['area']),
-//                "email" => $_POST['email']
-//            ];
-//            if(isset($_POST['tipo_licencia']))
-//                $datos['tipo_licencia']=$_POST['tipo_licencia'];
-//            if ($this->modelo->editDatos($datos))
-//                header("location:../home");
-//            else
-//                header("location:modificardatos?dni=".$dni);
-//        }
-//    }
+    public function procesar()
+    {
+        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada'])) {
+            header("location:../index");
+            die();
+        }
+        $dni = intval($_GET['dni']);
+        if (isset($_POST['rol'])) {
+            $rol = $_POST['rol'];
+            if ($this->modelo->editRol($dni, $rol))
+                $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
+            else
+                $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
+            header("location:consultar");
+            die();
+        } else {
+            $datos = [
+                "dni" => intval($_POST['dni']),
+                "nombre" => $_POST['nombre'],
+                "apellido" => $_POST['apellido'],
+                "fecha_nacimiento" => $_POST['fecha_nacimiento'],
+                "cod_area" => intval($_POST['area']),
+                "email" => $_POST['email']
+            ];
+            if(isset($_POST['tipo_licencia']))
+                $datos['tipo_licencia']=$_POST['tipo_licencia'];
+            if ($this->modelo->editDatos($datos))
+                header("location:../home");
+            else
+                header("location:modificardatos?dni=".$dni);
+        }
+    }
 
     public function execute()
     {

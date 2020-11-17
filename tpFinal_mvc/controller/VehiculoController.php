@@ -24,7 +24,7 @@ class VehiculoController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }

@@ -43,7 +43,6 @@ class VehiculoModel
     }
 
     public function getVehiculoParaChofer($patente){
-//        ['Patente','Marca','Modelo','Año','Kilometraje actual','Posicion actual','Estado'];
         $sql="SELECT `Vehiculo`.`patente`,`Marca`.`nombre`,`Modelo`.`descripcion`,`Vehiculo`.`anio_fabricacion`,`Vehiculo`.`km actual`,`Vehiculo`.`posicion actual`,`Vehiculo`.`estado` FROM Vehiculo, Marca, Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` AND `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo` AND `Vehiculo`.`patente`='$patente'";
         return $this->database->query($sql);
     }
