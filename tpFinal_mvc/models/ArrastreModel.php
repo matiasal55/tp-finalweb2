@@ -12,9 +12,8 @@ class ArrastreModel
 
     public function getArrastres()
     {
-        $sql = "SELECT * FROM  Arrastre";
-//VER NO ME RECONOCE
-        // $sql = "SELECT `Arrastre`.`patente`,`Arrastre`.`chasis`, `tipoArrastre`.`nombre`, FROM Arrastre,tipoArrastre WHERE `Arrastre`.`codigo_tipoArrastre`=`tipoArrastre`.`codigo` ";
+
+        $sql = "SELECT `Arrastre`.`patente`,`Arrastre`.`chasis`, `tipoArrastre`.`nombre` FROM Arrastre,tipoArrastre WHERE `Arrastre`.`codigo_tipoArrastre`=`tipoArrastre`.`codigo` ";
         return $this->database->query($sql);
     }
 
