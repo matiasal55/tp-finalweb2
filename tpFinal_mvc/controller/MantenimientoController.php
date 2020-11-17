@@ -41,7 +41,7 @@ class MantenimientoController
             "costo"=>intval($_POST['costo']),
             "dni_mecanico"=>intval($_POST['dni_mecanico']),
             "fecha_proximo"=>$_POST['fecha_proximo'] ?? null,
-            "repuestos_cambiados"=>$_POST['repuestos_cambiados']
+            "repuestos_cambiados"=>$_POST['repuestos_cambiadoss']
         ];
         if($_POST['taller']=="Empresa")
             $datos['cod_taller']=$this->cod_taller;
