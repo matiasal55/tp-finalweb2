@@ -5,9 +5,9 @@ block body
     include ./components/header
     .container.my-5
         .d-flex.flex-column
-            small DNI: #{datos["dni"]}
-            small Nombre: #{datos["nombre"]}
-            small Apellido: #{datos["apellido"]}
+        h2(class="alert alert-info") Bienvenido:
+            small  #{datos["nombre"]}
+            small  #{datos["apellido"]}
         .row
             include ./components/card
             +card("Usuarios","En esta pagina se muestran los usuarios con rol asignado.","usuarios/consultar")
