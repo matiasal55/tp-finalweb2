@@ -19,12 +19,13 @@ class MantenimientoModel
         $cod_taller=$datos['cod_taller'];
         $mecanico=$datos['dni_mecanico'];
         $proximo=$datos['fecha_proximo'];
+        $repuestos_cambiados=$datos['repuestos_cambiados'];
         $sql="INSERT INTO Service VALUES (DEFAULT,'$patente','$proximo');";
         if($this->database->execute($sql)){
             $sql="SELECT LAST_INSERT_ID()";
             $resultado=$this->database->query($sql);
             $id_service=intval($resultado[0]['LAST_INSERT_ID()']);
-            $sql="INSERT INTO Mantenimiento VALUES (DEFAULT,'$patente','$inicio','$final','$kilometraje','$costo','$cod_taller','$mecanico','$id_service')";
+            $sql="INSERT INTO Mantenimiento VALUES (DEFAULT,'$patente','$inicio','$final','$kilometraje','$costo','$cod_taller','$mecanico','$id_service','$repuestos_cambiados')";
             return $this->database->execute($sql);
         }
         return false;
