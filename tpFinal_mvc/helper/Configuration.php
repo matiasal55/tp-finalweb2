@@ -6,6 +6,9 @@ include_once "models/VehiculoModel.php";
 include_once "models/ProformaModel.php";
 include_once "models/ViajeModel.php";
 include_once "models/MantenimientoModel.php";
+include_once "models/ClienteModel.php";
+include_once "models/ArrastreModel.php";
+include_once "models/ServiceModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
 include_once "controller/IndexController.php";
@@ -20,6 +23,9 @@ include_once "controller/TallerController.php";
 include_once "controller/VehiculoController.php";
 include_once "controller/MantenimientoController.php";
 include_once "controller/ViajeController.php";
+include_once "controller/ClienteController.php";
+include_once "controller/ArrastreController.php";
+include_once "controller/ServiceController.php";
 
 class Configuration
 {
@@ -120,5 +126,30 @@ class Configuration
     public function getViajeController(){
         $modelo=$this->getViajeModel();
         return new ViajeController($modelo,$this->getRender());
+    }
+
+    public function getClienteController(){
+        $modelo=$this->getClienteModel();
+        return new ClienteController($modelo,$this->getRender());
+    }
+    public function getClienteModel(){
+        $database=$this->getDatabase();
+        return new ClienteModel($database);
+    }
+    public function getArrastreController(){
+        $modelo=$this->getArrastreModel();
+        return new ArrastreController($modelo,$this->getRender());
+    }
+    public function getArrastreModel(){
+        $database=$this->getDatabase();
+        return new ArrastreModel($database);
+    }
+    public function getServiceController(){
+        $modelo=$this->getServiceModel();
+        return new ServiceController($modelo,$this->getRender());
+    }
+    public function getServiceModel(){
+        $database=$this->getDatabase();
+        return new ServiceModel($database);
     }
 }
