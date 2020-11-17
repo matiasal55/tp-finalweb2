@@ -33,11 +33,14 @@ block body
                     label(for="cuit_taller") CUIT del Taller:
                     input.form-control(type="number" id="taller" readonly name="cod_taller" value=`${info['cod_taller']}`)
             .form-group
-                label(for="") DNI del mecánico:
+                label(for="dni_mecanico") DNI del mecánico:
                 input(type="number" name="dni_mecanico" value=`${info['dni_mecanico']}` class="form-control" placeholder="Ingrese el DNI del mecánico")
             .form-group
-                label(for="") Fecha del próximo service:
+                label(for="proximo") Fecha del próximo service:
                 input(type="date" class="form-control" name="fecha_proximo" placeholder="dd/mm/aaaa")
+            .form-group
+                label(for="repuestos") Repuestos cambiados:
+                textarea.form-control(name="repuestos_cambiados")
             if editar
                 input(type="hidden" name="editar" value=`${info['codigo']}`)
                 input(type="hidden" name="id_service" value=`${info['id_proximo']}`)
