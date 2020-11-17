@@ -1,0 +1,38 @@
+extends ./components/template
+block titulo
+    - titulo="Lista de empleados";
+block body
+    include ./components/header
+    .container.my-5
+        if empleados.length>0
+            .table-responsive
+                table.table
+                    tr
+                        th DNI
+                        th Apellido
+                        th Nombre
+                        th Fecha de nacimiento
+                        th Area
+                        th Email
+                        th Rol
+                        th Acciones
+                    each empleado in empleados
+                        tr
+                            td= empleado['dni']
+                            td= empleado['apellido']
+                            td= empleado['nombre']
+                            td= empleado['fecha de nacimiento']
+                            td= empleado['descripcion']
+                            td= empleado['email']
+                            if empleado['rol']==0
+                                td.text-danger Sin rol
+                            else if empleado['rol']!=empleado['cod_area']
+                                td.text-danger #{empleado['rol']} - Revisar
+                            else
+                                td= empleado['rol']
+                            td
+                                a(href=`modificar?dni=${empleado['dni']}` class="btn btn-primary mr-2") Editar Rol
+                                a(href=`eliminar?dni=${empleado['dni']}` class="btn btn-danger") Eliminar
+        else
+            h2 No hay usuarios registrados
+        small= mensaje

@@ -1,6 +1,11 @@
 <?php
 
 include_once "models/UsuariosModel.php";
+include_once "models/TallerModel.php";
+include_once "models/VehiculoModel.php";
+include_once "models/ProformaModel.php";
+include_once "models/ViajeModel.php";
+include_once "models/MantenimientoModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
 include_once "controller/IndexController.php";
@@ -10,6 +15,11 @@ include_once "controller/ProformaController.php";
 include_once "controller/UsuariosController.php";
 include_once "controller/RegistrarController.php";
 include_once "controller/MapaController.php";
+include_once "controller/LogoutController.php";
+include_once "controller/TallerController.php";
+include_once "controller/VehiculoController.php";
+include_once "controller/MantenimientoController.php";
+include_once "controller/ViajeController.php";
 
 class Configuration
 {
@@ -25,7 +35,7 @@ class Configuration
 
     private function getConfig()
     {
-        return parse_ini_file("config/config.ini");
+        return parse_ini_file("config/online.ini");
     }
 
     public function getRouter(){
@@ -36,12 +46,17 @@ class Configuration
         return new IndexController($this->getRender());
     }
 
+    public function getLogoutController(){
+        return new LogoutController($this->getRender());
+    }
+
     public function getMapaController(){
         return new MapaController($this->getRender());
     }
 
     public function getProformaController(){
-        return new ProformaController($this->getRender());
+        $modelo=$this->getProformaModel();
+        return new ProformaController($modelo,$this->getRender());
     }
 
     public function getHomeController(){
@@ -57,7 +72,53 @@ class Configuration
         return new RegistrarController($this->getRender());
     }
 
+    public function getTallerModel(){
+        $database=$this->getDatabase();
+        return new TallerModel($database);
+    }
+
+    public function getTallerController(){
+        $modelo=$this->getTallerModel();
+        return new TallerController($modelo,$this->getRender());
+    }
+
     private function getRender(){
         return new Render();
+    }
+
+    public function getVehiculoModel(){
+        $database=$this->getDatabase();
+        return new VehiculoModel($database);
+    }
+
+    public function getVehiculoController(){
+        $modelo=$this->getVehiculoModel();
+        return new VehiculoController($modelo,$this->getRender());
+    }
+
+    public function getProformaModel()
+    {
+        $database=$this->getDatabase();
+        return new ProformaModel($database);
+    }
+
+    public function getMantenimientoModel(){
+        $database=$this->getDatabase();
+        return new MantenimientoModel($database);
+    }
+
+    public function getMantenimientoController(){
+        $modelo=$this->getMantenimientoModel();
+        return new MantenimientoController($modelo,$this->getRender());
+    }
+
+    public function getViajeModel(){
+        $database=$this->getDatabase();
+        return new ViajeModel($database);
+    }
+
+    public function getViajeController(){
+        $modelo=$this->getViajeModel();
+        return new ViajeController($modelo,$this->getRender());
     }
 }

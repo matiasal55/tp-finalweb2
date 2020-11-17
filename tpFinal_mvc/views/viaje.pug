@@ -1,0 +1,8 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} Viaje`;
+block body
+    include ./components/header
+    .container.my-5
+        - formulario=true;
+        include ./components/viaje_template

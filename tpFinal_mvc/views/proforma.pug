@@ -29,42 +29,10 @@ block body
                     	small Email: pirulo@hotmail.com
                     	small Contacto 1:-
                     	small Contacto 2: -
-            h3 Datos de viaje
-            .row
-                .form-group.col-md-6
-                    label(for="origen") Origen:
-                    input.form-control(type="text" name="origen")
-                .form-group.col-md-6
-                    label(for="destino") Destino:
-                    input.form-control(type="text" name="destino")
-		    .row
-                .form-group.col-md-6
-                    label(for="fecha_carga") Fecha de carga:
-                    input.form-control(type="date" name="origen")
-                .form-group.col-md-6
-                    label(for="ETA") ETA (Estimated Time Arrival):
-                    input.form-control(type="date" name="eta")
-            h3 Datos de carga
-            .row
-                .form-group.col-md-6
-                    label(for="tipo") Tipo de carga
-                    select.form-control
-                        option 20"
-                        option 40"
-                        option CarCarrier
-                        option Granel
-                        option Jaula
-                        option Líquida
-                .form-group.col-md-6
-                    label(for="peso_neto") Peso Neto
-                    input.form-control(type="number" name="peso_neto")
-            .row
-                .form-group.col-md-6
-                    label(for="hazard") Hazard
-                    input.form-control(type="text" name="hazard")
-                .form-group.col-md-6
-                    label(for="refeer") Reefer
-                    input.form-control(type="text" name="reefer")
+            include components/viaje_template
+            |
+            hr
+            |
             h3 Datos de costeo
             .table-responsive
                 table.table
@@ -119,13 +87,13 @@ block body
                         tr
                             th(scope="row") Hazard
                             td
-                                input(type="number" name="")
+                                input(type="number" id="campo_hazard" name="campo_hazard")
                             td
                                 input(type="number" name="")
                         tr
                             th(scope="row") Reefer
                             td
-                                input(type="number" name="")
+                                input(type="number" id="campo_reefer" name="campo_reefer")
                             td
                                 input(type="number" name="")
                         tr
@@ -142,3 +110,4 @@ block body
                                 input(type="number" name="")
             button.btn.btn-success(type="submit") Guardar
             button.btn.btn-outline-dark(type="reset") Reestablecer
+    script(src="views/js/proforma.js")

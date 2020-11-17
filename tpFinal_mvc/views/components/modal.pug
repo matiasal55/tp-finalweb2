@@ -1,0 +1,22 @@
+.modal.fade#exampleModal(tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+    .modal-dialog.modal-dialog-centered
+        .modal-content
+            .modal-header
+                h5.modal-title#exampleModalLabel Detalles
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                    span(aria-hidden="true") &times;
+            .modal-body
+                .row
+                    .col-6
+                        each titulo, index in cabeceras
+                            h5= titulo
+                    .col-6
+                        //h5= listado[0]
+                        // each dato, index in listado
+                        //     h5= listado[0][dato]
+                        //
+                        //     // each valor in dato
+                        //     //     h5= valor
+
+            .modal-footer
+                button(type="button" class="btn btn-success" data-dismiss="modal") Close
