@@ -1,25 +1,3 @@
-<<<<<<< HEAD
-extends ./components/template
-block titulo
-    - titulo="Home";
-block body
-    include ./components/header
-    .container.my-5
-        .d-flex.flex-column
-            h2(class="alert alert-info") Bienvenido:
-                small  #{datos["nombre"]}
-                small  #{datos["apellido"]}
-        .row
-            include ./components/card
-            +card("Arrastre","En esta pagina se muestran los usuarios con rol asignado.","usuarios/consultar")
-            +card("Cliente","En esta pagina se muestra los clientes de cada operación.","cliente/consultar")
-            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar")
-            +card("Proforma","En esta pagina se muestra los detalles de cada operación.","proforma")
-            +card("Service","En esta pagina se muestra los service realizados.","service/consultar")
-            +card("Taller","En esta pagina se muestra el taller  de cada operación.","taller//consultar")
-            +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar")
-            +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
-=======
 extends ./components/template
 block titulo
     - titulo="Home";
@@ -41,4 +19,3 @@ block body
             +card("Taller","En esta pagina se muestra el taller  de cada operación.","taller//consultar")
             +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar")
             +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
->>>>>>> 71854fb463dd427b51e8671ecfa163b6afd241d0
