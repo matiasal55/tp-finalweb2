@@ -27,7 +27,7 @@ block body
                                         a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
                                         a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
-            h3 No hay información disponible
+            h3(class="alert alert-info") No hay información disponible
     .container
         if botonNuevo
             a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
