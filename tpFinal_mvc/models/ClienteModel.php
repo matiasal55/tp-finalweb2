@@ -37,14 +37,15 @@ class ClienteModel
 
     public function editCliente($datos)
     {
-        $cuit = $datos['CUIT'];
+        $cuitnuevo=$datos['CUIT'];
+        $cuitAnterior = $datos['CUIT'];
         $denominacion = $datos['denominacion'];
         $direccion = $datos['direccion'];
         $telefono = $datos['telefono'];
         $email = $datos['email'];
         $contacto1 = $datos['contacto1'];
         $contacto2 = $datos['contacto2'];
-        $sql = "UPDATE Cliente SET CUIT='$cuit', denominacion='$denominacion', direccion='$direccion', telefono='$telefono',email='$email',contacto1='$contacto1',contacto2='$contacto2' WHERE CUIT='$cuit'";
+        $sql = "UPDATE Cliente SET CUIT='$cuitnuevo', denominacion='$denominacion', direccion='$direccion', telefono='$telefono',email='$email',contacto1='$contacto1',contacto2='$contacto2' WHERE CUIT='$cuitAnterior'";
         return $this->database->execute($sql);
     }
 

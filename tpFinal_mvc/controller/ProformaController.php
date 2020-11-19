@@ -25,11 +25,33 @@ class ProformaController
 //        echo $this->render->render("views/listas.pug",$data);
 //    }
 
-    public function execute(){
+    public function nuevo(){
         if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
         echo $this->render->render("views/proforma.pug");
+    }
+
+    public function procesar(){
+        $datos=$_POST;
+        if(isset($_POST['editar'])){
+            if($this->modelo->editProforma($datos))
+                $_SESSION['mensaje']="Los datos han sido editados correctamente";
+            else
+                $_SESSION['mensaje']="Hubo un error en la edición de datos";
+        }
+        else {
+            if($this->modelo->registrar($datos))
+                $_SESSION['mensaje']="Los datos han sido agregados correctamente";
+            else
+                $_SESSION['mensaje']="Hubo un error en la carga de datos";
+        }
+        var_dump($_SESSION['mensaje']);
+//        header("location:consultar");
+    }
+
+    public function execute(){
+        header("location: nuevo");
     }
 }
