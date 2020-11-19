@@ -4,7 +4,7 @@ const adicional=document.getElementById("adicional");
 listaRoles.addEventListener("change",()=>{
     let campo="";
     if(listaRoles.value==4){
-        campo="<input class='form-control' type='text' value=`${$datos['cuit_taller']}` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
+        campo="<input class='form-control' type='text' value=`` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
         adicional.innerHTML=campo;
     }
     else {

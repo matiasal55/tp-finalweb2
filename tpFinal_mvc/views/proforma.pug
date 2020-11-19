@@ -5,21 +5,21 @@ block body
     include ./components/header
     h1.text-center.mt-3 Proforma
     .container.my-5
-        form(action="")
+        form(action="procesar" method="POST")
             .row
                 .form-group.col-md-6
                     label(for="numero") Número
-                    input.form-control(type="number")
+                    input.form-control(type="number" name="proforma_numero")
                 .form-group.col-md-6
                     label(for="fecha") Fecha
-                    input.form-control(type="date" name="fecha")
+                    input.form-control(type="date" name="proforma_fecha")
             h3 Datos del cliente
             .row
                 .form-group.col-md-6
                     label(for="dni_cliente") CUIT de cliente
-                    input.form-control(type="number" name="cuit_cliente")
+                    input.form-control(type="number" name="proforma_cuit_cliente")
                     button.btn.btn-primary.mt-2(type="button") Buscar cliente
-                    a(href="cliente/nuevo" type="button" class= "btn btn-outline-primary mt-2") Agregar cliente
+                    a(href="../cliente/nuevo" type="button" class= "btn btn-outline-primary mt-2") Agregar cliente
                 .form-group.col-md-6
                     .d-flex.flex-column
                         small CUIT: 12345678901
@@ -45,69 +45,63 @@ block body
                         tr
                             th(scope="row") Kilometros
                             td
-                                input(type="number" name="")
+                                input(type="number" name="km_estimados")
                             td
-                                input(type="number" name="")
+                                input(type="number" name="total_km")
                         tr
                             th(scope="row") Combustible
                             td
-                                input(type="number" name="")
+                                input(type="number" name="combustible_previsto")
                             td
-                                input(type="number" name="")
-                        tr
-                            th(scope="row") ETD
-                            td
-                                input(type="number" name="")
-                            td
-                                input(type="number" name="")
+                                input(type="number" name="total_combustible")
                         tr
                             th(scope="row") ETA
                             td
-                                input(type="number" name="")
+                                input(type="number")
                             td
-                                input(type="number" name="")
+                                input(type="number" name="total_eta")
                         tr
                             th(scope="row") Viáticos
                             td
-                                input(type="number" name="")
+                                input(type="number")
                             td
-                                input(type="number" name="")
+                                input(type="number")
                         tr
                             th(scope="row") Peajes y Pesajes
                             td
-                                input(type="number" name="")
+                                input(type="number")
                             td
-                                input(type="number" name="")
+                                input(type="number")
                         tr
                             th(scope="row") Extras
                             td
-                                input(type="number" name="")
+                                input(type="number")
                             td
-                                input(type="number" name="")
+                                input(type="number")
                         tr
                             th(scope="row") Hazard
                             td
-                                input(type="number" id="campo_hazard" name="campo_hazard")
+                                input(type="number" id="campo_hazard")
                             td
-                                input(type="number" name="")
+                                input(type="number")
                         tr
                             th(scope="row") Reefer
                             td
-                                input(type="number" id="campo_reefer" name="campo_reefer")
+                                input(type="number" id="campo_reefer")
                             td
-                                input(type="number" name="")
+                                input(type="number" name="total_reefer")
                         tr
                             th(scope="row") Fee
                             td
-                                input(type="number" name="")
+                                input(type="number")
                             td
-                                input(type="number" name="")
+                                input(type="number")
                         tr.table-info
                             th(scope="row") Total
                             td
-                                input(type="number" name="")
+                                input(type="number" readonly)
                             td
-                                input(type="number" name="")
+                                input(type="number" readonly name="total_real")
             button.btn.btn-success(type="submit") Guardar
             button.btn.btn-outline-dark(type="reset") Reestablecer
     script(src="views/js/proforma.js")
