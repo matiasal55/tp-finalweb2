@@ -54,7 +54,7 @@ class UsuariosController
             $_SESSION['error']="El registro fue exitoso. Por favor inicie sesión";
         else
             $_SESSION['error']="Hubo problemas con el registro. Intente más tarde";
-        header("location:../");
+        header("location:../index");
     }
 
     public function consultar()

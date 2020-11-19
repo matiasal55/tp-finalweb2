@@ -5,4 +5,8 @@ block body
     include ./components/header
     .container.my-5
         - formulario=true;
-        include ./components/viaje_template
+        form(action="procesar" method="post")
+            include ./components/viaje_template
+            if editar
+                input(type="hidden" name="editar" value=`${info['codigo']}`)
+            button(type="submit" name="taller" class="btn btn-success") #{accion} Viaje
