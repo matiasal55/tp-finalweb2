@@ -1,0 +1,44 @@
+|
+hr
+|
+h3 Datos del vehiculo
+.row
+    .form-group.col-md-6
+        label(for="patente_vehiculo") Número de patente del vehículo
+        select(name="patente_vehiculo" class="form-control")
+                  option(value="0" selected disabled) Seleccione la patente
+                  each  vehiculo in vehiculos
+                      if info && vehiculo['patente']==info['patente']
+                          - selected=true
+                      else
+                          - selected=false
+                      option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
+hr
+|
+h3 Datos del Arrastre
+.row
+    .form-group.col-md-6
+        label(for="patente_arrastre") Número de patente del arrastre
+        select(name="patente_arrastre" class="form-control")
+            option(value="0" selected disabled) Seleccione la patente
+            each  arrastre in arrastres
+                if info && arrastre['patente']==info['patente']
+                    - selected=true
+                else
+                    - selected=false
+                option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
+|
+hr
+|
+h3 Datos del chofer
+.row
+    .form-group.col-md-6
+        label(for="nombre_chofer") Nombre y apellido
+        select(name="nombre_chofer" class="form-control")
+            option(value="0" selected disabled) Seleccione el nombre y apellido
+            each chofer in choferes
+                if info && chofer['dni']==info['dni']
+                    - selected=true
+                else
+                    - selected=false
+                option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
