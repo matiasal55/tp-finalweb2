@@ -7,6 +7,7 @@ block body
         - formulario=true;
         form(action="procesar" method="post")
             include ./components/viaje_template
+            include ./components/viaje_equipo
             if editar
                 input(type="hidden" name="editar" value=`${info['codigo']}`)
             button(type="submit" name="taller" class="btn btn-success") #{accion} Viaje

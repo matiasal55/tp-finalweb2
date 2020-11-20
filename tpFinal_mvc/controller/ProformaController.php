@@ -30,12 +30,15 @@ class ProformaController
             header("location:../index");
             die();
         }
-        echo $this->render->render("views/proforma.pug");
+        $data['vehiculos']=$this->modelo->getVehiculos();
+        $data['arrastres']=$this->modelo->getArrastres();
+        $data['choferes']=$this->modelo->getChoferes();
+        echo $this->render->render("views/proforma.pug",$data);
     }
 
     public function procesar(){
         $datos=$_POST;
-        if(isset($_POST['editar'])){
+       if(isset($_POST['editar'])){
             if($this->modelo->editProforma($datos))
                 $_SESSION['mensaje']="Los datos han sido editados correctamente";
             else
@@ -47,8 +50,9 @@ class ProformaController
             else
                 $_SESSION['mensaje']="Hubo un error en la carga de datos";
         }
+
         var_dump($_SESSION['mensaje']);
-//        header("location:consultar");
+        header("location:consultar");
     }
 
     public function execute(){
