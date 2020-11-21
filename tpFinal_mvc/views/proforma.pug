@@ -48,25 +48,25 @@ block body
                             td
                                 input(type="number" value=`${info['km_estimados']}` name="km_estimados")
                             td
-                                input(type="number" name="total_km" readonly)
+                                input(type="number" value=`${info['km_totales']}` name="total_km" readonly)
                         tr
                             th(scope="row") Combustible
                             td
                                 input(type="number" value=`${info['combustible_previsto']}` name="combustible_previsto")
                             td
-                                input(type="number" name="total_combustible" readonly)
+                                input(type="number" value=`${info['combustible_total']}` name="total_combustible" readonly)
                         tr
                             th(scope="row") ETA
                             td
                                 input(type="number" value=`${info['ETA']}`)
                             td
-                                input(type="number" name="total_eta" readonly)
+                                input(type="number" name="total_eta" value=`${info['eta_real']}` readonly)
                         tr
                             th(scope="row") Viáticos
                             td
-                                input(type="number")
+                                input(type="number" value=`${info['viaticos_previsto']}`)
                             td
-                                input(type="number" readonly)
+                                input(type="number" value=`${info['viaticos_real']}` readonly)
                         tr
                             th(scope="row") Peajes y Pesajes
                             td
@@ -76,34 +76,36 @@ block body
                         tr
                             th(scope="row") Extras
                             td
-                                input(type="number")
+                                input(type="number" value=`${info['extras_previsto']}`)
                             td
-                                input(type="number" readonly)
+                                input(type="number" value=`${info['extras_real']}` readonly)
                         tr
                             th(scope="row") Hazard
                             td
                                 input(type="number" name="hazard_previsto" value=`${info['hazard_previsto'] || 0}` id="campo_hazard")
                             td
-                                input(type="number" readonly)
+                                input(type="number" value=`${info['hazard_total']}` readonly)
                         tr
                             th(scope="row") Reefer
                             td
                                 input(type="number" name="reefer_previsto" value=`${info['reefer_previsto'] || 0}` id="campo_reefer")
                             td
-                                input(type="number" name="total_reefer" readonly)
+                                input(type="number" name="total_reefer" value=`${info['reefer_total']}` readonly)
                         tr
                             th(scope="row") Fee
                             td
-                                input(type="number" name="proforma_fee")
+                                input(type="number" name="proforma_fee" value=`${info['fee_previsto']}`)
                             td
-                                input(type="number" name="total_fee" readonly)
+                                input(type="number" name="total_fee" value=`${info['fee_total']}` readonly)
                         tr.table-info
                             th(scope="row") Total
                             td
-                                input(type="number" readonly)
+                                input(type="number" value=`${info['total_previsto']}` readonly)
                             td
-                                input(type="number" readonly name="total_real" readonly)
+                                input(type="number" value=`${info['total_real']}` name="total_real" readonly)
             include components/viaje_equipo
+            if editar
+                input(type="hidden" name="proforma_numero" value=`${info['numero']}`)
             button.btn.btn-success.m-1(type="submit" ) Guardar
             button.btn.btn-outline-dark.m-1(type="reset") Reestablecer
     script(src="views/js/proforma.js")

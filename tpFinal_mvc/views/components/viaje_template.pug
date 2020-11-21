@@ -2,7 +2,7 @@ h1.text-center #{accion} Viaje
 .row
     .form-group.col-md-6
         label(for="fecha") Fecha
-        input(type="date" name="fecha_viaje" class="form-control" value=`${info['fecha']}` placeholder="Ingrese la fecha del viaje")
+        input(type="date" name="fecha_viaje" class="form-control" value=`${info['fecha_viaje']}` placeholder="Ingrese la fecha del viaje")
     .form-group.col-md-6
         label(for="eta") ETA:
             small (Fecha Estimada de Arribo)
@@ -52,28 +52,41 @@ h3 Datos de carga
         label(for="tipo") Tipo de carga
         select.form-control#tipo_carga(name="tipo_carga")
             option(value="0" selected disabled) Seleccione tipo de carga
-            option(value="20") 20"
-            option(value="40") 40"
-            option(value="CarCarrier") CarCarrier
-            option(value="Granel") Granel
-            option(value="Jaula") Jaula
-            option(value="Liquida") Líquida
+            - tipo_cargas=['20"','40"',"CarCarrier","Granel","Jaula","Líquida"];
+            each tipo in tipo_cargas
+                if tipo==info['tipo_carga']
+                    - selected=true;
+                else
+                    - selected=false;
+                option(value=`${tipo}` selected=selected)= tipo
     .form-group.col-md-6
         label(for="peso_neto") Peso Neto
-        input.form-control(type="number" value=`${info['peso']}` name="peso_neto")
+        input.form-control(type="number" value=`${info['peso_neto']}` name="peso_neto")
 .row
     .form-group.col-md-6
         label(for="hazard") Hazard
         select.form-control()#select_hazard
             option(value="0" selected disabled) Seleccione SI/NO
-            option(value="si") Si
-            option(value="no") No
+            if info['hazard_previsto']>0
+                - selectedSi=true;
+                - selectedNo=false;
+            else
+                - selectedSi=false;
+                - selectedNo=true;
+            option(value="si" selected=selectedSi) Si
+            option(value="no" selected=selectedNo) No
     .form-group.col-md-6
         label(for="refeer") Reefer
         select.form-control()#select_reefer
             option(value="0" selected disabled) Seleccione SI/NO
-            option(value="si") Si
-            option(value="no") No
+            if info['reefer_previsto'] > 0
+                - selectedSi=true;
+                - selectedNo=false;
+            else
+                - selectedSi=false;
+                - selectedNo=true;
+            option(value="si" selected=selectedSi) Si
+            option(value="no" selected=selectedNo) No
 .row
     .form-group.col-md-6
         label(for="imo_class") IMO Class:
@@ -95,5 +108,11 @@ hr
 .row
     .form-group.col-md-6
         label(for="desviaciones") Desviaciones
-        input.form-control(type="number" `${info['desviaciones']}` name="total_desviaciones" disabled)
+        if info['km_totales']-info['km_estimados']<0
+            - desviaciones=0;
+        else
+            - desviaciones=info['km_totales']-info['km_estimados'];
+        input.form-control(type="number" value=desviaciones name="total_desviaciones" disabled)
+if editar
+    input(type="hidden" name="viaje_codigo" value=`${info['codigo']}`)
 

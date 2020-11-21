@@ -36,7 +36,7 @@ class ProformaModel
         $valores[] = $datos['imoClass'] ?? null;
 
         $claves[] = "temperatura";
-        $valores[] = $datos['temperatura'] ?? 0;
+        $valores[] = $datos['temperatura'] ?? null;
 
         $viaje = array_merge(array_combine($claves, $valores), array_combine($claves2, $valores2));
 
@@ -80,5 +80,30 @@ class ProformaModel
     {
         $sql = "SELECT dni,nombre,apellido FROM Usuarios WHERE cod_area= '4'";
         return $this->database->query($sql);
+    }
+
+    public function editProforma($datos){
+        $proforma = [];
+        $viaje = [];
+
+        foreach ($datos as $index => $dato) {
+            $clave = explode("_", $index);
+            if ($clave[0] == "proforma") {
+                $proforma[$index] = $dato;
+            } else if ($clave[0] != "total" && $index!="viaje_codigo") {
+                $viaje[$index] = $dato;
+            }
+        }
+        $query="UPDATE Viaje SET ";
+        foreach ($viaje as $index => $dato) {
+            $query .= "$index='$dato', ";
+        }
+        $query=rtrim($query,", ");
+        $query.=" WHERE codigo='".$datos['viaje_codigo']."'";
+        if($this->database->execute($query)){
+            $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['total_fee']."' WHERE numero='".$datos['proforma_numero']."'";
+            return $this->database->execute($query);
+        }
+        return false;
     }
 }
