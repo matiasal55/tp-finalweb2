@@ -60,7 +60,7 @@ h3 Datos de carga
             option(value="Liquida") Líquida
     .form-group.col-md-6
         label(for="peso_neto") Peso Neto
-        input.form-control(type="number" name="peso_neto")
+        input.form-control(type="number" value=`${info['peso']}` name="peso_neto")
 .row
     .form-group.col-md-6
         label(for="hazard") Hazard
@@ -77,19 +77,23 @@ h3 Datos de carga
 .row
     .form-group.col-md-6
         label(for="imo_class") IMO Class:
-        select.form-control#imoClass(name="imoClass" disabled )
+        select.form-control#imoClass(name="imoClass" disabled)
             option(value="0" selected disabled) Seleccione un IMO Class
             - imoClass=["Clase 1","Clase 2","Clase 3","Clase 4.1","Clase 4.2","Clase 4.3","Clase 5.1","Clase 5.2","Clase 6.1","Clase 6.2","Clase 7","Clase 8","Clase 9"];
             each imo in imoClass
-                option(value=`${imo}`)= imo
+                if imo==info['imoClass']
+                    - selected=true;
+                else
+                    - selected=false;
+                option(value=`${imo}` selected=selected)= imo
     .form-group.col-md-6
         label(for="temperatura") Temperatura:
-        input.form-control(type="text" disabled id="temperatura" value="0" name="temperatura" placeholder="°C")
+        input.form-control(type="text" disabled id="temperatura" value=`${info['temperatura'] || 0}` name="temperatura" placeholder="°C")
 |
 hr
 |
 .row
     .form-group.col-md-6
         label(for="desviaciones") Desviaciones
-        input.form-control(type="number" name="total_desviaciones" disabled)
+        input.form-control(type="number" `${info['desviaciones']}` name="total_desviaciones" disabled)
 

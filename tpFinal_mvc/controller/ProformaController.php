@@ -36,6 +36,22 @@ class ProformaController
         echo $this->render->render("views/proforma.pug",$data);
     }
 
+    public function editar(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
+        $codigo=$_GET['codigo'];
+        $info=$this->modelo->getProforma($codigo);
+        $data['info']=$info[0];
+        $data['accion']="Editar";
+        $data['vehiculos']=$this->modelo->getVehiculos();
+        $data['arrastres']=$this->modelo->getArrastres();
+        $data['choferes']=$this->modelo->getChoferes();
+        $data['editar']=true;
+        echo $this->render->render("views/proforma.pug",$data);
+    }
+
     public function procesar(){
         $datos=$_POST;
        if(isset($_POST['editar'])){
@@ -52,7 +68,6 @@ class ProformaController
         }
 
         var_dump($_SESSION['mensaje']);
-        header("location:consultar");
     }
 
     public function execute(){

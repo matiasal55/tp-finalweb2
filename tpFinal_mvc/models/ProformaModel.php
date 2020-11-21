@@ -14,18 +14,32 @@ class ProformaModel
     {
         $proforma = [];
         $viaje = [];
-        $viaje['imoClass'] = $datos['imoClass'] ?? 'DEFAULT';
-        $viaje['temperatura'] = $datos['temperatura'] ?? 'DEFAULT';
 
         foreach ($datos as $index => $dato) {
             $clave = explode("_", $index);
             if ($clave[0] == "proforma") {
                 $proforma[$index] = $dato;
             } else if ($clave[0] != "total") {
-
                 $viaje[$index] = $dato;
             }
         }
+
+        $clave_peso="peso_neto";
+        $claves=array_keys($viaje);
+        $valores=array_values($viaje);
+
+        $insertarFaltantes=array_search($clave_peso,$claves)+1;
+        $claves2 = array_splice($claves, $insertarFaltantes);
+        $valores2 = array_splice($valores, $insertarFaltantes);
+
+        $claves[] = "imoClass";
+        $valores[] = $datos['imoClass'] ?? null;
+
+        $claves[] = "temperatura";
+        $valores[] = $datos['temperatura'] ?? 0;
+
+        $viaje = array_merge(array_combine($claves, $valores), array_combine($claves2, $valores2));
+
         $query = "";
         foreach ($viaje as $index => $dato) {
             $query .= ",'$dato'";
@@ -37,12 +51,15 @@ class ProformaModel
             $fecha = $proforma['proforma_fecha'];
             $fee = $proforma['proforma_fee'];
             $cuit = $proforma['proforma_cuit_cliente'];
-
-
             $sql = "INSERT INTO Proforma VALUES (DEFAULT,'$fecha',' $fee','$cuit','$clave_viaje',DEFAULT)";
             return $this->database->execute($sql);
         }
         return false;
+    }
+
+    public function getProforma($codigo){
+        $sql="SELECT * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` AND `Proforma`.`numero`='$codigo'";
+        return $this->database->query($sql);
     }
 
 
