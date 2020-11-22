@@ -1,34 +1,25 @@
 <?php
 
-require_once "third_party/dompdf/dompdf/autoload.inc.php";
-use Dompdf\Dompdf;
-use Dompdf\Options;
+require_once 'helper/PDFConfig.php';
 
-class DomPdf
+class InformePdf
 {
+    private $pdf;
+
     public function __construct()
     {
-        $options = new Options();
-        $options->setIsRemoteEnabled(true);
-        $options->setDefaultFont('sans-serif');
-        $options->setIsHtml5ParserEnabled(true);
-        $options->setChroot("./");
-        $dompdf = new Dompdf($options);
-        $contxt = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed'=> TRUE
-            ]
-        ]);
-        $dompdf->setHttpContext($contxt);
+        $this->pdf=new PDFConfig();
     }
 
-    public function render($content){
-        $codigo=file_get_contents($content);
-        $dompdf->loadHtml($codigo);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-        $dompdf->stream();
+    public function render($content,$codigo){
+        $this->pdf->AddPage();
+        $this->pdf->SetFont('Arial','',11);
+        foreach ($content as $dato)
+            $this->pdf->Cell(40,10,$dato,1,1);
+        $this->pdf->Ln(20);
+        $this->pdf->Image("views/qr/viaje_".md5($codigo).".png",null,null,30);
+        return $this->pdf->Output();
     }
+
+
 }

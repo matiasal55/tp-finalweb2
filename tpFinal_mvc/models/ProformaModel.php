@@ -55,7 +55,11 @@ class ProformaModel
             $fee = $proforma['proforma_fee'];
             $cuit = $proforma['proforma_cuit_cliente'];
             $sql = "INSERT INTO Proforma VALUES (DEFAULT,'$fecha',' $fee','$cuit','$clave_viaje',DEFAULT)";
-            return $this->database->execute($sql);
+            if($this->database->execute($sql)){
+                $numero=$this->database->query("SELECT LAST_INSERT_ID()");
+                return $numero[0]['LAST_INSERT_ID()'];
+            }
+            return false;
         }
         return false;
     }

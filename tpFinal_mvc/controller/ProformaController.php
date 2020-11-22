@@ -5,11 +5,15 @@ class ProformaController
 {
     private $modelo;
     private $render;
+    private $pdf;
+    private $genQR;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render,$pdf,$qr)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf=$pdf;
+        $this->genQR=$qr;
     }
 
 //    public function consultar(){
@@ -35,6 +39,20 @@ class ProformaController
         $data['arrastres'] = $this->modelo->getArrastres();
         $data['choferes'] = $this->modelo->getChoferes();
         echo $this->render->render("views/proforma.pug", $data);
+    }
+
+    public function informe(){
+        $proforma=$_GET['numero'];
+        $resultado=$this->modelo->getProforma($proforma);
+        $data['info']=$resultado[0];
+        $data['qr']=md5($proforma);
+        echo $this->render->render("views/pdf_template.pug",$data);
+    }
+
+    public function pdf(){
+        $proforma=$_GET['numero'];
+        $resultado=$this->modelo->getProforma($proforma);
+        return $this->pdf->render($resultado[0],$proforma);
     }
 
     public function editar()
@@ -63,8 +81,10 @@ class ProformaController
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
         } else {
-            if ($this->modelo->registrar($datos))
+            if ($this->modelo->registrar($datos)) {
+                $this->genQR->generarQR();
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
+            }
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
         }
