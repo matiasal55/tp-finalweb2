@@ -9,13 +9,13 @@ const temperatura=document.getElementById("temperatura");
 
 
 tipo_carga.addEventListener("change",()=>{
-    if(tipo_carga.value=="Liquida"){
+    if(tipo_carga.value=="Líquida"){
         select_hazard.value="si";
         select_reefer.value="si";
         imoClass.disabled=false;
         temperatura.disabled=false;
     }
-    else if(tipo_carga.value=="40"){
+    else if(tipo_carga.value=='40"'){
         select_hazard.value="0";
         select_reefer.value="0";
         imoClass.disabled=false;
@@ -24,8 +24,8 @@ tipo_carga.addEventListener("change",()=>{
     else {
         select_hazard.value="0";
         select_reefer.value="0";
-        imoClass.disabled=false;
-        temperatura.disabled=false;
+        imoClass.disabled=true;
+        temperatura.disabled=true;
     }
 })
 

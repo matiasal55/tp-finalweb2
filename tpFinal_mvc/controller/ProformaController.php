@@ -72,6 +72,16 @@ class ProformaController
         var_dump($_SESSION['mensaje']);
     }
 
+    public function eliminar(){
+        $numero = $_GET['numero'];
+        $viaje=$_GET['viaje'];
+        if($this->modelo->deleteProforma($numero,$viaje))
+            $_SESSION['mensaje']="La proforma se eliminó correctamente";
+        else
+            $_SESSION['mensaje']="La proforma no se pudo eliminar";
+        header("location:consultar");
+    }
+
     public function execute()
     {
         header("location: nuevo");

@@ -42,7 +42,10 @@ class ProformaModel
 
         $query = "";
         foreach ($viaje as $index => $dato) {
-            $query .= ",'$dato'";
+            if(isset($dato))
+                $query .= ",'$dato'";
+            else
+                $query .= ",DEFAULT";
         }
         $sql = "INSERT INTO Viaje VALUES (DEFAULT" . $query . " ,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
         if ($this->database->execute($sql)) {
@@ -103,6 +106,15 @@ class ProformaModel
         if($this->database->execute($query)){
             $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['total_fee']."' WHERE numero='".$datos['proforma_numero']."'";
             return $this->database->execute($query);
+        }
+        return false;
+    }
+
+    public function deleteProforma($numero,$viaje){
+        $sql="DELETE FROM Proforma WHERE numero='$numero'";
+        if($this->database->execute($sql)){
+            $sql="DELETE FROM Viaje WHERE codigo='$viaje'";
+            return $this->database->execute($sql);
         }
         return false;
     }

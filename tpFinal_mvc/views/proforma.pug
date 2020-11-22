@@ -7,9 +7,10 @@ block body
     .container.my-5
         form(action="procesar" method="POST")
             .row
-                .form-group.col-md-6
-                    label(for="numero") Número
-                    input.form-control(type="number" readonly value=`${info['numero']}` name="proforma_numero")
+                if info
+                    .form-group.col-md-6
+                        label(for="numero") Número
+                        input.form-control(type="number" readonly value=`${info['numero']}` name="proforma_numero")
                 .form-group.col-md-6
                     label(for="fecha") Fecha
                     input.form-control(type="date" value=`${info['fecha_emision']}` name="proforma_fecha")
@@ -108,4 +109,5 @@ block body
                 input(type="hidden" name="proforma_numero" value=`${info['numero']}`)
             button.btn.btn-success.m-1(type="submit" ) Guardar
             button.btn.btn-outline-dark.m-1(type="reset") Reestablecer
-    script(src="views/js/proforma.js")
+block script
+    script(src="../views/js/proforma.js")
