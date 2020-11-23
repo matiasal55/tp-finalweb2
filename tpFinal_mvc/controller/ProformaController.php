@@ -8,26 +8,13 @@ class ProformaController
     private $pdf;
     private $genQR;
 
-    public function __construct($modelo, $render,$pdf,$qr)
+    public function __construct($modelo,$render,$pdf,$qr)
     {
         $this->modelo = $modelo;
         $this->render = $render;
         $this->pdf=$pdf;
         $this->genQR=$qr;
     }
-
-//    public function consultar(){
-//        if(isset($_SESSION['mensaje'])) {
-//            $data['mensaje'] = $_SESSION['mensaje'];
-//            $_SESSION['mensaje']=null;
-//        }
-//        $data['cabeceras']=['Número','Origen','Destino','Fecha de carga','ETA','Kilometraje actual','Kilometraje total','Posicion actual','Estado'];
-//        $data['listado']=$this->modelo->getVehiculos();
-//        $data['titulo_listado']="vehículos";
-//        $data['sector']="Vehículo";
-//        $data['datoPrincipal']="patente";
-//        echo $this->render->render("views/listas.pug",$data);
-//    }
 
     public function nuevo()
     {

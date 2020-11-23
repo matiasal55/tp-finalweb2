@@ -18,7 +18,7 @@ class InformePdf
             $this->pdf->Cell(40,10,$dato,1,1);
         $this->pdf->Ln(20);
         $this->pdf->Image("views/qr/viaje_".md5($codigo).".png",null,null,30);
-        return $this->pdf->Output();
+        return $this->pdf->Output("proforma_".$codigo.".pdf","I");
     }
 
 

@@ -19,6 +19,10 @@ html(lang="en")
                                 each dato,index in info
                                     tr
                                         th(scope="row")= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
-                                        td= dato
-                    .col-md-6
-                        img(src=`../views/qr/viaje_${qr}.png` width=200)
+                                        if !dato
+                                            td Sin especificar
+                                        else
+                                            td= dato
+                    if qr
+                        .col-md-6
+                            img(src=`../views/qr/viaje_${qr}.png` width=200)

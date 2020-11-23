@@ -79,6 +79,13 @@ class VehiculoController
         echo $this->render->render("views/listas.pug", $data);
     }
 
+    public function informe(){
+        $patente=$_GET['patente'];
+        $resultado=$this->modelo->getVehiculo($patente);
+        $data['info']=$resultado[0];
+        echo $this->render->render("views/pdf_template.pug",$data);
+    }
+
     public function editar()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
