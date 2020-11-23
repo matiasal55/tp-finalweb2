@@ -5,15 +5,15 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         block titulo
         title= titulo
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
     body
         block body
             .container.mx-auto
-                header
-                    img(src=`../views/imagenes/logoMatanza.png` width=100)
+                div.header
+                    img(src=`views/imagenes/logoMatanza.png` width=100)
                 .row.mt-5
-                    .col-md-6
+                    .col-md-8
                         table.table.table-striped
                             tbody
                                 each dato,index in info
@@ -24,5 +24,5 @@ html(lang="en")
                                         else
                                             td= dato
                     if qr
-                        .col-md-6
-                            img(src=`../views/qr/viaje_${qr}.png` width=200)
+                        .col-md-4
+                            img(src=`views/qr/viaje_${qr}.png` width=100)
