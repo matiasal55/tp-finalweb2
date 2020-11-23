@@ -14,7 +14,6 @@ class Render
     public function render($content,$data=[]){
         if(isset($_SESSION['datos']))
             $data['datos']=$_SESSION['datos'];
-        $data['paginas']=["Home","Proforma","Mapa"];
         return $this->pug->render($content,$data);
     }
 }

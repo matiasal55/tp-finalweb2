@@ -8,7 +8,7 @@ h3 Datos del vehiculo
         select(name="patente_vehiculo" class="form-control")
                   option(value="0" selected disabled) Seleccione la patente
                   each  vehiculo in vehiculos
-                      if info && vehiculo['patente']==info['patente']
+                      if info && vehiculo['patente']==info['patente_vehiculo']
                           - selected=true
                       else
                           - selected=false
@@ -22,7 +22,7 @@ h3 Datos del Arrastre
         select(name="patente_arrastre" class="form-control")
             option(value="0" selected disabled) Seleccione la patente
             each  arrastre in arrastres
-                if info && arrastre['patente']==info['patente']
+                if info && arrastre['patente']==info['patente_arrastre']
                     - selected=true
                 else
                     - selected=false
@@ -34,10 +34,10 @@ h3 Datos del chofer
 .row
     .form-group.col-md-6
         label(for="nombre_chofer") Nombre y apellido
-        select(name="nombre_chofer" class="form-control")
+        select(name="dni_chofer" class="form-control")
             option(value="0" selected disabled) Seleccione el nombre y apellido
             each chofer in choferes
-                if info && chofer['dni']==info['dni']
+                if info && chofer['dni']==info['dni_chofer']
                     - selected=true
                 else
                     - selected=false
