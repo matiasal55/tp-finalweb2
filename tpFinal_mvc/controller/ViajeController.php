@@ -26,6 +26,18 @@ class ViajeController
         $data['accion'] = "Agregar";
         echo $this->render->render("views/viaje.pug", $data);
     }
+    public function informe(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol']!=4 || !isset($_GET['codigo'])) {
+           header("location:../index");
+            die();
+        }
+        $codigo = $_GET['codigo'];
+        $info=$this->modelo->getViaje($codigo);
+        $data['info'] = $info[0];
+        $data['datoPrincipal'] = "codigo";
+        $data['titulo_listado'] = "viaje";
+        echo $this->render->render("views/pdf_template.pug",$data);
+    }
 
     public function procesar()
     {
@@ -48,18 +60,6 @@ class ViajeController
         header("location:consultar");
     }
 
-    public function detalle()
-    {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol']!=4 || !isset($_GET['codigo'])) {
-            header("location:../index");
-            die();
-        }
-        $codigo = $_GET['codigo'];
-        $info = $this->modelo->getViajeDetalles($codigo);
-        $data['info'] = $info;
-        $data['datoPrincipal'] = "codigo";
-        echo $this->render->render("views/detalle.pug", $data);
-    }
 
     public function editar()
     {

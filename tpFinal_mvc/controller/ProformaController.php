@@ -27,12 +27,31 @@ class ProformaController
         $data['choferes'] = $this->modelo->getChoferes();
         echo $this->render->render("views/proforma.pug", $data);
     }
+    public function consultar(){
+        if(isset($_SESSION['mensaje'])) {
+            $data['mensaje'] = $_SESSION['mensaje'];
+            $_SESSION['mensaje']=null;
+        }
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+            header("location:../index");
+            die();
+        }
+        $data['cabeceras']=['Número','Fecha emision','Fee previsto','Cuit cliente','Cod viaje','Fee total','Codigo','Fecha viaje','ETA','Direccion origen','Localidad origen','Provincia origen','Pais origen','Direccion destino','Localidad destino','Provincia destino','Pais destino','Tipo carga','Peso neto','Imo class','Temperatura','km estimados','Combustible previsto','Hazard previsto','Reefer previsto','Patente_vehiculo','Patente arrastre','Dni chofer','Estado','Desviaciones','Km totales','Eta real','Combustible total','Hazard total','Reefer total'];
+        $data['listado']=$this->modelo->getProformas();
+        $data['titulo_listado']="proformas";
+        $data['sector']="Proforma";
+        $data['datoPrincipal']="codigo";
+        $data['botones'] = true;
+        $data['botonNuevo'] = true;
+        echo $this->render->render("views/listas.pug",$data);
+    }
 
     public function informe(){
         $proforma=$_GET['numero'];
         $resultado=$this->modelo->getProforma($proforma);
         $data['info']=$resultado[0];
         $data['qr']=md5($proforma);
+        $data['titulo_listado'] = "proforma";
         echo $this->render->render("views/pdf_template.pug",$data);
     }
 
