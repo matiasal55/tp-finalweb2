@@ -11,6 +11,8 @@ include_once "models/ArrastreModel.php";
 include_once "models/ServiceModel.php";
 include_once "helper/MySqlDatabase.php";
 include_once "helper/Render.php";
+include_once "helper/InformePdf.php";
+include_once "helper/CodigoQR.php";
 include_once "controller/IndexController.php";
 include_once "Router.php";
 include_once "controller/HomeController.php";
@@ -62,7 +64,7 @@ class Configuration
 
     public function getProformaController(){
         $modelo=$this->getProformaModel();
-        return new ProformaController($modelo,$this->getRender());
+        return new ProformaController($modelo,$this->getRender(),$this->getPdf(),$this->getGenQR());
     }
 
     public function getHomeController(){
@@ -90,6 +92,14 @@ class Configuration
 
     private function getRender(){
         return new Render();
+    }
+
+    private function getPdf(){
+        return new InformePdf();
+    }
+
+    private function getGenQR(){
+        return new CodigoQR();
     }
 
     public function getVehiculoModel(){

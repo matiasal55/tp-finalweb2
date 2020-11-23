@@ -54,7 +54,8 @@ class VehiculoModel
         $anio=$datos['anio_fabricacion'];
         $chasis=$datos['chasis'];
         $motor=$datos['motor'];
-        $sql="UPDATE Vehiculo SET cod_marca='$marca', cod_modelo='$modelo', anio_fabricacion='$anio', chasis='$chasis', motor='$motor' WHERE patente='$patente'";
+        $estado=$datos['estado'];
+        $sql="UPDATE Vehiculo SET cod_marca='$marca', cod_modelo='$modelo', anio_fabricacion='$anio', chasis='$chasis', motor='$motor', estado='$estado' WHERE patente='$patente'";
         return $this->database->execute($sql);
     }
 

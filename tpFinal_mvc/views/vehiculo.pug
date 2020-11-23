@@ -42,4 +42,15 @@ block body
                 .form-group
                     label(for="kilometraje") Kilometraje
                     input(type="number" class="form-control" name="km_total" value=`${info['km total']}` placeholder="Ingrese el kilometraje que posee el vehículo")
+            if info
+                .form-group
+                    label(for="kilometraje") Estado del Vehículo
+                    select(name="estado" class="form-control")
+                        - estados=["Fuera de servicio","Disponible","En viaje"];
+                        each estado, index in estados
+                            if index==info['estado']
+                                - selected=true;
+                            else
+                                - selected=false;
+                            option(value=`${index}` selected=selected)= estado
             button(type="submit" class="btn btn-success" name="vehiculo") #{accion} Vehículo
