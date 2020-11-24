@@ -1,28 +1,33 @@
-<!DOCTYPE html>
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        block titulo
-        title= titulo
-        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
-        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous")
-    body
-        block body
-            .container.mx-auto
-                div.header
-                    img(src=`views/imagenes/logoMatanza.png` width=100)
-                .row.mt-5
-                    .col-md-8
-                        table.table.table-striped
-                            tbody
-                                each dato,index in info
-                                    tr
-                                        th(scope="row")= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
-                                        if !dato
-                                            td Sin especificar
-                                        else
-                                            td= dato
-                    if qr
-                        .col-md-4
-                            img(src=`views/qr/viaje_${qr}.png` width=100)
+extends ./components/template
+block titulo
+    - titulo="Informe";
+block body
+    include ./components/header
+    .container.my-5.mx-auto
+        .d-none.d-print-flex
+            img(src=`../views/imagenes/logoMatanza.png` width=100)
+            span.ml-auto Fecha: #{info['fecha_emision']}
+        .d-sm-flex.align-items-center.justify-content-between.my-4
+            h1(class="h3 mb-0 text-gray-800") Reporte de #{titulo_listado}
+            .d-print-none.mt-2
+                button.d-none.d-sm-inline-block.btn.btn-sm.btn-info.shadow-sm.mr-2(onclick="window.print();")
+                    i(class="fas fa-print fa-sm text-white-50")
+                    |  Imprimir
+                a(href=`pdf?numero=${info['numero']}` class="d-sm-inline-block  btn btn-sm btn-primary shadow-sm ")
+                    i(class="fas fa-download fa-sm text-white-50")
+                    |  Generar Reporte
+        .row.mt-5
+            .col-md-8
+                table.table.table-striped
+                    tbody
+                        each dato ,index in info
+                            tr
+                                th(scope="row")= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
+                                if !dato
+                                    td sin especificar
+                                else
+                                    td= dato
+            if qr
+                .col-md-4
+                    img(src=`../views/qr/viaje_${qr}.png` width=200)
+

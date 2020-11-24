@@ -83,6 +83,8 @@ class VehiculoController
         $patente=$_GET['patente'];
         $resultado=$this->modelo->getVehiculo($patente);
         $data['info']=$resultado[0];
+        $data['titulo_listado'] = "vehículos";
+        //$data['datoPrincipal'] = "patente";
         echo $this->render->render("views/pdf_template.pug",$data);
     }
 
