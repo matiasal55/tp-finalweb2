@@ -18,7 +18,7 @@ class ProformaController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -36,7 +36,7 @@ class ProformaController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
@@ -52,7 +52,7 @@ class ProformaController
 
     public function informe()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -66,7 +66,7 @@ class ProformaController
 
     public function generar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -84,7 +84,7 @@ class ProformaController
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -101,7 +101,7 @@ class ProformaController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -127,7 +127,7 @@ class ProformaController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
