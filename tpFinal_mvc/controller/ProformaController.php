@@ -53,17 +53,24 @@ class ProformaController
         $data['info']=$resultado[0];
         $data['qr']=md5($proforma);
         $data['titulo_listado'] = "proforma";
-        echo $this->render->render("views/pdf_template.pug",$data);
+        echo $this->render->render("views/informe.pug",$data);
     }
 
-    public function pdf(){
+    public function generar(){
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
         $proforma=$_GET['numero'];
+        return $this->pdf->render($proforma);
+    }
+
+    public function pdf(){
+        $proforma=$_GET['numero'];
         $resultado=$this->modelo->getProforma($proforma);
-        return $this->pdf->render($resultado[0],$proforma);
+        $data['info']=$resultado[0];
+        $data['qr']=md5($proforma);
+        echo $this->render->render("views/pdf_template.pug",$data);
     }
 
     public function editar()

@@ -85,7 +85,7 @@ class VehiculoController
         $data['info']=$resultado[0];
         $data['titulo_listado'] = "vehículos";
         //$data['datoPrincipal'] = "patente";
-        echo $this->render->render("views/pdf_template.pug",$data);
+        echo $this->render->render("views/informe.pug",$data);
     }
 
     public function editar()
