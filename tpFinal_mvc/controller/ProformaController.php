@@ -26,6 +26,7 @@ class ProformaController
         $data['vehiculos'] = $this->modelo->getVehiculos();
         $data['arrastres'] = $this->modelo->getArrastres();
         $data['choferes'] = $this->modelo->getChoferes();
+        $data['datoPrincipal']="numero";
         echo $this->render->render("views/proforma.pug", $data);
     }
 
@@ -39,11 +40,19 @@ class ProformaController
             header("location:../index");
             die();
         }
+<<<<<<< HEAD
         $data['cabeceras'] = ['Número', 'Fecha emision', 'Fee previsto', 'Cuit cliente', 'Cod viaje', 'Fee total', 'Codigo', 'Fecha viaje', 'ETA', 'Direccion origen', 'Localidad origen', 'Provincia origen', 'Pais origen', 'Direccion destino', 'Localidad destino', 'Provincia destino', 'Pais destino', 'Tipo carga', 'Peso neto', 'Imo class', 'Temperatura', 'km estimados', 'Combustible previsto', 'Hazard previsto', 'Reefer previsto', 'Patente_vehiculo', 'Patente arrastre', 'Dni chofer', 'Estado', 'Desviaciones', 'Km totales', 'Eta real', 'Combustible total', 'Hazard total', 'Reefer total'];
         $data['listado'] = $this->modelo->getProformas();
         $data['titulo_listado'] = "proformas";
         $data['sector'] = "Proforma";
         $data['datoPrincipal'] = "codigo";
+=======
+        $data['cabeceras']=['Número','Fecha emision','Fee previsto','Cuit cliente','Cod viaje','Fee total','Codigo','Fecha viaje','ETA','Direccion origen','Localidad origen','Provincia origen','Pais origen','Direccion destino','Localidad destino','Provincia destino','Pais destino','Tipo carga','Peso neto','Imo class','Temperatura','km estimados','Combustible previsto','Hazard previsto','Reefer previsto','Patente_vehiculo','Patente arrastre','Dni chofer','Estado','Desviaciones','Km totales','Eta real','Combustible total','Hazard total','Reefer total'];
+        $data['listado']=$this->modelo->getProformas();
+        $data['titulo_listado']="proformas";
+        $data['sector']="Proforma";
+        $data['datoPrincipal']="numero";
+>>>>>>> cc7a10fdcdcef2e47e0a2bfad26662d4632a94ec
         $data['botones'] = true;
         $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
@@ -108,12 +117,22 @@ class ProformaController
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
         } else {
+<<<<<<< HEAD
             $codigo = $this->modelo->registrar($datos);
             if ($codigo) {
                 $this->genQR->generarQR($codigo);
                 header("location:informe?numero=" . $codigo);
                 die();
             } else {
+=======
+            $codigo=$this->modelo->registrar($datos);
+            if ($codigo) {
+                $this->genQR->generarQR($codigo);
+                header("location:informe?numero=".$codigo);
+                die();
+            }
+            else {
+>>>>>>> cc7a10fdcdcef2e47e0a2bfad26662d4632a94ec
                 header("location:nuevo");
                 die();
             }
