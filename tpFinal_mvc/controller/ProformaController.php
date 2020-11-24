@@ -66,7 +66,6 @@ class ProformaController
   
     public function generar()
     {
-
         $proforma = $_GET['numero'];
         $this->pdf->render($proforma);
     }
