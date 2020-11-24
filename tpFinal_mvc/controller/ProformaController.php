@@ -44,7 +44,7 @@ class ProformaController
         $data['listado'] = $this->modelo->getProformas();
         $data['titulo_listado'] = "proformas";
         $data['sector'] = "Proforma";
-        $data['datoPrincipal'] = "codigo";
+        $data['datoPrincipal'] = "numero";
         $data['botones'] = true;
         $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
@@ -66,6 +66,10 @@ class ProformaController
 
     public function generar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
         $proforma = $_GET['numero'];
         $this->pdf->render($proforma);
     }
@@ -129,6 +133,6 @@ class ProformaController
 
     public function execute()
     {
-        header("location: nuevo");
+        header("location: consultar");
     }
 }
