@@ -12,7 +12,7 @@ class InformePdf
     public function __construct()
     {
 //        $this->pdf=new PDFConfig();
-        $this->pdf=new Html2Pdf("P",'A4','es');
+        $this->pdf=new Spipu\Html2Pdf\Html2Pdf("P",'A4','es');
     }
 
     public function render($numero){
