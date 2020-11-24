@@ -24,7 +24,7 @@ block body
                         a(href="../cliente/nuevo" type="button" class= "btn btn-outline-primary mt-2") Agregar cliente
                 .form-group.col-md-6
                     .d-flex.flex-column
-                        small CUIT: 12345678901
+                        small CUIT: 2345678904
                     	small Denominación: Pirulo S.A.
                     	small Dirección: Florencio Varela 1835 - San Justo
                     	small Teléfono: 1135857412
@@ -107,7 +107,7 @@ block body
             include components/viaje_equipo
             if editar
                 input(type="hidden" name="proforma_numero" value=`${info['numero']}`)
-            a(href=`informe?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-success mr-2") Guardar
+            button.btn.btn-success.mr-2(type="submit") Guardar
             button.btn.btn-outline-dark.m-1(type="reset") Reestablecer
 block script
     script(src="../views/js/proforma.js")
