@@ -20,6 +20,10 @@ class ClienteController
     // Renderiza el formulario para agregar, no para editar
     public function nuevo()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $data['accion'] = "Agregar";
         echo $this->render->render("views/cliente.pug", $data);
     }
@@ -30,6 +34,10 @@ class ClienteController
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
+        }
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
         }
         $data['cabeceras'] = ['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
         $data['listado'] = $this->modelo->getClientes();
@@ -42,6 +50,10 @@ class ClienteController
 
     public function editar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $cuit = $_GET['cuit'];
         $info = $this->modelo->getCliente($cuit);
         $data['info'] = $info[0];
@@ -52,6 +64,10 @@ class ClienteController
 
     public function eliminar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $cuit = $_GET['cuit'];
         if ($this->modelo->deleteCliente($cuit))
             $_SESSION['mensaje'] = "El cliente se eliminó correctamente";
@@ -62,6 +78,10 @@ class ClienteController
 
     public function procesar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
+            header("location:../index");
+            die();
+        }
         $datos = [
             "CUIT" => intval($_POST['CUIT']),
             "denominacion" => $_POST['denominacion'],
