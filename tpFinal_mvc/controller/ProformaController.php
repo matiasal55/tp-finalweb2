@@ -88,7 +88,7 @@ class ProformaController
             header("location:../index");
             die();
         }
-        $codigo = $_GET['codigo'];
+        $codigo = $_GET['numero'];
         $info = $this->modelo->getProforma($codigo);
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
@@ -101,7 +101,7 @@ class ProformaController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !empty($_POST)) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -122,6 +122,7 @@ class ProformaController
                 die();
             }
         }
+        header("location:consultar");
     }
 
     public function eliminar()
