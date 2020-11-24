@@ -18,6 +18,10 @@ class ServiceController
 
     public function nuevo()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+            header("location:../index");
+            die();
+        }
         $data['accion'] = "Agregar";
         echo $this->render->render("views/service.pug", $data);
     }
@@ -27,6 +31,10 @@ class ServiceController
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
+        }
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
         }
         $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
         $data['listado'] = $this->modelo->getTodoslosService();
@@ -40,6 +48,10 @@ class ServiceController
 
     public function editar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+            header("location:../index");
+            die();
+        }
         if (!isset($_GET['id'])) {
             header("location: consultar");
             die();
@@ -54,6 +66,10 @@ class ServiceController
 
     public function eliminar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+            header("location:../index");
+            die();
+        }
         $id = $_GET['id'];
         if ($this->modelo->deleteService($id))
             $_SESSION['mensaje'] = "El service se eliminó correctamente";
@@ -64,6 +80,10 @@ class ServiceController
 
     public function procesar()
     {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+            header("location:../index");
+            die();
+        }
         $datos = [
             "id" => intval($_POST['id']),
             "patente" => $_POST['patente'],

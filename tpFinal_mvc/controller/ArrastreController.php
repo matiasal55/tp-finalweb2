@@ -19,7 +19,7 @@ class ArrastreController
 
     public function nuevo()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
             header("location:../index");
             die();
         }
@@ -31,7 +31,7 @@ class ArrastreController
     // Lista los arrastres
     public function consultar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
             header("location:../index");
             die();
         }
@@ -51,7 +51,7 @@ class ArrastreController
 
     public function editar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['patente'])){
             header("location:../index");
             die();
         }
@@ -66,7 +66,7 @@ class ArrastreController
 
     public function eliminar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['patente'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['patente'])){
             header("location:../index");
             die();
         }
@@ -80,7 +80,7 @@ class ArrastreController
 
     public function procesar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_POST['patente'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_POST['patente'])){
             header("location:../index");
             die();
         }
