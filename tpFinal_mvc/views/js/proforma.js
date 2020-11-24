@@ -32,8 +32,8 @@ tipo_carga.addEventListener("change",()=>{
 const controles=(selector,campo)=>{
     selector.addEventListener("change",()=>{
         if(selector.value=="no")
-            campo.disabled=true;
-        else campo.disabled=false;
+            campo.readOnly=true;
+        else campo.readOnly=false;
     })
 }
 

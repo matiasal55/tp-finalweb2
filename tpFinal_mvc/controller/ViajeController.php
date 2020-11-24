@@ -36,7 +36,7 @@ class ViajeController
         $data['info'] = $info[0];
         $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "viaje";
-        echo $this->render->render("views/pdf_template.pug",$data);
+        echo $this->render->render("views/informe.pug",$data);
     }
 
     public function procesar()
