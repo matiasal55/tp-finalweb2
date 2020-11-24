@@ -32,7 +32,7 @@ class ServiceController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=4){
             header("location:../index");
             die();
         }
