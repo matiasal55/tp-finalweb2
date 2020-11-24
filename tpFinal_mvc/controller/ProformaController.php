@@ -18,7 +18,7 @@ class ProformaController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -36,7 +36,7 @@ class ProformaController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
@@ -52,7 +52,7 @@ class ProformaController
 
     public function informe()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -66,7 +66,7 @@ class ProformaController
 
     public function generar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -84,12 +84,12 @@ class ProformaController
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
-        $codigo = $_GET['codigo'];
-        $info = $this->modelo->getProforma($codigo);
+        $numero = $_GET['numero'];
+        $info = $this->modelo->getProforma($numero);
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
         $data['vehiculos'] = $this->modelo->getVehiculos();
@@ -101,7 +101,7 @@ class ProformaController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !empty($_POST)) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !empty($_POST)) {
             header("location:../index");
             die();
         }
@@ -126,7 +126,7 @@ class ProformaController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
