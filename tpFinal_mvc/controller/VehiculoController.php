@@ -14,7 +14,7 @@ class VehiculoController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
             header("location:../index");
             die();
         }
@@ -26,7 +26,7 @@ class VehiculoController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
             header("location:../index");
             die();
         }
@@ -60,7 +60,7 @@ class VehiculoController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
@@ -90,7 +90,7 @@ class VehiculoController
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
             header("location:../index");
             die();
         }
@@ -109,7 +109,7 @@ class VehiculoController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
             header("location:../index");
             die();
         }

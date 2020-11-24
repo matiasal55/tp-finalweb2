@@ -19,7 +19,7 @@ class ViajeController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -27,7 +27,7 @@ class ViajeController
         echo $this->render->render("views/viaje.pug", $data);
     }
     public function informe(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol']!=4 || !isset($_GET['codigo'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2 && $_SESSION['rol']!=4 || !isset($_GET['codigo'])) {
            header("location:../index");
             die();
         }
@@ -41,7 +41,7 @@ class ViajeController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
@@ -63,7 +63,7 @@ class ViajeController
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['codigo'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2 || !isset($_GET['codigo'])) {
             header("location:../index");
             die();
         }
@@ -84,7 +84,7 @@ class ViajeController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
@@ -99,7 +99,7 @@ class ViajeController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }
