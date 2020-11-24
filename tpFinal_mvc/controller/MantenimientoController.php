@@ -20,7 +20,7 @@ class MantenimientoController
     }
 
     public function nuevo(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
@@ -29,7 +29,7 @@ class MantenimientoController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
@@ -69,7 +69,7 @@ class MantenimientoController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
@@ -94,7 +94,7 @@ class MantenimientoController
             header("location: consultar");
             die();
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
@@ -110,7 +110,7 @@ class MantenimientoController
     }
 
     public function eliminar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
