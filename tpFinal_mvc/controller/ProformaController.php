@@ -44,7 +44,7 @@ class ProformaController
         $data['listado'] = $this->modelo->getProformas();
         $data['titulo_listado'] = "proformas";
         $data['sector'] = "Proforma";
-        $data['datoPrincipal'] = "codigo";
+        $data['datoPrincipal'] = "numero";
         $data['botones'] = true;
         $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
@@ -66,6 +66,10 @@ class ProformaController
 
     public function generar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
         $proforma = $_GET['numero'];
         $this->pdf->render($proforma);
     }
@@ -97,6 +101,10 @@ class ProformaController
 
     public function procesar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !empty($_POST)) {
+            header("location:../index");
+            die();
+        }
         $datos = $_POST;
         if (isset($_POST['proforma_numero'])) {
             if ($this->modelo->editProforma($datos))
@@ -118,6 +126,10 @@ class ProformaController
 
     public function eliminar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
         $numero = $_GET['numero'];
         $viaje = $_GET['viaje'];
         if ($this->modelo->deleteProforma($numero, $viaje))
@@ -129,6 +141,6 @@ class ProformaController
 
     public function execute()
     {
-        header("location: nuevo");
+        header("location: consultar");
     }
 }
