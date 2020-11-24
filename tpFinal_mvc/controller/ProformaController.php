@@ -63,10 +63,9 @@ class ProformaController
         $data['titulo_listado'] = "proforma";
         echo $this->render->render("views/informe.pug", $data);
     }
-  
+
     public function generar()
     {
-
         $proforma = $_GET['numero'];
         $this->pdf->render($proforma);
     }
