@@ -101,6 +101,10 @@ class ProformaController
 
     public function procesar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !empty($_POST)) {
+            header("location:../index");
+            die();
+        }
         $datos = $_POST;
         if (isset($_POST['proforma_numero'])) {
             if ($this->modelo->editProforma($datos))
@@ -122,6 +126,10 @@ class ProformaController
 
     public function eliminar()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
         $numero = $_GET['numero'];
         $viaje = $_GET['viaje'];
         if ($this->modelo->deleteProforma($numero, $viaje))
