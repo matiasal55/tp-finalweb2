@@ -111,8 +111,9 @@ class ProformaModel
         $query=rtrim($query,", ");
         $query.=" WHERE codigo='".$datos['viaje_codigo']."'";
         if($this->database->execute($query)){
-            $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['total_fee']."' WHERE numero='".$datos['proforma_numero']."'";
-            return $this->database->execute($query);
+            $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['proforma_fee']."' WHERE numero='".$datos['proforma_numero']."'";
+            return $query;
+//            return $this->database->execute($query);
         }
         return false;
     }
