@@ -52,6 +52,10 @@ class ProformaController
 
     public function informe()
     {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
         $proforma = $_GET['numero'];
         $resultado = $this->modelo->getProforma($proforma);
         $data['info'] = $resultado[0];
