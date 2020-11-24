@@ -13,7 +13,7 @@ class TallerController
     }
 
     public function nuevo(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
@@ -26,7 +26,7 @@ class TallerController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
@@ -41,7 +41,7 @@ class TallerController
     }
 
     public function editar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
@@ -58,7 +58,7 @@ class TallerController
     }
 
     public function eliminar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['cuit'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2 || !isset($_GET['cuit'])){
             header("location:../index");
             die();
         }
@@ -71,7 +71,7 @@ class TallerController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
