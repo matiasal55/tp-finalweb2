@@ -1,13 +1,12 @@
 const listaRoles=document.getElementById("area");
 const adicional=document.getElementById("adicional");
+const licencia=document.getElementById("tipo_licencia");
 
 listaRoles.addEventListener("change",()=>{
-    let campo="";
     if(listaRoles.value==4){
-        campo="<input class='form-control' type='text' value=`` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
-        adicional.innerHTML=campo;
+        licencia.classList.remove("d-none")
     }
     else {
-        adicional.innerHTML = "";
+        licencia.classList.add("d-none")
     }
 })
