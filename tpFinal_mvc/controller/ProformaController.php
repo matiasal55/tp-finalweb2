@@ -75,10 +75,6 @@ class ProformaController
     }
 
     public function pdf(){
-        if(!isset($_GET['numero'])){
-            header("location:../index");
-            die();
-        }
         $proforma=$_GET['numero'];
         $resultado=$this->modelo->getProforma($proforma);
         $data['info']=$resultado[0];
