@@ -19,6 +19,7 @@ include_once "controller/HomeController.php";
 include_once "controller/ProformaController.php";
 include_once "controller/UsuariosController.php";
 include_once "controller/RegistrarController.php";
+include_once "controller/MapaController.php";
 include_once "controller/LogoutController.php";
 include_once "controller/TallerController.php";
 include_once "controller/VehiculoController.php";
@@ -55,6 +56,10 @@ class Configuration
 
     public function getLogoutController(){
         return new LogoutController($this->getRender());
+    }
+
+    public function getMapaController(){
+        return new MapaController($this->getRender());
     }
 
     public function getProformaController(){

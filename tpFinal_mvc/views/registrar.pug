@@ -24,8 +24,8 @@ block body
                             option(value="2") Supervisor
                             option(value="3") Encargado de taller
                             option(value="4") Chofer
-                    .form-group
-                        input(type="text" name="tipo_licencia" class="form-control d-none" id="tipo_licencia" placeholder="Ingrese su tipo de licencia")
+                            option(value="5") Mecanico
+                    .form-group#adicional
                     .form-group
                         input(type="email" name="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
                     .form-group
@@ -33,5 +33,5 @@ block body
                     .form-group
                         input(type="password" name="rewritePassword" class="form-control" placeholder="Confirme su contraseña")
                     button(type="submit" name="registrar" class="btn btn-block  btn-primary") Crear cuenta
-                    a(href="index" class="btn btn-block  btn-outline-primary") Cancelar
+                    button(type="button" class="btn btn-block  btn-outline-primary") Cancelar
     script(src="views/js/registrar.js");

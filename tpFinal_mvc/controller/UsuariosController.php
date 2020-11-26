@@ -48,7 +48,7 @@ class UsuariosController
             "email" => $_POST['email'],
             "password" => $_POST['password'],
             "area" => $_POST['area'],
-            "licencia" => $_POST['tipo_licencia']
+            "licencia" => $_POST['tipo_licencia'] ?? null
         ];
         if ($this->modelo->setRegistro($datos))
             $_SESSION['error']="El registro fue exitoso. Por favor inicie sesión";

@@ -80,10 +80,6 @@ class VehiculoController
     }
 
     public function informe(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
-            header("location:../index");
-            die();
-        }
         $patente=$_GET['patente'];
         $resultado=$this->modelo->getVehiculo($patente);
         $data['info']=$resultado[0];
@@ -123,19 +119,6 @@ class VehiculoController
         else
             $_SESSION['mensaje'] = "El vehículo no se pudo eliminar";
         header("location:consultar");
-    }
-
-    public function posicion(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
-            header("location:../index");
-            die();
-        }
-        $patente=$_GET['patente'];
-        $posicion=$this->modelo->getInformacion($patente);
-        $data['posicion']=$posicion[0]['posicion_actual'];
-        $data['km_totales']=$posicion[0]['km_totales'];
-        $data['combustible_total']=$posicion[0]['combustible_total'];
-        echo $this->render->render("views/mapa.pug",$data);
     }
 
     public function execute()

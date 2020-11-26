@@ -23,8 +23,8 @@ class HomeController
                 echo $this->render->render("views/sinrol.pug",$data);
         }
         else{
-            $_SESSION['error']="Para acceder al sistema debe loguearse";
-            header("location:index");
+            $data['error']="Para acceder al sistema debe loguearse";
+            echo $this->render->render("views/login.pug",$data);
         }
     }
 }
