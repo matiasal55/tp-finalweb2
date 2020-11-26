@@ -16,8 +16,15 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area =$datos['area'];
-        $licencia=$datos['licencia'] ?? null;
-        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area','$licencia',DEFAULT)";
+        $licencia=$datos['licencia'];
+        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area')";
+        if($cod_area==4){
+            if($this->database->execute($sql)){
+                $sql="INSERT INTO Chofer VALUES ('$dni','$licencia',DEFAULT,DEFAULT)";
+                return $this->database->execute($sql);
+            }
+            return false;
+        }
         return $this->database->execute($sql);
     }
 
