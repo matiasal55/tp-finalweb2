@@ -1,0 +1,25 @@
+extends ./components/template
+block titulo
+    - titulo="Posicionamiento";
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center.mb-5 Ingrese los datos actuales
+        form(action="procesarReporte" method="POST")
+            .input-group.mb-3
+                .input-group-prepend
+                    button.btn.btn-outline-secondary(type="button" id="button-addon1" onclick="getLocation()") Posicionamiento
+                input(type="text" id="demo" class="form-control" )
+            .form-group
+                input(type="hidden" name="codigo" value=`${codigo}`)
+                label(for="combustible") Cantidad de combustible cargado:
+                input(type="text" name="combustible" class="form-control"  placeholder="Ingrese el combustible cargado")
+            .form-group
+                label(for="km") Kilometros realizados:
+                input(type="text" name="km" class="form-control"  placeholder="Ingrese los kilometros realizados")
+            .form-group
+                label(for="precio") Precio:
+                input(type="number" name="precio" class="form-control"  placeholder="Ingrese el precio del consumo")
+            button(type="submit" name="enviar" class="btn btn-success") Enviar
+block script
+    script(src="../views/js/geolocalizacion.js")

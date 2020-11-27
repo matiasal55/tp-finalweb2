@@ -46,17 +46,10 @@ class ViajeController
             die();
         }
         $datos=$_POST;
-        if (isset($_POST['viaje_codigo'])) {
             if ($this->modelo->editViaje($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
-        } else {
-            if ($this->modelo->registrar($datos))
-                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
-            else
-                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
-        }
         header("location:consultar");
     }
 
@@ -108,6 +101,32 @@ class ViajeController
             $_SESSION['mensaje'] = "El viaje se eliminó correctamente";
         else
             $_SESSION['mensaje'] = "Verifique haber borrado primero la proforma relacionada";
+        header("location:consultar");
+    }
+    public function reportar(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+        $data['codigo'] = $_GET['codigo'];
+        echo $this->render->render("views/cargaDatos.pug", $data);
+    }
+
+    public  function procesarReporte(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+        $datos=$_POST;
+        $codigo=$datos['codigo'];
+        $resultado=$this->modelo->getPatente($codigo);
+        $datos['patente']=$resultado[0]['patente_vehiculo'];
+        $datos['combustible_previo']=$resultado[0]['combustible_total'];
+            if ($this->modelo->registrarReporte($datos))
+                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
+            else
+                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+
         header("location:consultar");
     }
 }
