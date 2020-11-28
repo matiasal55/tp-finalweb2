@@ -25,6 +25,8 @@ class ArrastreController
         }
         $data['tipo_arrastres'] = $this->modelo->getTipoArrastre();
         $data['accion'] = "Agregar";
+        $data['nuevo'] = "arrastre";
+
         echo $this->render->render("views/arrastre.pug", $data);
     }
 

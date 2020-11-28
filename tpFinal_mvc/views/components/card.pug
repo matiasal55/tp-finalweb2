@@ -1,7 +1,9 @@
-mixin card(title, text, link)
-    .col-sm-4.my-3
+mixin card(title, text, link, nuevo,botonNuevo)
+    .col-md-4.my-3
         .card
             .card-body
-                <h5 class="card-title">#{title}</h5>
-                <p class="card-text">#{text}</p>
-                a(href=`${link}` class="btn btn-primary") Ir
+                h5.card-title#{title}
+                .card-text#{text}
+                a(href=`${link}` class="btn btn-primary my-3 mr-2") Consultar
+                if botonNuevo
+                    a(href=`${nuevo}` class="btn btn-outline-success") Nuevo

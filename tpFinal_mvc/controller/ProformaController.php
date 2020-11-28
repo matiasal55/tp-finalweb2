@@ -15,7 +15,6 @@ class ProformaController
         $this->pdf = $pdf;
         $this->genQR = $qr;
     }
-
     public function nuevo()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {

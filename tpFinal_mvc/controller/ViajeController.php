@@ -17,15 +17,7 @@ class ViajeController
         header("location:consultar");
     }
 
-    public function nuevo()
-    {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
-        $data['accion'] = "Agregar";
-        echo $this->render->render("views/viaje.pug", $data);
-    }
+
     public function informe(){
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol']!=4 || !isset($_GET['codigo'])) {
            header("location:../index");
@@ -87,6 +79,7 @@ class ViajeController
         $data['sector'] = "Viaje";
         $data['datoPrincipal'] = "codigo";
         $data['botones'] = true;
+        $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
     }
 
