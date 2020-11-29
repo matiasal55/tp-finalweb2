@@ -42,3 +42,18 @@ h3 Datos del chofer
                 else
                     - selected=false
                 option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
+|
+hr
+|
+h3 Celular asignado
+.row
+    .form-group.col-md-6
+        label(for="celular") Número de celular
+        select(name="id_celular" class="form-control")
+            option(value="0" selected disabled) Seleccione el número de celular
+            each celular in celulares
+                if info && celular['numero']==info['id_celular']
+                    - selected=true
+                else
+                    - selected=false
+                option(value=`${celular['id']}` selected=selected) #{celular['numero']}

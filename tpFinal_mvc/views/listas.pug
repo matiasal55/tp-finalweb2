@@ -25,7 +25,8 @@ block body
                                     a(href=`informe?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-success mr-2") Ver
                                     if botones
                                         a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
-                                        a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
+                                        if !noEliminar
+                                            a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3(class="alert alert-info") No hay información disponible
     .container

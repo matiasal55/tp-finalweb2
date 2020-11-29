@@ -1,5 +1,4 @@
 <?php
-/**/
 
 class ClienteModel
 {
@@ -24,28 +23,29 @@ class ClienteModel
 
     public function registrar($datos)
     {
-        $cuit = $datos['CUIT'];
-        $denominacion = $datos['denominacion'];
-        $direccion = $datos['direccion'];
-        $telefono = $datos['telefono'];
-        $email = $datos['email'];
-        $contacto1 = $datos['contacto1'];
-        $contacto2 = $datos['contacto2'];
-        $sql = "INSERT INTO Cliente VALUES (' $cuit','$denominacion',' $direccion','$telefono','$email','$contacto1','$contacto2')";
+        $query = "";
+        foreach ($datos as $dato){
+            if($dato=='')
+                $dato=0;
+            $query.="'".$dato."', ";
+        }
+        $query=rtrim($query,", ");
+        $sql="INSERT INTO Cliente VALUES (".$query.")";
         return $this->database->execute($sql);
     }
 
     public function editCliente($datos)
     {
-        $cuitnuevo=$datos['CUIT'];
-        $cuitAnterior = $datos['CUIT'];
-        $denominacion = $datos['denominacion'];
-        $direccion = $datos['direccion'];
-        $telefono = $datos['telefono'];
-        $email = $datos['email'];
-        $contacto1 = $datos['contacto1'];
-        $contacto2 = $datos['contacto2'];
-        $sql = "UPDATE Cliente SET CUIT='$cuitnuevo', denominacion='$denominacion', direccion='$direccion', telefono='$telefono',email='$email',contacto1='$contacto1',contacto2='$contacto2' WHERE CUIT='$cuitAnterior'";
+        $query = "";
+        foreach ($datos as $index=>$dato){
+            if($dato=='')
+                $dato=0;
+            if($index!="editar")
+                $query.="$index='".$dato."', ";
+        }
+        $query=rtrim($query,", ");
+        $cuit = $datos['editar'];
+        $sql="UPDATE Cliente SET ".$query." WHERE CUIT='$cuit'";
         return $this->database->execute($sql);
     }
 

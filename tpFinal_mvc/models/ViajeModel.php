@@ -87,8 +87,8 @@ class ViajeModel
         return $this->database->execute($query);
     }
 
-    public function deleteViaje($codigo){
-        $sql="DELETE FROM Viaje WHERE codigo='$codigo'";
-        return $this->database->execute($sql);
-    }
+//    public function deleteViaje($codigo){
+//        $sql="DELETE FROM Viaje WHERE codigo='$codigo'";
+//        return $this->database->execute($sql);
+//    }
 }

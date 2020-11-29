@@ -14,10 +14,7 @@ class VehiculoController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['marcas'] = $this->modelo->getMarcas();
         $data['modelos'] = $this->modelo->getModelos();
         $data['accion'] = "Agregar";
@@ -26,19 +23,8 @@ class VehiculoController
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-            header("location:../index");
-            die();
-        }
-        $datos = [
-            "patente" => $_POST['patente'],
-            "marca" => intval($_POST['marca']),
-            "modelo" => intval($_POST['modelo']),
-            "anio_fabricacion" => intval($_POST['anio_fabricacion']),
-            "chasis" => $_POST['chasis'],
-            "motor" => $_POST['motor'],
-            "estado" => $_POST['estado']
-        ];
+        $this->controlAcceso();
+        $datos=$_POST;
         if (isset($_POST['km_total'])) {
             $datos['km_total'] = intval($_POST['km_total']);
             if ($this->modelo->registrar($datos))
@@ -60,48 +46,38 @@ class VehiculoController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 4) {
-            header("location:../index");
-            die();
-        }
-        if ($_SESSION['rol'] == 2) {
+        $this->controlSupervisorChofer();
+//        if ($_SESSION['rol'] == 2) {
             $data['cabeceras'] = ['Patente', 'Marca', 'Modelo', 'Año', 'Chasis', 'Motor', 'Kilometraje actual', 'Kilometraje total', 'Posicion actual', 'Estado'];
             $data['listado'] = $this->modelo->getVehiculos();
             $data['botones'] = true;
             $data['botonNuevo'] = true;
-        } else {
-            $data['cabeceras'] = ['Patente', 'Marca', 'Modelo', 'Año', 'Kilometraje actual', 'Posicion actual', 'Estado'];
-            $data['listado'] = $this->modelo->getVehiculoParaChofer($_SESSION['datos']['vehiculo_asignado']);
-        }
+//        } else {
+//            $data['cabeceras'] = ['Patente', 'Marca', 'Modelo', 'Año', 'Kilometraje actual', 'Posicion actual', 'Estado'];
+//            $data['listado'] = $this->modelo->getVehiculoParaChofer($_SESSION['datos']['vehiculo_asignado']);
+//        }
         $data['titulo_listado'] = "vehículos";
         $data['sector'] = "Vehículo";
         $data['datoPrincipal'] = "patente";
         echo $this->render->render("views/listas.pug", $data);
     }
-
+    // Cualquier usuario accedería al informe del vehículo, salvo el que no tiene rol
     public function informe(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] == 0 || !isset($_GET['patente'])) {
             header("location:../index");
             die();
         }
         $patente=$_GET['patente'];
         $resultado=$this->modelo->getVehiculo($patente);
         $data['info']=$resultado[0];
-        $data['titulo_listado'] = "vehículos";
+        $data['titulo_listado'] = "vehículo";
         //$data['datoPrincipal'] = "patente";
         echo $this->render->render("views/informe.pug",$data);
     }
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-            header("location:../index");
-            die();
-        }
-        if (!isset($_GET['patente'])) {
-            header("location: consultar");
-            die();
-        }
+        $this->controlEdicion();
         $patente = $_GET['patente'];
         $info = $this->modelo->getVehiculo($patente);
         $data['info'] = $info[0];
@@ -113,10 +89,7 @@ class VehiculoController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $patente = $_GET['patente'];
         if ($this->modelo->deleteVehiculo($patente))
             $_SESSION['mensaje'] = "El vehículo se eliminó correctamente";
@@ -126,7 +99,7 @@ class VehiculoController
     }
 
     public function posicion(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
             header("location:../index");
             die();
         }
@@ -141,6 +114,30 @@ class VehiculoController
     public function execute()
     {
         header("location:consultar");
+    }
+
+    private function controlAcceso()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlSupervisorChofer()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicion()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
+            header("location:../index");
+            die();
+        }
     }
 
 }

@@ -20,29 +20,14 @@ class MantenimientoController
     }
 
     public function nuevo(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['accion']="Agregar";
         echo $this->render->render("views/mantenimiento.pug",$data);
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
-            header("location:../index");
-            die();
-        }
-        $datos=[
-            "patente"=>$_POST['patente'],
-            "fecha_inicio"=>date('Y-m-d',strtotime($_POST['fecha_inicio'])),
-            "fecha_final"=>date('Y-m-d',strtotime($_POST['fecha_final'])),
-            "kilometraje"=>intval($_POST['kilometraje']),
-            "costo"=>intval($_POST['costo']),
-            "dni_mecanico"=>intval($_POST['dni_mecanico']),
-            "fecha_proximo"=>$_POST['fecha_proximo'] ?? null,
-            "repuestos_cambiados"=>$_POST['repuestos_cambiados']
-        ];
+        $this->controlAcceso();
+        $datos=$_POST;
         if($_POST['taller']=="Empresa")
             $datos['cod_taller']=$this->cod_taller;
         else $datos['cod_taller']=$_POST['cod_taller'];
@@ -63,30 +48,40 @@ class MantenimientoController
         header("location:consultar");
     }
 
-    // Ver lo de taller vinculado a encargado
     public function consultar(){
         if(isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2 && $_SESSION['rol']!=3){
-            header("location:../index");
-            die();
-        }
-        else if($_SESSION['rol']==2) {
-            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service'];
+        $this->controlAccesoChofer();
+        $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service','Repuestos cambiados'];
+        if($_SESSION['rol']==1 || $_SESSION['rol']==3) {
             $data['listado'] = $this->modelo->getMantenimientos();
+            $data['botones']=true;
+            $data['botonNuevo']=true;
         }
-        else if($_SESSION['rol']==3){
-            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Mecánico'];
-            $data['listado'] = $this->modelo->getMantenimientosPorTaller($_SESSION['taller']);
+        else {
+            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+
+                $data['listado'] = $this->modelo->getMantenimientoVehiculo($patente);
+            }
+            else
+                $data['listado']=[];
         }
-        $data['botones']=true;
-        $data['botonNuevo']=true;
         $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "mantenimientos";
         $data['sector'] = "Mantenimiento";
         echo $this->render->render("views/listas.pug",$data);
+    }
+
+    public function informe(){
+        $this->controlAccesoChofer();
+        $patente=$_GET['codigo'];
+        $resultado=$this->modelo->getMantenimiento($patente);
+        $data['info']=$resultado[0];
+        $data['titulo_listado'] = "mantenimiento";
+        echo $this->render->render("views/informe.pug",$data);
     }
 
     public function editar(){
@@ -94,10 +89,7 @@ class MantenimientoController
             header("location: consultar");
             die();
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $codigo=$_GET['codigo'];
         $info=$this->modelo->getMantenimiento($codigo);
         $data['info']=$info[0];
@@ -110,10 +102,7 @@ class MantenimientoController
     }
 
     public function eliminar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         if(!isset($_GET['codigo'])){
             header("location: consultar");
             die();
@@ -124,5 +113,21 @@ class MantenimientoController
         else
             $_SESSION['mensaje']="El mantenimiento no se pudo eliminar";
         header("location:consultar");
+    }
+
+    private function controlAcceso()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlAccesoChofer()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
+        }
     }
 }

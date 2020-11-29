@@ -40,7 +40,7 @@ block body
                 input(type="date" class="form-control" name="fecha_proximo" placeholder="dd/mm/aaaa")
             .form-group
                 label(for="repuestos") Repuestos cambiados:
-                textarea.form-control(name="repuestos_cambiados")
+                textarea.form-control(name="repuestos_cambiados") #{info['repuestos_cambiados']}
             if editar
                 input(type="hidden" name="editar" value=`${info['codigo']}`)
                 input(type="hidden" name="id_service" value=`${info['id_proximo']}`)

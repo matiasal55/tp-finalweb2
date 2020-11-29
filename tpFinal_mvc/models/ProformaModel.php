@@ -73,12 +73,21 @@ class ProformaModel
         return $this->database->query($sql);
     }
 
+    public function getCelulares(){
+        $sql="SELECT * FROM Celulares ";
+        return $this->database->query($sql);
+    }
+
     public function getVehiculos()
     {
         $sql = "SELECT `Vehiculo`.`patente`, `Marca`.`nombre`,`Modelo`.`descripcion` FROM Vehiculo,Marca,Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` and `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo`";
         return $this->database->query($sql);
     }
 
+    public function getClientes(){
+        $sql="SELECT * FROM Clientes";
+        return $this->database->query($sql);
+    }
 
     public function getArrastres()
     {
@@ -117,7 +126,14 @@ class ProformaModel
         return false;
     }
 
-    public function deleteProforma($numero,$viaje){
+    public function getCodigoViaje($numero){
+        $sql="SELECT cod_viaje FROM Proforma WHERE numero='$numero'";
+        return $this->database->query($sql);
+    }
+
+    public function deleteProforma($numero){
+        $resultado=$this->getCodigoViaje($numero);
+        $viaje=$resultado[0]['cod_viaje'];
         $sql="DELETE FROM Proforma WHERE numero='$numero'";
         if($this->database->execute($sql)){
             $sql="DELETE FROM Viaje WHERE codigo='$viaje'";

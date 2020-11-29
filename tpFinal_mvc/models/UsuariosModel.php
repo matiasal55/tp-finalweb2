@@ -54,6 +54,11 @@ class UsuariosModel{
         return $this->database->query($sql);
     }
 
+    public function getDatosChofer($dni){
+        $sql="SELECT * FROM Chofer WHERE dni_chofer='$dni'";
+        return $this->database->query($sql);
+    }
+
     public function editDatos($datos){
         $dni=$datos["dni"];
         $nombre=$datos["nombre"];
@@ -61,7 +66,7 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area=$datos['cod_area'];
-        $licencia=$datos['licencia'] ?? null;
+        $licencia=$datos['licencia'];
         $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area',tipo_licencia='$licencia' WHERE dni='$dni'";
         return $this->database->execute($sql);
     }

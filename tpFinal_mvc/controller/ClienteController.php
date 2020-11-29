@@ -17,43 +17,34 @@ class ClienteController
         header("location:consultar");
     }
 
-    // Renderiza el formulario para agregar, no para editar
     public function nuevo()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/cliente.pug", $data);
     }
 
-    // Lista los clientes
     public function consultar()
     {
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['cabeceras'] = ['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
         $data['listado'] = $this->modelo->getClientes();
         $data['titulo_listado'] = "Clientes";
         $data['sector'] = "Cliente";
         $data['botones'] = true;
         $data['datoPrincipal'] = "CUIT";
+        if($_SESSION['rol']==2)
+            $data['noEliminar']=true;
         echo $this->render->render("views/listas.pug", $data);
-    } /**/
+    }
 
     public function editar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $cuit = $_GET['cuit'];
         $info = $this->modelo->getCliente($cuit);
         $data['info'] = $info[0];
@@ -64,10 +55,8 @@ class ClienteController
 
     public function eliminar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
-        }
+        // Solo el Admin puede eliminar
+        $this->controlEliminar();
         $cuit = $_GET['cuit'];
         if ($this->modelo->deleteCliente($cuit))
             $_SESSION['mensaje'] = "El cliente se eliminó correctamente";
@@ -78,19 +67,8 @@ class ClienteController
 
     public function procesar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
-        }
-        $datos = [
-            "CUIT" => intval($_POST['CUIT']),
-            "denominacion" => $_POST['denominacion'],
-            "direccion" => $_POST['direccion'],
-            "telefono" => intval($_POST['telefono']),
-            "email" => $_POST['email'],
-            "contacto1" => intval($_POST['contacto1']),
-            "contacto2" => intval($_POST['contacto2'])
-        ];
+        $this->controlAcceso();
+        $datos = $_POST;
         if (isset($_POST['editar'])) {
             if ($this->modelo->editCliente($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
@@ -103,5 +81,29 @@ class ClienteController
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
         }
         header("location:consultar");
+    }
+
+    private function controlAcceso()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicion()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['cuit'])) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEliminar()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
+            header("location:../index");
+            die();
+        }
     }
 }

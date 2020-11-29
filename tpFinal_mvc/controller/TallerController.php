@@ -13,10 +13,7 @@ class TallerController
     }
 
     public function nuevo(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['accion']="Agregar";
         echo $this->render->render("views/taller.pug",$data);
     }
@@ -26,10 +23,7 @@ class TallerController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje']=null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['botones']=true;
         $data['cabeceras']=['CUIT','Nombre','Dirección','Teléfono'];
         $data['listado']=$this->modelo->getTalleres();
@@ -41,14 +35,7 @@ class TallerController
     }
 
     public function editar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
-        if(!isset($_GET['cuit'])){
-            header("location: consultar");
-            die();
-        }
+        $this->controlEdicion();
         $cuit=$_GET['cuit'];
         $info=$this->modelo->getTaller($cuit);
         $data['info']=$info[0];
@@ -58,10 +45,7 @@ class TallerController
     }
 
     public function eliminar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['cuit'])){
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $cuit=$_GET['cuit'];
         if($this->modelo->deleteTaller($cuit))
             $_SESSION['mensaje']="El taller se eliminó correctamente";
@@ -71,10 +55,7 @@ class TallerController
     }
 
     public function procesar(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $datos=[
             "CUIT"=>intval($_POST['cuit']),
             "nombre"=>$_POST['nombre'],
@@ -99,6 +80,22 @@ class TallerController
 
     public function execute(){
         header("location:consultar");
+    }
+
+    private function controlAcceso()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicion()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['cuit'])){
+            header("location:../index");
+            die();
+        }
     }
 
 }
