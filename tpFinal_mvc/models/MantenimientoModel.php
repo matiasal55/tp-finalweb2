@@ -27,23 +27,19 @@ class MantenimientoModel
             $id_service=intval($resultado[0]['LAST_INSERT_ID()']);
             $sql="INSERT INTO Mantenimiento VALUES (DEFAULT,'$patente','$inicio','$final','$kilometraje','$costo','$cod_taller','$mecanico','$id_service','$repuestos_cambiados')";
             return $this->database->execute($sql);
+//            return $sql;
         }
         return false;
     }
 
 
     public function getMantenimientos(){
-        $sql="SELECT `Mantenimiento`.`codigo`,`Mantenimiento`.`patente_vehiculo`,`Mantenimiento`.`fecha inicio`,`Mantenimiento`.`fecha final`,`Mantenimiento`.`kilometraje`,`Mantenimiento`.`costo`,`Mantenimiento`.`cod_taller`,`Mantenimiento`.`dni_mecanico`,`Service`.`fecha` FROM Mantenimiento, Service WHERE `Mantenimiento`.`id_proximo`=`Service`.`id` ORDER BY `fecha inicio` DESC";
+        $sql="SELECT `Mantenimiento`.`codigo`,`Mantenimiento`.`patente_vehiculo`,`Mantenimiento`.`fecha inicio`,`Mantenimiento`.`fecha final`,`Mantenimiento`.`kilometraje`,`Mantenimiento`.`costo`,`Mantenimiento`.`cod_taller`,`Mantenimiento`.`dni_mecanico`,`Service`.`fecha`, `Mantenimiento`.`repuestos_cambiados` FROM Mantenimiento, Service WHERE `Mantenimiento`.`id_proximo`=`Service`.`id` ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
     public function getMantenimiento($codigo){
         $sql="SELECT * FROM Mantenimiento WHERE codigo='$codigo' ORDER BY `fecha inicio` DESC";
-        return $this->database->query($sql);
-    }
-
-    public function getMantenimientosPorTaller($codigo){
-        $sql="SELECT codigo,patente_vehiculo,`fecha inicio`,`fecha final`,kilometraje,costo,dni_mecanico FROM Mantenimiento WHERE cod_taller='$codigo' ORDER BY `fecha inicio` DESC";
         return $this->database->query($sql);
     }
 
@@ -63,7 +59,8 @@ class MantenimientoModel
         $mecanico=$datos['dni_mecanico'];
         $proximo=$datos['fecha_proximo'];
         $service=$datos['service'];
-        $sql="UPDATE Mantenimiento SET patente_vehiculo='$patente',`fecha inicio`='$inicio',`fecha final`='$final',kilometraje='$kilometraje',costo='$costo',cod_taller='$taller',dni_mecanico='$mecanico' WHERE codigo='$codigo';";
+        $repuestos_cambiados=$datos['repuestos_cambiados'];
+        $sql="UPDATE Mantenimiento SET patente_vehiculo='$patente',`fecha inicio`='$inicio',`fecha final`='$final',kilometraje='$kilometraje',costo='$costo',cod_taller='$taller',dni_mecanico='$mecanico',repuestos_cambiados='$repuestos_cambiados' WHERE codigo='$codigo';";
 
         if($this->database->execute($sql)){
             if($proximo!="") {

@@ -49,6 +49,10 @@ class ProformaModel
         }
         $sql = "INSERT INTO Viaje VALUES (DEFAULT" . $query . " ,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
         if ($this->database->execute($sql)) {
+            $dni=$datos['dni_chofer'];
+            $patente=$datos['patente_vehiculo'];
+            $celular=$datos['id_celular'];
+            $this->asignarVehiculoYCelular($dni,$patente,$celular);
             $clave = $this->database->query("SELECT LAST_INSERT_ID()");
             $clave_viaje = $clave[0]['LAST_INSERT_ID()'];
             $fecha = $proforma['proforma_fecha'];
@@ -64,6 +68,11 @@ class ProformaModel
         return false;
     }
 
+    public function asignarVehiculoYCelular($dni,$patente,$celular){
+        $sql="UPDATE Chofer SET vehiculo_asignado='$patente',id_celular='$celular' WHERE dni_chofer='$dni'";
+        return $this->database->execute($sql);
+    }
+
     public function getProforma($codigo){
         $sql="SELECT * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` AND `Proforma`.`numero`='$codigo'";
         return $this->database->query($sql);
@@ -73,12 +82,21 @@ class ProformaModel
         return $this->database->query($sql);
     }
 
+    public function getCelulares(){
+        $sql="SELECT * FROM Celulares";
+        return $this->database->query($sql);
+    }
+
     public function getVehiculos()
     {
         $sql = "SELECT `Vehiculo`.`patente`, `Marca`.`nombre`,`Modelo`.`descripcion` FROM Vehiculo,Marca,Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` and `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo`";
         return $this->database->query($sql);
     }
 
+    public function getClientes(){
+        $sql="SELECT * FROM Cliente";
+        return $this->database->query($sql);
+    }
 
     public function getArrastres()
     {
@@ -111,14 +129,24 @@ class ProformaModel
         $query=rtrim($query,", ");
         $query.=" WHERE codigo='".$datos['viaje_codigo']."'";
         if($this->database->execute($query)){
+            $dni=$datos['dni_chofer'];
+            $patente=$datos['patente_vehiculo'];
+            $celular=$datos['id_celular'];
+            $this->asignarVehiculoYCelular($dni,$patente,$celular);
             $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['proforma_fee']."' WHERE numero='".$datos['proforma_numero']."'";
-            return $query;
-//            return $this->database->execute($query);
+            return $this->database->execute($query);
         }
         return false;
     }
 
-    public function deleteProforma($numero,$viaje){
+    public function getCodigoViaje($numero){
+        $sql="SELECT cod_viaje FROM Proforma WHERE numero='$numero'";
+        return $this->database->query($sql);
+    }
+
+    public function deleteProforma($numero){
+        $resultado=$this->getCodigoViaje($numero);
+        $viaje=$resultado[0]['cod_viaje'];
         $sql="DELETE FROM Proforma WHERE numero='$numero'";
         if($this->database->execute($sql)){
             $sql="DELETE FROM Viaje WHERE codigo='$viaje'";

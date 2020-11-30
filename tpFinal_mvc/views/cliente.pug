@@ -8,7 +8,11 @@ block body
         form(action="procesar" method="post")
             .form-group
                 label(for="cuit") CUIT
-                input(type="number" name="CUIT" class="form-control" value=`${info['CUIT']}` placeholder="Ingrese el CUIT del cliente")
+                if editar
+                    - disabled=true;
+                else
+                    - disabled=false;
+                input(type="number" name="CUIT" class="form-control" disabled=disabled value=`${info['CUIT']}` placeholder="Ingrese el CUIT del cliente")
             .form-group
                 label(for="denominacion") Denominación
                 input(type="text" name="denominacion" class="form-control" value=`${info['denominacion']}` placeholder="Ingrese la denominación del cliente")
@@ -17,16 +21,16 @@ block body
                 input(type="text" name="direccion" class="form-control" value=`${info['direccion']}` placeholder="Ingrese la dirección del cliente")
             .form-group
                 label(for="telefono") Teléfono
-                input(type="tel" name="telefono" class="form-control" value=`${info['telefono']}` placeholder="Ingrese el teléfono del cliente")
+                input(type="number" name="telefono" class="form-control" value=`${info['telefono']}` placeholder="Ingrese el teléfono del cliente")
             .form-group
                 label(for="email") Email
                 input(type="email" name="email" class="form-control" value=`${info['email']}` placeholder="Ingrese el email del cliente")
             .form-group
                 label(for="contacto1") Contacto 1
-                input(type="tel" name="contacto1" class="form-control" value=`${info['contacto1']}` placeholder="Ingrese el primer número de contacto del cliente")
+                input(type="number" name="contacto1" class="form-control" value=`${info['contacto1']}` placeholder="Ingrese el primer número de contacto del cliente")
             .form-group
                 label(for="contacto2") Contacto 2
-                input(type="tel" name="contacto2" class="form-control" value=`${info['contacto2']}` placeholder="Ingrese el segundo número de contacto del cliente")
+                input(type="number" name="contacto2" class="form-control" value=`${info['contacto2']}` placeholder="Ingrese el segundo número de contacto del cliente")
             if editar
-                input(type="hidden" name="editar" value="editar")
-            button(type="submit" name="cliente" class="btn btn-success") #{accion} Cliente
+                input(type="hidden" name="editar" value=`${info['CUIT']}`)
+            button(type="submit" class="btn btn-success") #{accion} Cliente

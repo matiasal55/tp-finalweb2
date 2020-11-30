@@ -18,7 +18,7 @@ class ArrastreModel
 
     public function getArrastre($patente)
     {
-        $sql = "SELECT * FROM  Arrastre WHERE patente='$patente'";
+        $sql = "SELECT * FROM  Arrastre, tipoArrastre WHERE `Arrastre`.`codigo_tipoArrastre`=`tipoArrastre`.`codigo` AND patente='$patente'";
         return $this->database->query($sql);
     }
 
@@ -33,7 +33,7 @@ class ArrastreModel
         $patente = $datos['patente'];
         $chasis = $datos['chasis'];
         $tipoArrastre = $datos['codigo_tipoArrastre'];
-        $sql = "INSERT INTO Arrastre VALUES ('$patente','$chasis','$tipoArrastre')";
+        $sql = "INSERT INTO Arrastre VALUES ('$patente','$chasis','$tipoArrastre',DEFAULT)";
         return $this->database->execute($sql);
     }
 
@@ -42,8 +42,8 @@ class ArrastreModel
         $patente = $datos['patente'];
         $chasis = $datos['chasis'];
         $tipoArrastre = $datos['codigo_tipoArrastre'];
-
-        $sql = "UPDATE Arrastre SET patente='$patente',chasis='$chasis',codigo_tipoArrastre='$tipoArrastre' WHERE patente='$patente'";
+        $estado=$datos['estado'];
+        $sql = "UPDATE Arrastre SET patente='$patente',chasis='$chasis',codigo_tipoArrastre='$tipoArrastre', estado='$estado' WHERE patente='$patente'";
         return $this->database->execute($sql);
     }
 

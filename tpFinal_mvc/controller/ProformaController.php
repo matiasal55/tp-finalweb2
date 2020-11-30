@@ -18,14 +18,15 @@ class ProformaController
 
     public function nuevo()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['datoPrincipal'] = "numero";
         $data['vehiculos'] = $this->modelo->getVehiculos();
         $data['arrastres'] = $this->modelo->getArrastres();
         $data['choferes'] = $this->modelo->getChoferes();
+        $data['celulares'] = $this->modelo->getCelulares();
+        $data['clientes'] = $this->modelo->getClientes();
+        $data['url']="https://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+
         $data['datoPrincipal']="numero";
         echo $this->render->render("views/proforma.pug", $data);
     }
@@ -36,10 +37,7 @@ class ProformaController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['cabeceras'] = ['Número', 'Fecha emision', 'Fee previsto', 'Cuit cliente', 'Cod viaje', 'Fee total', 'Codigo', 'Fecha viaje', 'ETA', 'Direccion origen', 'Localidad origen', 'Provincia origen', 'Pais origen', 'Direccion destino', 'Localidad destino', 'Provincia destino', 'Pais destino', 'Tipo carga', 'Peso neto', 'Imo class', 'Temperatura', 'km estimados', 'Combustible previsto', 'Hazard previsto', 'Reefer previsto', 'Patente_vehiculo', 'Patente arrastre', 'Dni chofer', 'Estado', 'Desviaciones', 'Km totales', 'Eta real', 'Combustible total', 'Hazard total', 'Reefer total'];
         $data['listado'] = $this->modelo->getProformas();
         $data['titulo_listado'] = "proformas";
@@ -47,15 +45,15 @@ class ProformaController
         $data['datoPrincipal'] = "numero";
         $data['botones'] = true;
         $data['botonNuevo'] = true;
+        if($_SESSION['rol']==2){
+            $data['noEliminar']=true;
+        }
         echo $this->render->render("views/listas.pug", $data);
     }
 
     public function informe()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $proforma = $_GET['numero'];
         $resultado = $this->modelo->getProforma($proforma);
         $data['info'] = $resultado[0];
@@ -66,15 +64,16 @@ class ProformaController
 
     public function generar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $proforma = $_GET['numero'];
         $this->pdf->render($proforma);
     }
 
     public function pdf(){
+        if(!isset($_GET['numero'])){
+            header("location:../index");
+            die();
+        }
         $proforma=$_GET['numero'];
         $resultado=$this->modelo->getProforma($proforma);
         $data['info']=$resultado[0];
@@ -84,10 +83,7 @@ class ProformaController
 
     public function editar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $codigo = $_GET['numero'];
         $info = $this->modelo->getProforma($codigo);
         $data['info'] = $info[0];
@@ -95,16 +91,15 @@ class ProformaController
         $data['vehiculos'] = $this->modelo->getVehiculos();
         $data['arrastres'] = $this->modelo->getArrastres();
         $data['choferes'] = $this->modelo->getChoferes();
+        $data['celulares'] = $this->modelo->getCelulares();
         $data['editar'] = true;
+        $data['url']="https://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
         echo $this->render->render("views/proforma.pug", $data);
     }
 
     public function procesar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $datos = $_POST;
         if (isset($_POST['proforma_numero'])) {
             if ($this->modelo->editProforma($datos))
@@ -127,13 +122,9 @@ class ProformaController
 
     public function eliminar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $numero = $_GET['numero'];
-        $viaje = $_GET['viaje'];
-        if ($this->modelo->deleteProforma($numero, $viaje))
+        if ($this->modelo->deleteProforma($numero))
             $_SESSION['mensaje'] = "La proforma se eliminó correctamente";
         else
             $_SESSION['mensaje'] = "La proforma no se pudo eliminar";
@@ -143,5 +134,19 @@ class ProformaController
     public function execute()
     {
         header("location: consultar");
+    }
+
+    private function controlAcceso(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicion(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['numero'])) {
+            header("location:../index");
+            die();
+        }
     }
 }

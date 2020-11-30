@@ -1,13 +1,23 @@
 const listaRoles=document.getElementById("area");
 const adicional=document.getElementById("adicional");
+const licencia=document.getElementById("tipo_licencia");
 
-listaRoles.addEventListener("change",()=>{
-    let campo="";
+function campo_licencia(){
     if(listaRoles.value==4){
-        campo="<input class='form-control' type='text' value=`` name='tipo_licencia' placeholder='Ingrese su tipo de licencia'>";
-        adicional.innerHTML=campo;
+        licencia.classList.remove("d-none")
+        licencia.required=true;
     }
     else {
-        adicional.innerHTML = "";
+        licencia.classList.add("d-none")
+        licencia.required=false;
     }
+}
+
+campo_licencia()
+
+listaRoles.addEventListener("change",()=>{
+    campo_licencia();
 })
+
+const password=document.getElementById("password")
+const re_password=document.getElementById("re_password")

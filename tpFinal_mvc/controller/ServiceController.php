@@ -18,10 +18,7 @@ class ServiceController
 
     public function nuevo()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/service.pug", $data);
     }
@@ -32,30 +29,30 @@ class ServiceController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=4){
-            header("location:../index");
-            die();
-        }
+        $this->controlAccesoChofer();
         $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
-        $data['listado'] = $this->modelo->getTodoslosService();
+        if($_SESSION['rol']==1 || $_SESSION['rol']==3) {
+            $data['listado'] = $this->modelo->getTodoslosService();
+            $data['botones']=true;
+            $data['botonNuevo']=true;
+        }
+        else {
+            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+                $data['listado'] = $this->modelo->getService($patente);
+            }
+            else
+                $data['listado']=[];
+        }
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
         $data['datoPrincipal'] = "id";
-        $data['botones'] = true;
-        $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
     }
 
     public function editar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
-        if (!isset($_GET['id'])) {
-            header("location: consultar");
-            die();
-        }
+        $this->controlEdicion();
         $id = $_GET['id'];
         $info = $this->modelo->getService($id);
         $data['info'] = $info[0];
@@ -66,10 +63,7 @@ class ServiceController
 
     public function eliminar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $id = $_GET['id'];
         if ($this->modelo->deleteService($id))
             $_SESSION['mensaje'] = "El service se eliminó correctamente";
@@ -80,10 +74,7 @@ class ServiceController
 
     public function procesar()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
-            header("location:../index");
-            die();
-        }
+        $this->controlAcceso();
         $datos = [
             "id" => intval($_POST['id']),
             "patente" => $_POST['patente'],
@@ -103,5 +94,43 @@ class ServiceController
         header("location:consultar");
     }
 
+    // Ver los datos que muestra al chofer
+    public function informe(){
+        $this->controlInforme();
+        $id=$_GET['id'];
+        $resultado=$this->modelo->getServiceYVehiculo($id);
+        $data['info']=$resultado[0];
+        $data['titulo_listado'] = "service";
+        echo $this->render->render("views/informe.pug",$data);
+    }
 
+    private function controlAcceso(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicion(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 || !isset($_GET['id'])){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlAccesoChofer()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlInforme()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4 || !isset($_GET['id'])){
+            header("location:../index");
+            die();
+        }
+    }
 }

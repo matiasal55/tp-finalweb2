@@ -47,6 +47,11 @@ class VehiculoModel
         return $this->database->query($sql);
     }
 
+    public function getInformacion($patente){
+        $sql="SELECT `Viaje`.`km_totales`,`Viaje`.`combustible_total`,`Vehiculo`.`posicion_actual` FROM Viaje,Vehiculo WHERE `Viaje`.`patente_vehiculo`=`Vehiculo`.`patente` AND `Vehiculo`.`patente`='$patente'";
+        return $this->database->query($sql);
+    }
+
     public function editVehiculo($datos){
         $patente=$datos['patente'];
         $marca=$datos['marca'];

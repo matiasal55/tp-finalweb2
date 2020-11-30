@@ -16,8 +16,15 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area =$datos['area'];
-        $licencia=$datos['licencia'] ?? null;
-        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area','$licencia',DEFAULT)";
+        $licencia=$datos['licencia'];
+        $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area')";
+        if($cod_area==4){
+            if($this->database->execute($sql)){
+                $sql="INSERT INTO Chofer VALUES ('$dni','$licencia',DEFAULT,DEFAULT)";
+                return $this->database->execute($sql);
+            }
+            return false;
+        }
         return $this->database->execute($sql);
     }
 
@@ -47,6 +54,11 @@ class UsuariosModel{
         return $this->database->query($sql);
     }
 
+    public function getDatosChofer($dni){
+        $sql="SELECT * FROM Chofer WHERE dni_chofer='$dni'";
+        return $this->database->query($sql);
+    }
+
     public function editDatos($datos){
         $dni=$datos["dni"];
         $nombre=$datos["nombre"];
@@ -54,7 +66,7 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area=$datos['cod_area'];
-        $licencia=$datos['licencia'] ?? null;
+        $licencia=$datos['licencia'];
         $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area',tipo_licencia='$licencia' WHERE dni='$dni'";
         return $this->database->execute($sql);
     }
