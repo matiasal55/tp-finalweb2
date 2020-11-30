@@ -23,9 +23,15 @@ class UsuariosController
         $password = $_POST['password'];
         $data["usuario"] = $this->modelo->getLogin($email, $password);
         if ($data['usuario']) {
-            $_SESSION['rol'] = $data['usuario'][0]['rol'];
+            $rol = $data['usuario'][0]['rol'];
+            $_SESSION['rol']=$rol;
             $_SESSION['datos'] = $data['usuario'][0];
             $_SESSION['iniciada'] = true;
+            $dni=$data['usuario'][0]['dni'];
+            if($rol==4){
+                $datosChofer=$this->modelo->getDatosChofer($dni);
+                $_SESSION['chofer']=$datosChofer[0];
+            }
             header("location:../home");
         } else {
             $_SESSION['email'] = $email;
@@ -40,16 +46,7 @@ class UsuariosController
             header("location:home");
         if (empty($_POST['registrar']))
             header("location:../");
-        $datos = [
-            "dni" => $_POST['dni'],
-            "nombre" => $_POST['nombre'],
-            "apellido" => $_POST['apellido'],
-            "fecha_nacimiento" => $_POST['fecha_nacimiento'],
-            "email" => $_POST['email'],
-            "password" => $_POST['password'],
-            "area" => $_POST['area'],
-            "licencia" => $_POST['tipo_licencia']
-        ];
+        $datos=$_POST;
         if ($this->modelo->setRegistro($datos))
             $_SESSION['error']="El registro fue exitoso. Por favor inicie sesión";
         else
@@ -73,10 +70,7 @@ class UsuariosController
 
     public function modificar()
     {
-        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $dni = $_GET['dni'];
         $data['dni'] = $dni;
         $data['roles'] = $this->modelo->getRoles();
@@ -96,6 +90,10 @@ class UsuariosController
         $dni = $_GET['dni'];
         $data['roles'] = $this->modelo->getRoles();
         $datos=$this->modelo->getDatos($dni);
+        if($datos[0]['cod_area']==4) {
+            $chofer = $this->modelo->getDatosChofer($dni);
+            $data['tipo_licencia']=$chofer[0]['tipo_licencia'];
+        }
         $data['datos'] = $datos[0];
         $data['area']=$datos[0]['cod_area'];
         echo $this->render->render("views/modificar_usuario.pug", $data);
@@ -103,10 +101,7 @@ class UsuariosController
 
     public function eliminar()
     {
-        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
-            header("location:../index");
-            die();
-        }
+        $this->controlEdicion();
         $dni = $_GET['id'];
         if ($this->modelo->deleteUser($dni))
             $_SESSION['mensaje'] = "El usuario se eliminó correctamente";
@@ -151,5 +146,13 @@ class UsuariosController
     public function execute()
     {
         header("location:consultar");
+    }
+
+    private function controlEdicion()
+    {
+        if (!isset($_GET['dni']) || !isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
+            header("location:../index");
+            die();
+        }
     }
 }
