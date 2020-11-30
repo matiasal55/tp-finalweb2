@@ -6,4 +6,10 @@ header.d-print-none
         button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation")
             span(class="navbar-toggler-icon")
         .collapse.navbar-collapse#navbarTogglerDemo01
-            div.ml-auto: a(href=`${ruta}/logout` class="text-white d-block d-sm-block btn btn-primary ml-auto my-2") Cerrar Sesión
+            a(href=`usuarios/modificardatos?dni=${datos['dni']}` class="d-sm-block  btn btn-sm btn-info ml-auto my-2  mr-2")
+                i(class="fas fa-user fa-sm")
+                |  Editar
+            a(href=`${ruta}/logout` class="d-sm-block btn btn-sm btn-primary  mr-2")
+                i(class="fas fa-sign-out-alt fa-sm")
+                |  Cerrar Sesión
+

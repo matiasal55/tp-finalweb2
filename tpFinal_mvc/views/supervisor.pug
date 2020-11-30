@@ -10,5 +10,6 @@ block body
                 small  #{datos["apellido"]}
         .row
             include ./components/card
-            +card("Proforma","En esta pagina se muestra los detalles de cada operación.","proforma/consultar")
-            +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar")
+            +card("Arrastre","En esta pagina se muestran los usuarios con rol asignado.","arrastre/consultar","arrastre/nuevo",true)
+            +card("Proforma","En esta pagina se muestra los detalles de cada operación.","proforma/nuevo","proforma/nuevo",true)
+            +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar","viaje/nuevo")

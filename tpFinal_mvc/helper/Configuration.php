@@ -1,5 +1,12 @@
 <?php
+include_once("helper/IncludeAllDirectory.php");
+$dir = new IncludeAllDirectory();
+$dir->includeAllFile("helper/");
+$dir->includeAllFile("models/");
+$dir->includeAllFile("controller/");
 
+include_once "Router.php";
+/*
 include_once "models/UsuariosModel.php";
 include_once "models/TallerModel.php";
 include_once "models/VehiculoModel.php";
@@ -14,7 +21,6 @@ include_once "helper/Render.php";
 include_once "helper/InformePdf.php";
 include_once "helper/CodigoQR.php";
 include_once "controller/IndexController.php";
-include_once "Router.php";
 include_once "controller/HomeController.php";
 include_once "controller/ProformaController.php";
 include_once "controller/UsuariosController.php";
@@ -27,6 +33,8 @@ include_once "controller/ViajeController.php";
 include_once "controller/ClienteController.php";
 include_once "controller/ArrastreController.php";
 include_once "controller/ServiceController.php";
+
+*/
 
 class Configuration
 {
