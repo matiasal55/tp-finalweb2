@@ -68,8 +68,12 @@ class ProformaModel
         $sql="SELECT * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` AND `Proforma`.`numero`='$codigo'";
         return $this->database->query($sql);
     }
+    public function getProformasInfo(){
+        $sql="SELECT numero,fecha_emision,cuit_cliente,codigo,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo`";
+        return $this->database->query($sql);
+    }
     public function getProformas(){
-        $sql="SELECT * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` ";
+        $sql="SELECT  * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` ";
         return $this->database->query($sql);
     }
 

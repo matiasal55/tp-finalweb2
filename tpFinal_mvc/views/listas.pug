@@ -11,15 +11,15 @@ block body
                 table.table
                     tr
                         each th in cabeceras
-                            th= th
-                        th.text-center Acciones
+                            th.text-center.align-middle= th
+                        th.text-center.align-middle Acciones
                     each datos in listado
                         tr.datos
                             each dato in datos
                                 if !dato
-                                    td Desconocido
+                                    td.text-center.align-middle Desconocido
                                 else
-                                    td= dato
+                                    td.text-center.align-middle= dato
                             td.text-center.align-middle
                                 .d-flex.justify-content-center
                                     a(href=`informe?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-success mr-2") Ver

@@ -73,7 +73,7 @@ class ViajeController
             header("location:../index");
             die();
         }
-        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad_origen', 'Localidad_destino', 'estado', 'patente_vehiculo', 'patente_arrastre', 'dni_chofer'];
+        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
         $data['listado'] = $this->modelo->getViajes();
         $data['titulo_listado'] = "viajes";
         $data['sector'] = "Viaje";

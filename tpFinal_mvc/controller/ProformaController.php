@@ -39,8 +39,12 @@ class ProformaController
             header("location:../index");
             die();
         }
-        $data['cabeceras'] = ['Número', 'Fecha emision', 'Fee previsto', 'Cuit cliente', 'Cod viaje', 'Fee total', 'Codigo', 'Fecha viaje', 'ETA', 'Direccion origen', 'Localidad origen', 'Provincia origen', 'Pais origen', 'Direccion destino', 'Localidad destino', 'Provincia destino', 'Pais destino', 'Tipo carga', 'Peso neto', 'Imo class', 'Temperatura', 'km estimados', 'Combustible previsto', 'Hazard previsto', 'Reefer previsto', 'Patente_vehiculo', 'Patente arrastre', 'Dni chofer', 'Estado', 'Desviaciones', 'Km totales', 'Eta real', 'Combustible total', 'Hazard total', 'Reefer total'];
-        $data['listado'] = $this->modelo->getProformas();
+        $data['cabeceras'] = ['Número', 'Fecha de emision', 'Cuit del cliente', 'Codigo del viaje', 'Fecha del viaje','Localidad de origen','Localidad de destino','Estado','Patente del vehiculo', 'Patente del arrastre','Dni del chofer'];
+        //$data['cabeceras'] = ['Número', 'Fecha emision', 'Fee previsto', 'Cuit cliente', 'Cod viaje', 'Fee total', 'Codigo', 'Fecha viaje', 'ETA', 'Direccion origen', 'Localidad origen', 'Provincia origen', 'Pais origen', 'Direccion destino', 'Localidad destino', 'Provincia destino', 'Pais destino', 'Tipo carga', 'Peso neto', 'Imo class', 'Temperatura', 'km estimados', 'Combustible previsto', 'Hazard previsto', 'Reefer previsto', 'Patente_vehiculo', 'Patente arrastre', 'Dni chofer', 'Estado', 'Desviaciones', 'Km totales', 'Eta real', 'Combustible total', 'Hazard total', 'Reefer total'];
+        $data['listado'] = $this->modelo->getProformasInfo();
+//print_r($this->modelo->getProformasInfo());
+//die();
+        //$data['listado'] = $this->modelo->getProformas();
         $data['titulo_listado'] = "proformas";
         $data['sector'] = "Proforma";
         $data['datoPrincipal'] = "numero";
