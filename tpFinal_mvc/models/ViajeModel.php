@@ -10,13 +10,21 @@ class ViajeModel
         $this->database = $database;
     }
 
-    public function getViajes(){
-        $sql="SELECT codigo,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viaje";
+    public function getViajes()
+    {
+        $sql = "SELECT codigo,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viaje";
         return $this->database->query($sql);
     }
 
-    public function getViaje($codigo){
-        $sql="SELECT * FROM Viaje WHERE codigo='$codigo'";
+    public function getViaje($codigo)
+    {
+        $sql = "SELECT * FROM Viaje WHERE codigo='$codigo'";
+        return $this->database->query($sql);
+    }
+
+    public function getPatente($codigo)
+    {
+        $sql = "SELECT patente_vehiculo,combustible_total FROM Viaje WHERE codigo='$codigo'";
         return $this->database->query($sql);
     }
 
@@ -50,13 +58,28 @@ class ViajeModel
             header("location:../index");
             die();
         }
-        $query="UPDATE Viaje SET ";
+        $query = "UPDATE Viaje SET ";
         foreach ($datos as $index => $dato) {
-            if($index!="viaje_codigo")
+            if ($index != "viaje_codigo")
                 $query .= "$index='$dato', ";
         }
-        $query=rtrim($query,", ");
-        $query.=" WHERE codigo='".$datos['viaje_codigo']."'";
+        $query = rtrim($query, ", ");
+        $query .= " WHERE codigo='" . $datos['viaje_codigo'] . "'";
         return $this->database->execute($query);
+    }
+
+    public function registrarReporte($datos)
+    {
+        $patente = $datos['patente'];
+        $posicion_actual = $datos['posicionActual'];
+        $sql = "UPDATE Vehiculo SET posicion_actual='$posicion_actual' WHERE patente='$patente'";
+        if ($this->database->execute($sql)) {
+            $codigo = $datos['codigo'];
+            $combustible_total = $datos['combustible']+$datos['combustible_previo'];
+            $km_total = $datos['km'];
+            $sql = "UPDATE Viaje SET combustible_total='$combustible_total',km_totales='$km_total' WHERE  codigo='$codigo'";
+            return $this->database->execute($sql);
+        }
+        return false;
     }
 }

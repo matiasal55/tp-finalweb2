@@ -4,10 +4,10 @@ block titulo
 block body
     include ./components/header
     .container.my-5
-        h1.text-center Asignar Rol de Usuario
+        h1.text-center.mb-4 Asignar Rol de Usuario
         form(action=`procesar?dni=${dni}` method="post")
             .form-group
-                select.form-control.col-md-6(name="rol")
+                select.form-control(name="rol")
                     if rol==0
                         - selected=true;
                     else

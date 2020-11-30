@@ -67,7 +67,7 @@ class ViajeController
             $_SESSION['mensaje'] = null;
         }
         $this->controlAccesoChofer();
-        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad_origen', 'Localidad_destino', 'estado', 'patente_vehiculo', 'patente_arrastre', 'dni_chofer'];
+        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
         if($_SESSION['rol']==1){
             $data['listado'] = $this->modelo->getViajes();
             $data['botones'] = true;
@@ -103,5 +103,31 @@ class ViajeController
             header("location:../index");
             die();
         }
+    }
+    public function reportar(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+        $data['codigo'] = $_GET['codigo'];
+        echo $this->render->render("views/cargaDatos.pug", $data);
+    }
+
+    public  function procesarReporte(){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+        $datos=$_POST;
+        $codigo=$datos['codigo'];
+        $resultado=$this->modelo->getPatente($codigo);
+        $datos['patente']=$resultado[0]['patente_vehiculo'];
+        $datos['combustible_previo']=$resultado[0]['combustible_total'];
+            if ($this->modelo->registrarReporte($datos))
+                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
+            else
+                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+
+        header("location:consultar");
     }
 }
