@@ -5,7 +5,7 @@ h3 Datos del vehiculo
 .row
     .form-group.col-md-6
         label(for="patente_vehiculo") Número de patente del vehículo
-        select(name="patente_vehiculo" class="form-control")
+        select(name="patente_vehiculo" class="form-control" required)
                   option(value="0" selected disabled) Seleccione la patente
                   each  vehiculo in vehiculos
                       if info && vehiculo['patente']==info['patente_vehiculo']
@@ -13,13 +13,14 @@ h3 Datos del vehiculo
                       else
                           - selected=false
                       option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
+        .invalid-feedback Por favor seleccione el vehículo
 hr
 |
 h3 Datos del Arrastre
 .row
     .form-group.col-md-6
         label(for="patente_arrastre") Número de patente del arrastre
-        select(name="patente_arrastre" class="form-control")
+        select(name="patente_arrastre" class="form-control" required)
             option(value="0" selected disabled) Seleccione la patente
             each  arrastre in arrastres
                 if info && arrastre['patente']==info['patente_arrastre']
@@ -27,6 +28,7 @@ h3 Datos del Arrastre
                 else
                     - selected=false
                 option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
+        .invalid-feedback Por favor seleccione el arrastre
 |
 hr
 |
@@ -34,7 +36,7 @@ h3 Datos del chofer
 .row
     .form-group.col-md-6
         label(for="nombre_chofer") Nombre y apellido
-        select(name="dni_chofer" class="form-control")
+        select(name="dni_chofer" class="custom-select" required)
             option(value="0" selected disabled) Seleccione el nombre y apellido
             each chofer in choferes
                 if info && chofer['dni']==info['dni_chofer']
@@ -42,6 +44,7 @@ h3 Datos del chofer
                 else
                     - selected=false
                 option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
+        .invalid-feedback Por favor seleccione al chofer
 |
 hr
 |
@@ -49,11 +52,12 @@ h3 Celular asignado
 .row
     .form-group.col-md-6
         label(for="celular") Número de celular
-        select(name="id_celular" class="form-control")
-            option(value="0" selected disabled) Seleccione el número de celular
+        select(name="id_celular" class="custom-select" required)
+            option(selected disabled value="0") Seleccione el número de celular
             each celular in celulares
-                if info && celular['numero']==info['id_celular']
+                if info && celular['id']==info['id_celular']
                     - selected=true
                 else
                     - selected=false
                 option(value=`${celular['id']}` selected=selected) #{celular['numero']}
+        .invalid-feedback Por favor seleccione el celular a asignar al chofer

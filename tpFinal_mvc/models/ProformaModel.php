@@ -49,6 +49,10 @@ class ProformaModel
         }
         $sql = "INSERT INTO Viaje VALUES (DEFAULT" . $query . " ,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
         if ($this->database->execute($sql)) {
+            $dni=$datos['dni_chofer'];
+            $patente=$datos['patente_vehiculo'];
+            $celular=$datos['id_celular'];
+            $this->asignarVehiculoYCelular($dni,$patente,$celular);
             $clave = $this->database->query("SELECT LAST_INSERT_ID()");
             $clave_viaje = $clave[0]['LAST_INSERT_ID()'];
             $fecha = $proforma['proforma_fecha'];
@@ -64,6 +68,11 @@ class ProformaModel
         return false;
     }
 
+    public function asignarVehiculoYCelular($dni,$patente,$celular){
+        $sql="UPDATE Chofer SET vehiculo_asignado='$patente',id_celular='$celular' WHERE dni_chofer='$dni'";
+        return $this->database->execute($sql);
+    }
+
     public function getProforma($codigo){
         $sql="SELECT * FROM Proforma, Viaje WHERE `Proforma`.`cod_viaje`=`Viaje`.`codigo` AND `Proforma`.`numero`='$codigo'";
         return $this->database->query($sql);
@@ -74,7 +83,7 @@ class ProformaModel
     }
 
     public function getCelulares(){
-        $sql="SELECT * FROM Celulares ";
+        $sql="SELECT * FROM Celulares";
         return $this->database->query($sql);
     }
 
@@ -85,7 +94,7 @@ class ProformaModel
     }
 
     public function getClientes(){
-        $sql="SELECT * FROM Clientes";
+        $sql="SELECT * FROM Cliente";
         return $this->database->query($sql);
     }
 
@@ -120,6 +129,10 @@ class ProformaModel
         $query=rtrim($query,", ");
         $query.=" WHERE codigo='".$datos['viaje_codigo']."'";
         if($this->database->execute($query)){
+            $dni=$datos['dni_chofer'];
+            $patente=$datos['patente_vehiculo'];
+            $celular=$datos['id_celular'];
+            $this->asignarVehiculoYCelular($dni,$patente,$celular);
             $query="UPDATE Proforma SET fecha_emision='".$proforma['proforma_fecha']."', fee_previsto='".$proforma['proforma_fee']."',cuit_cliente='".$proforma['proforma_cuit_cliente']."',cod_viaje='".$datos['viaje_codigo']."',fee_total='".$datos['proforma_fee']."' WHERE numero='".$datos['proforma_numero']."'";
             return $this->database->execute($query);
         }

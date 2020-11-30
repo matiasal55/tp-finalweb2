@@ -15,8 +15,13 @@ class ServiceModel
         return $this->database->query($sql);
     }
 
-    public function getService($id){
-        $sql="SELECT * FROM Service WHERE id='$id'";
+    public function getService($patente){
+        $sql="SELECT * FROM Service WHERE patente_vehiculo='$patente'";
+        return $this->database->query($sql);
+    }
+
+    public function getServiceYVehiculo($id){
+        $sql="SELECT * FROM Service, Vehiculo WHERE `Vehiculo`.`patente`=`Service`.`patente_vehiculo` AND id='$id'";
         return $this->database->query($sql);
     }
     public function registrar($datos){

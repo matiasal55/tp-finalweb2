@@ -5,7 +5,7 @@ block body
     include ./components/header
     h1.text-center.mt-3 Proforma
     .container.my-5
-        form(action="procesar" method="POST")
+        form.needs-validation(novalidate action="procesar" method="POST")
             .row
                 if info
                     .form-group.col-md-6
@@ -13,24 +13,39 @@ block body
                         input.form-control(type="number" readonly value=`${info['numero']}` name="proforma_numero")
                 .form-group.col-md-6
                     label(for="fecha") Fecha
-                    input.form-control(type="date" value=`${info['fecha_emision']}` name="proforma_fecha")
+                    input.form-control(type="date" value=`${info['fecha_emision']}` required name="proforma_fecha")
+                    .invalid-feedback Por favor ingrese la fecha
             h3 Datos del cliente
             .row
                 .form-group.col-md-6
                     label(for="dni_cliente") CUIT de cliente
-                    input.form-control(type="number" value=`${info['cuit_cliente']}` name="proforma_cuit_cliente")
                     if !editar
-                        button.btn.btn-primary.mt-2(type="button") Buscar cliente
-                        a(href="../cliente/nuevo" type="button" class= "btn btn-outline-primary mt-2") Agregar cliente
+                        select.form-control.custom-select#clientes(name="proforma_cuit_cliente" required)
+                            option(value="" selected disabled) Seleccione un cliente
+                            each cliente in clientes
+                                option(value=`${cliente['CUIT']}`) #{cliente['CUIT']} #{cliente['denominacion']}
+                        .invalid-feedback Por favor seleccione al cliente
+                        small.text-dark Si no encuentra al cliente deseado, puede agregar uno nuevo
+                        a(href="../cliente/nuevo" type="button" class= "btn btn-outline-primary mt-2 btn-block") Agregar cliente
+                    else
+                        input.form-control#clientes(type="number" readonly value=`${info['cuit_cliente']}` name="proforma_cuit_cliente")
                 .form-group.col-md-6
+                    input(type="hidden" id="url" value=url)
                     .d-flex.flex-column
-                        small CUIT: 2345678904
-                    	small Denominación: Pirulo S.A.
-                    	small Dirección: Florencio Varela 1835 - San Justo
-                    	small Teléfono: 1135857412
-                    	small Email: pirulo@hotmail.com
-                    	small Contacto 1:-
-                    	small Contacto 2: -
+                        small CUIT:
+                            span#cuit
+                        small Denominación:
+                            span#denominacion
+                        small Dirección:
+                            span#direccion
+                        small Teléfono:
+                            span#telefono
+                        small Email:
+                            span#email
+                        small Contacto 1:
+                            span#contacto1
+                        small Contacto 2:
+                            span#contacto2
             include components/viaje_template
             |
             hr
@@ -47,67 +62,68 @@ block body
                         tr
                             th(scope="row") Kilometros
                             td
-                                input(type="number" value=`${info['km_estimados']}` name="km_estimados")
+                                input.form-control.w-50(type="number" value=`${info['km_estimados'] || 0}` name="km_estimados")
                             td
-                                input(type="number" value=`${info['km_totales']}` name="total_km" readonly)
+                                input.form-control.w-50(type="number" value=`${info['km_totales'] || 0}` name="total_km" readonly)
                         tr
                             th(scope="row") Combustible
                             td
-                                input(type="number" value=`${info['combustible_previsto']}` name="combustible_previsto")
+                                input.form-control.w-50.estimados(type="number" value=`${info['combustible_previsto'] || 0}` name="combustible_previsto")
                             td
-                                input(type="number" value=`${info['combustible_total']}` name="total_combustible" readonly)
+                                input.form-control.w-50.reales(type="number" value=`${info['combustible_total'] || 0}` name="total_combustible" readonly)
                         tr
                             th(scope="row") ETA
                             td
-                                input(type="number" value=`${info['ETA']}`)
+                                input.form-control.w-50#eta_costeo(type="date" readonly value=`${info['ETA']}`)
                             td
-                                input(type="number" name="total_eta" value=`${info['eta_real']}` readonly)
+                                input.form-control.w-50(type="number" name="total_eta" value=`${info['eta_real']}` readonly)
                         tr
                             th(scope="row") Viáticos
                             td
-                                input(type="number" value=`${info['viaticos_previsto']}`)
+                                input.form-control.w-50.estimados(type="number" value=`${info['viaticos_previsto'] || 0}`)
                             td
-                                input(type="number" value=`${info['viaticos_real']}` readonly)
+                                input.form-control.w-50.reales(type="number" value=`${info['viaticos_real']}` readonly)
                         tr
                             th(scope="row") Peajes y Pesajes
                             td
-                                input(type="number")
+                                input.form-control.w-50.estimados(type="number" value=`${info['peajes'] || 0}`)
                             td
-                                input(type="number" readonly)
+                                input.form-control.w-50.reales(type="number" readonly)
                         tr
                             th(scope="row") Extras
                             td
-                                input(type="number" value=`${info['extras_previsto']}`)
+                                input.form-control.w-50.estimados(type="number" value=`${info['extras_previsto'] || 0}`)
                             td
-                                input(type="number" value=`${info['extras_real']}` readonly)
+                                input.form-control.w-50.reales(type="number" value=`${info['extras_real']}` readonly)
                         tr
                             th(scope="row") Hazard
                             td
-                                input(type="number" name="hazard_previsto" value=`${info['hazard_previsto'] || 0}` id="campo_hazard")
+                                input.form-control.w-50.estimados(type="number" readonly name="hazard_previsto" value=`${info['hazard_previsto'] || 0}` id="campo_hazard")
                             td
-                                input(type="number" value=`${info['hazard_total']}` readonly)
+                                input.form-control.w-50.reales(type="number" value=`${info['hazard_total']}` readonly)
                         tr
                             th(scope="row") Reefer
                             td
-                                input(type="number" name="reefer_previsto" value=`${info['reefer_previsto'] || 0}` id="campo_reefer")
+                                input.form-control.w-50.estimados(type="number" readonly name="reefer_previsto" value=`${info['reefer_previsto'] || 0}` id="campo_reefer")
                             td
-                                input(type="number" name="total_reefer" value=`${info['reefer_total']}` readonly)
+                                input.form-control.w-50.reales(type="number" name="total_reefer" value=`${info['reefer_total']}` readonly)
                         tr
                             th(scope="row") Fee
                             td
-                                input(type="number" name="proforma_fee" value=`${info['fee_previsto']}`)
+                                input.form-control.w-50.estimados(type="number" name="proforma_fee" value=`${info['fee_previsto'] || 0}`)
                             td
-                                input(type="number" name="total_fee" value=`${info['fee_total']}` readonly)
+                                input.form-control.w-50.reales(type="number" name="total_fee" value=`${info['fee_total']}` readonly)
                         tr.table-info
                             th(scope="row") Total
                             td
-                                input(type="number" value=`${info['total_previsto']}` readonly)
+                                input.form-control.w-50#totalEstimado(type="number" value=`${info['total_previsto'] || 0}` readonly)
                             td
-                                input(type="number" value=`${info['total_real']}` name="total_real" readonly)
+                                input.form-control.w-50#totalReal(type="number" value=`${info['total_real'] || 0}` name="total_real" readonly)
             include components/viaje_equipo
             if editar
-                input(type="hidden" name="proforma_numero" value=`${info['numero']}`)
+                input(type="hidden" name="proforma_numero" id="editar" value=`${info['numero']}`)
             button.btn.btn-success.mr-2(type="submit") Guardar
             button.btn.btn-outline-dark.m-1(type="reset") Reestablecer
 block script
+    script(src="../views/js/formulario.js")
     script(src="../views/js/proforma.js")

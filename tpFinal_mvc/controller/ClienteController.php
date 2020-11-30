@@ -53,6 +53,18 @@ class ClienteController
         echo $this->render->render("views/cliente.pug", $data);
     }
 
+    public function api(){
+        $this->controlAcceso();
+        if(!isset($_GET['cuit'])){
+            $clientes=$this->modelo->getClientes();
+        }
+        else {
+            $cuit=$_GET['cuit'];
+            $clientes=$this->modelo->getCliente($cuit);
+        }
+        echo json_encode($clientes);
+    }
+
     public function eliminar()
     {
         // Solo el Admin puede eliminar
@@ -79,6 +91,8 @@ class ClienteController
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+            header("location:../proforma/nuevo");
+            die();
         }
         header("location:consultar");
     }

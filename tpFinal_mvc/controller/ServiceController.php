@@ -31,12 +31,22 @@ class ServiceController
         }
         $this->controlAccesoChofer();
         $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
-        $data['listado'] = $this->modelo->getTodoslosService();
+        if($_SESSION['rol']==1 || $_SESSION['rol']==3) {
+            $data['listado'] = $this->modelo->getTodoslosService();
+            $data['botones']=true;
+            $data['botonNuevo']=true;
+        }
+        else {
+            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+                $data['listado'] = $this->modelo->getService($patente);
+            }
+            else
+                $data['listado']=[];
+        }
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
         $data['datoPrincipal'] = "id";
-        $data['botones'] = true;
-        $data['botonNuevo'] = true;
         echo $this->render->render("views/listas.pug", $data);
     }
 
@@ -86,23 +96,23 @@ class ServiceController
 
     // Ver los datos que muestra al chofer
     public function informe(){
-        $this->controlAccesoChofer();
-        $patente=$_GET['id'];
-        $resultado=$this->modelo->getArrastre($patente);
+        $this->controlInforme();
+        $id=$_GET['id'];
+        $resultado=$this->modelo->getServiceYVehiculo($id);
         $data['info']=$resultado[0];
         $data['titulo_listado'] = "service";
         echo $this->render->render("views/informe.pug",$data);
     }
 
     private function controlAcceso(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }
     }
 
     private function controlEdicion(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['id'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 || !isset($_GET['id'])){
             header("location:../index");
             die();
         }
@@ -110,7 +120,15 @@ class ServiceController
 
     private function controlAccesoChofer()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=4){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4){
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlInforme()
+    {
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4 || !isset($_GET['id'])){
             header("location:../index");
             die();
         }

@@ -90,6 +90,10 @@ class UsuariosController
         $dni = $_GET['dni'];
         $data['roles'] = $this->modelo->getRoles();
         $datos=$this->modelo->getDatos($dni);
+        if($datos[0]['cod_area']==4) {
+            $chofer = $this->modelo->getDatosChofer($dni);
+            $data['tipo_licencia']=$chofer[0]['tipo_licencia'];
+        }
         $data['datos'] = $datos[0];
         $data['area']=$datos[0]['cod_area'];
         echo $this->render->render("views/modificar_usuario.pug", $data);

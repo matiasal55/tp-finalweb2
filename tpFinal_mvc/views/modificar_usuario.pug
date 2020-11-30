@@ -23,7 +23,8 @@ block body
                         else
                             - selected=false;
                         option(value=`${rol['codigo']}` selected=selected) #{rol['descripcion']}
-            .form-group#adicional
+            .form-group
+                input(type="text" name="tipo_licencia" value=`${tipo_licencia}` class="form-control d-none" id="tipo_licencia" placeholder="Ingrese su tipo de licencia")
             .form-group
                 input(type="email" name="email" value=`${datos['email']}` class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese su email")
             button.btn.btn-success(type="submit" name="modificarDatos") Modificar Datos
