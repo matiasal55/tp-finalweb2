@@ -3,8 +3,13 @@ block titulo
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
+
     .container-fluid.my-2
         h2 Listado de #{titulo_listado}
+        if botonNuevo
+            a(href=`nuevo` class="d-sm-block btn btn-sm btn-success ml-auto my-2  ") Agregar #{sector}
+            small= mensaje
+
         // listado
         if listado.length>0
             .table-responsive
@@ -29,7 +34,3 @@ block body
                                             a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3(class="alert alert-info") No hay información disponible
-    .container
-        if botonNuevo
-            a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
-        small= mensaje

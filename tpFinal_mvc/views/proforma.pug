@@ -116,9 +116,9 @@ block body
                         tr.table-info
                             th(scope="row") Total
                             td
-                                input.form-control.w-50#totalEstimado(type="number" value=`${info['total_previsto'] || 0}` readonly)
+                                input.form-control.w-50#totalEstimado(type="number" name="proforma_total_estimado" value=`${info['total_estimado'] || 0}` readonly)
                             td
-                                input.form-control.w-50#totalReal(type="number" value=`${info['total_real'] || 0}` name="total_real" readonly)
+                                input.form-control.w-50#totalReal(type="number" name="total_real" value=`${info['total_real'] || 0}` name="total_real" readonly)
             include components/viaje_equipo
             if editar
                 input(type="hidden" name="proforma_numero" id="editar" value=`${info['numero']}`)
