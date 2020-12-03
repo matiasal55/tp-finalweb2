@@ -15,6 +15,11 @@ class ServiceModel
         return $this->database->query($sql);
     }
 
+    public function getVehiculos(){
+        $sql="SELECT `Vehiculo`.`patente`, `Marca`.`nombre`,`Modelo`.`descripcion` FROM Vehiculo,Marca,Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` and `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo`";
+        return $this->database->query($sql);
+    }
+
     public function getService($patente){
         $sql="SELECT * FROM Service WHERE patente_vehiculo='$patente'";
         return $this->database->query($sql);
@@ -24,12 +29,12 @@ class ServiceModel
         $sql="SELECT * FROM Service, Vehiculo WHERE `Vehiculo`.`patente`=`Service`.`patente_vehiculo` AND id='$id'";
         return $this->database->query($sql);
     }
+
     public function registrar($datos){
-        $id=$datos['id'];
         $patente=$datos['patente'];
         $fecha=$datos['fecha'];
 
-        $sql="INSERT INTO Service VALUES ('$id','$patente',' $fecha')";
+        $sql="INSERT INTO Service VALUES (DEFAULT,'$patente',' $fecha')";
         return $this->database->execute($sql);
     }
     public function editService($datos){

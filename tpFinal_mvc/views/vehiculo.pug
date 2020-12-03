@@ -46,7 +46,7 @@ block body
                 .form-group
                     label(for="kilometraje") Estado del Vehículo
                     select(name="estado" class="form-control")
-                        - estados=["Seleccione el estado del vehiculo","Disponible","En viaje","Fuera de servicio","En mantenimiento"];
+                        - estados=["Seleccione el estado del vehículo","Disponible","En viaje","Fuera de servicio","En Mantenimiento"];
                         each estado, index in estados
                             if index==0
                                 - disabled=true;

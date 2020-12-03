@@ -62,9 +62,9 @@ block body
                         tr
                             th(scope="row") Kilometros
                             td
-                                input.form-control.w-50(type="number" value=`${info['km_estimados'] || 0}` name="km_estimados")
+                                input.form-control.w-50(type="number" name="km_previsto"  value=`${info['km_previsto'] || 0}`)
                             td
-                                input.form-control.w-50(type="number" value=`${info['km_totales'] || 0}` name="total_km" readonly)
+                                input.form-control.w-50(type="number" name="total_km" value=`${info['km_totales'] || 0}` name="total_km" readonly)
                         tr
                             th(scope="row") Combustible
                             td
@@ -80,27 +80,33 @@ block body
                         tr
                             th(scope="row") Viáticos
                             td
-                                input.form-control.w-50.estimados(type="number" value=`${info['viaticos_previsto'] || 0}`)
+                                input.form-control.w-50.estimados(type="number" name="viaticos_previsto" value=`${info['viaticos_previsto'] || 0}`)
                             td
-                                input.form-control.w-50.reales(type="number" value=`${info['viaticos_real']}` readonly)
+                                input.form-control.w-50.reales(type="number" name="total_viaticos" value=`${info['viaticos_real']}` readonly)
                         tr
-                            th(scope="row") Peajes y Pesajes
+                            th(scope="row") Peajes
                             td
-                                input.form-control.w-50.estimados(type="number" value=`${info['peajes'] || 0}`)
+                                input.form-control.w-50.estimados(type="number" name="peajes_previsto" value=`${info['peajes_previsto'] || 0}`)
                             td
-                                input.form-control.w-50.reales(type="number" readonly)
+                                input.form-control.w-50.reales(type="number" name="total_peajes" value=`${info['peajes_total'] || 0}` readonly)
+                        tr
+                            th(scope="row") Pesajes
+                            td
+                                input.form-control.w-50(type="number" name="pesajes_previsto" value=`${info['pesajes_previsto'] || 0}`)
+                            td
+                                input.form-control.w-50(type="number" name="total_pesajes" value=`${info['pesajes_total']}` readonly)
                         tr
                             th(scope="row") Extras
                             td
-                                input.form-control.w-50.estimados(type="number" value=`${info['extras_previsto'] || 0}`)
+                                input.form-control.w-50.estimados(type="number" name="extras_previsto" value=`${info['extras_previsto'] || 0}`)
                             td
-                                input.form-control.w-50.reales(type="number" value=`${info['extras_real']}` readonly)
+                                input.form-control.w-50.reales(type="number" name="total_extras" value=`${info['extras_total']}` readonly)
                         tr
                             th(scope="row") Hazard
                             td
                                 input.form-control.w-50.estimados(type="number" readonly name="hazard_previsto" value=`${info['hazard_previsto'] || 0}` id="campo_hazard")
                             td
-                                input.form-control.w-50.reales(type="number" value=`${info['hazard_total']}` readonly)
+                                input.form-control.w-50.reales(type="number" name="total_hazard" value=`${info['hazard_total']}` readonly)
                         tr
                             th(scope="row") Reefer
                             td
@@ -118,7 +124,7 @@ block body
                             td
                                 input.form-control.w-50#totalEstimado(type="number" name="proforma_total_estimado" value=`${info['total_estimado'] || 0}` readonly)
                             td
-                                input.form-control.w-50#totalReal(type="number" name="total_real" value=`${info['total_real'] || 0}` name="total_real" readonly)
+                                input.form-control.w-50(type="number" name="total_real" value=`${info['total_real'] || 0}` readonly)
             include components/viaje_equipo
             if editar
                 input(type="hidden" name="proforma_numero" id="editar" value=`${info['numero']}`)

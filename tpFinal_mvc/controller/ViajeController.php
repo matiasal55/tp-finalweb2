@@ -22,9 +22,15 @@ class ViajeController
         $this->controlInforme();
         $codigo = $_GET['codigo'];
         $info = $this->modelo->getViaje($codigo);
-        $data['info'] = $info[0];
         $data['datoPrincipal'] = "codigo";
         $data['titulo_listado'] = "viaje";
+        $patente = $info[0]['patente_vehiculo'];
+        $posicion = $this->modelo->getPosicion($patente);
+        if ($info[0]['estado'] == 2)
+            $info[0]['posicion_actual'] = $posicion[0]['posicion_actual'];
+        $data['posicion'] = $posicion[0]['posicion_actual'];
+        $data['mapa'] = true;
+        $data['info'] = $info[0];
         echo $this->render->render("views/informe.pug", $data);
     }
 
@@ -57,6 +63,7 @@ class ViajeController
         $data['vehiculos'] = $this->modelo->getVehiculos();
         $data['arrastres'] = $this->modelo->getArrastres();
         $data['choferes'] = $this->modelo->getChoferes();
+        $data['celulares'] = $this->modelo->getCelulares();
         echo $this->render->render("views/viaje.pug", $data);
     }
 
@@ -68,20 +75,20 @@ class ViajeController
         }
         $this->controlAccesoChofer();
         $data['cabeceras'] = ['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
-        if($_SESSION['rol']==1){
-            $data['listado'] = $this->modelo->getViajes();
+        if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
+            if (isset($_GET['cuit'])) {
+                $cuit = $_GET['cuit'];
+                $data['listado'] = $this->modelo->getViajesCliente($cuit);
+            } else
+                $data['listado'] = $this->modelo->getViajes();
             $data['botones'] = true;
-        }
-        else if($_SESSION['rol']==2){
-            $data['listado'] = $this->modelo->getViajes();
-        }
-        else {
-            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
-                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+            $data['noEliminar'] = true;
+        } else {
+            if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente = $_SESSION['chofer']['vehiculo_asignado'];
                 $data['listado'] = $this->modelo->getViajesPorVehiculo($patente);
-            }
-            else
-                $data['listado']=[];
+            } else
+                $data['listado'] = [];
         }
         $data['titulo_listado'] = "viajes";
         $data['sector'] = "Viaje";
@@ -104,30 +111,34 @@ class ViajeController
             die();
         }
     }
-    public function reportar(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+
+    public function reportar()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4 || !isset($_GET['codigo'])) {
             header("location:../index");
             die();
         }
         $data['codigo'] = $_GET['codigo'];
+        $data['conceptos']=$this->modelo->getConceptos();
         echo $this->render->render("views/cargaDatos.pug", $data);
     }
 
-    public  function procesarReporte(){
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+    public function procesarReporte()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
-        $datos=$_POST;
-        $codigo=$datos['codigo'];
-        $resultado=$this->modelo->getPatente($codigo);
-        $datos['patente']=$resultado[0]['patente_vehiculo'];
-        $datos['combustible_previo']=$resultado[0]['combustible_total'];
-            if ($this->modelo->registrarReporte($datos))
-                $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
-            else
-                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+        $datos = $_POST;
+        $codigo = $datos['codigo'];
+        $resultado = $this->modelo->getPatente($codigo);
+        $datos['patente'] = $resultado[0]['patente_vehiculo'];
+        if ($this->modelo->registrarReporte($datos)) {
+            header("location:confirmacion");
+        }
+        else {
+            header("location:reportar?codigo=".$codigo);
+        }
 
-        header("location:consultar");
     }
 }
