@@ -26,7 +26,7 @@ class ProformaController
         $data['clientes'] = $this->modelo->getClientes();
         $data['url']="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
 
-        $data['datoPrincipal']="numero";
+//        $data['datoPrincipal']="numero";
         echo $this->render->render("views/proforma.pug", $data);
     }
 

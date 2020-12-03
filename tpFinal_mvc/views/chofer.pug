@@ -10,9 +10,7 @@ block body
             small  #{datos["apellido"]}
         .row
             include ./components/card
-            +card("Gastos","Actualice los gastos que está realizando durante el viaje.","#")
             +card("Service","En esta pagina se muestra los service realizados.","service/consultar")
-            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar","mantenimiento/nuevo")
-            +card("Posición actual","Reporte su posición actual.","mapa")
+            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar")
             +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
             +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar")

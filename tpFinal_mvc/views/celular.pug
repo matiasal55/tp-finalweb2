@@ -8,29 +8,33 @@ block body
         form(action="procesar" method="POST")
             .form-group
                  label(for="celular") Número de Celular
-                 input(type="number" name="celular" class="form-control" value=`${info['celular']}` placeholder="Ingrese el número de celular")
+                 input(type="number" name="celular" class="form-control" value=`${info['numero']}` placeholder="Ingrese el número de celular")
             .form-group
                 label(for="compania") Compañia
                 select(name="compania" class="form-control")
                     option(value="0" selected=!info disabled) Seleccione la compañia
+                    - companias= ['Claro','Movistar','Personal']
                     each compania in companias
-                        if compania['id']==info['compania']
+                        if compania==info['compañia']
                             - selected=true
                         else
                             - selected=false
-                        option(value=`${compania['id']}` selected=selected)= compania['compañia']
+                        option(value=`${compania}` selected=selected)= compania
             if editar
                 .form-group
                     label(for="estado") Estado
                     select(name="estado" class="form-control")
-                        - estados=['Fuera de servicio','Disponible','En viaje'];
+                        - estados=['Seleccione el estado del vehiculo','Disponible','No disponible'];
                         each estado, index in estados
+                            if index==0
+                                - disabled=true;
+                            else
+                                - disabled=false;
                             if index == info['estado']
                                 - selected=true
                             else
                                 - selected=false
-                            option(value=`${index}` selected=selected)= estado
-                input(type="hidden" name="editar" value=`${info['patente']}`)
+                            option(value=`${index}` disabled=disabled selected=selected)= estado
 
-            input(type="hidden" name="editar" value=`${info['patente']}`)
-        button(type="submit" name="enviarCelular" class="btn btn-success") #{accion} Celular
+                input(type="hidden" name="id" value=`${info['id']}`)
+            button(type="submit" name="enviarCelular" class="btn btn-success") #{accion} Celular

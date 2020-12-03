@@ -11,14 +11,9 @@ class CelularesModel
     }
     public function getCelulares()
     {
-        $sql = "SELECT numero,compañia,estado FROM Celulares";
+        $sql = "SELECT * FROM Celulares";
         return $this->database->query($sql);
     }
-//    public function getCelulares()
-//    {
-//        $sql = "SELECT `Viaje`.`dni_chofer`,`Celulares`.`numero`, `Celulares`.`compañia`, `Celulares`.`estado` FROM Viaje,Celulares WHERE `Viaje`.`id_celular`=`Celulares`.`id` ";
-//        return $this->database->query($sql);
-//    }
 
     public function getcelular($id)
     {
@@ -29,11 +24,10 @@ class CelularesModel
 
     public function registrar($datos)
     {
-        $id=$datos['id'];
         $numero = $datos['celular'];
         $compañia = $datos['compania'];
 
-        $sql = "INSERT INTO Celulares VALUES ($id,'$numero','$compañia',DEFAULT)";
+        $sql = "INSERT INTO Celulares VALUES (DEFAULT ,'$numero','$compañia',DEFAULT)";
         return $this->database->execute($sql);
     }
 
@@ -43,7 +37,7 @@ class CelularesModel
         $numero = $datos['celular'];
         $compañia = $datos['compania'];
         $estado=$datos['estado'];
-        $sql = "UPDATE Celular SET numero='$numero',compañia='$compañia', estado='$estado' WHERE id='$id'";
+        $sql = "UPDATE Celulares SET numero='$numero',compañia='$compañia', estado='$estado' WHERE id='$id'";
         return $this->database->execute($sql);
     }
     public function deleteCelular($id)

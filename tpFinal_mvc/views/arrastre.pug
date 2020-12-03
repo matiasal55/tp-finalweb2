@@ -14,7 +14,7 @@ block body
                  input(type="text" name="chasis" class="form-control" value=`${info['chasis']}` placeholder="Ingrese el número de chasis")
             .form-group
                 label(for="tipo_arrastre") Tipo de Arrastre
-                select(name="codigo_tipoArrastre" class="form-control")
+                select(name="codigo_tipoArrastre" class="CUSTON-SELECT")
                     option(value="0" selected=!info disabled) Seleccione el tipo de arrastre
                     each tipo_arrastre in tipo_arrastres
                         if tipo_arrastre['codigo']==info['codigo_tipoArrastre']

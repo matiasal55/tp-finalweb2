@@ -19,7 +19,7 @@ class CelularesController
     public function nuevo()
     {
         $this->controlAcceso();
-        $data['companias'] = $this->modelo->getCelulares();
+//        $data['companias'] = $this->modelo->getCelulares();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/celular.pug", $data);
     }
@@ -36,10 +36,10 @@ class CelularesController
             $data['botones'] = true;
             $data['botonNuevo'] = true;
         }
-        $data['cabeceras'] = ['Número', 'Compañia', 'Estado'];
+        $data['cabeceras'] = ['Id','Número', 'Compañia', 'Estado'];
         $data['listado'] = $this->modelo->getCelulares();
         $data['titulo_listado'] = "celulares";
-        $data['sector'] = "Celulares";
+        $data['sector'] = "Celular";
         $data['datoPrincipal'] = "id";
         echo $this->render->render("views/listas.pug", $data);
     }
@@ -59,7 +59,6 @@ class CelularesController
         $id = $_GET['id'];
         $info = $this->modelo->getcelular($id);
         $data['info'] = $info[0];
-        $data['companias'] = $this->modelo->getCelulares();
         $data['accion'] = "Editar";
         $data['editar'] = true;
         echo $this->render->render("views/celular.pug", $data);
@@ -80,7 +79,7 @@ class CelularesController
     {
         $this->controlAcceso();
         $datos = $_POST;
-        if ($_POST['editar']) {
+        if ($_POST['id']) {
             if ($this->modelo->editCelular($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
@@ -89,7 +88,7 @@ class CelularesController
             if ($this->modelo->registrar($datos))
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
-                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+                $_SESSION['mensaje'] = "Hubo un error ";
         }
         header("location:consultar");
     }
