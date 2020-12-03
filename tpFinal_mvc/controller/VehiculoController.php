@@ -71,7 +71,6 @@ class VehiculoController
         echo $this->render->render("views/listas.pug", $data);
     }
 
-    // Cualquier usuario accedería al informe del vehículo, salvo el que no tiene rol
     public function informe()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] == 0 || !isset($_GET['patente'])) {
@@ -81,8 +80,8 @@ class VehiculoController
         $patente = $_GET['patente'];
         $resultado = $this->modelo->getVehiculo($patente);
         $data['info'] = $resultado[0];
+        $data['mapa']=true;
         $data['titulo_listado'] = "vehículo";
-        //$data['datoPrincipal'] = "patente";
         echo $this->render->render("views/informe.pug", $data);
     }
 
@@ -138,19 +137,19 @@ class VehiculoController
 
     private function controlAccesoUsuarios()
     {
-        if (!isset($_SESSION['iniciada'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] == 0) {
             header("location:../index");
             die();
         }
     }
 
-    private function controlSupervisorChofer()
-    {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
-            header("location:../index");
-            die();
-        }
-    }
+//    private function controlSupervisorChofer()
+//    {
+//        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
+//            header("location:../index");
+//            die();
+//        }
+//    }
 
     private function controlEdicion()
     {

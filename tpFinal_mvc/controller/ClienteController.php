@@ -19,7 +19,7 @@ class ClienteController
 
     public function nuevo()
     {
-        $this->controlAcceso();
+        $this->controlAccesoSupervisor();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/cliente.pug", $data);
     }
@@ -42,6 +42,15 @@ class ClienteController
         echo $this->render->render("views/listas.pug", $data);
     }
 
+    public function informe(){
+        $this->controlAcceso();
+        $cuit=$_GET['cuit'];
+        $resultado=$this->modelo->getCliente($cuit);
+        $data['info']=$resultado[0];
+        $data['titulo_listado'] = "cliente";
+        echo $this->render->render("views/informe.pug", $data);
+    }
+
     public function editar()
     {
         $this->controlEdicion();
@@ -62,12 +71,12 @@ class ClienteController
             $cuit=$_GET['cuit'];
             $clientes=$this->modelo->getCliente($cuit);
         }
+        header('Content-Type: application/json; charset=utf-8');
         echo json_encode($clientes);
     }
 
     public function eliminar()
     {
-        // Solo el Admin puede eliminar
         $this->controlEliminar();
         $cuit = $_GET['cuit'];
         if ($this->modelo->deleteCliente($cuit))
@@ -116,6 +125,14 @@ class ClienteController
     private function controlEliminar()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlAccesoSupervisor()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['cuit'])) {
             header("location:../index");
             die();
         }

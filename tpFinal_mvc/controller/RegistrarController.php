@@ -11,8 +11,11 @@ class RegistrarController
     }
 
     public function execute(){
-        if(isset($_SESSION['iniciada']))
+        if(isset($_SESSION['iniciada'])) {
             header("location:home");
-        echo $this->render->render("views/registrar.pug");
+            die();
+        }
+        $data['url']="https://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+        echo $this->render->render("views/registrar.pug",$data);
     }
 }

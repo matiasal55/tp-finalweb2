@@ -19,6 +19,7 @@ class ServiceController
     public function nuevo()
     {
         $this->controlAcceso();
+        $data['vehiculos']=$this->modelo->getVehiculos();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/service.pug", $data);
     }
@@ -54,7 +55,7 @@ class ServiceController
     {
         $this->controlEdicion();
         $id = $_GET['id'];
-        $info = $this->modelo->getService($id);
+        $info = $this->modelo->getServiceYVehiculo($id);
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
         $data['editar'] = true;

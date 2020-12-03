@@ -6,35 +6,6 @@ $dir->includeAllFile("models/");
 $dir->includeAllFile("controller/");
 
 include_once "Router.php";
-/*
-include_once "models/UsuariosModel.php";
-include_once "models/TallerModel.php";
-include_once "models/VehiculoModel.php";
-include_once "models/ProformaModel.php";
-include_once "models/ViajeModel.php";
-include_once "models/MantenimientoModel.php";
-include_once "models/ClienteModel.php";
-include_once "models/ArrastreModel.php";
-include_once "models/ServiceModel.php";
-include_once "helper/MySqlDatabase.php";
-include_once "helper/Render.php";
-include_once "helper/InformePdf.php";
-include_once "helper/CodigoQR.php";
-include_once "controller/IndexController.php";
-include_once "controller/HomeController.php";
-include_once "controller/ProformaController.php";
-include_once "controller/UsuariosController.php";
-include_once "controller/RegistrarController.php";
-include_once "controller/LogoutController.php";
-include_once "controller/TallerController.php";
-include_once "controller/VehiculoController.php";
-include_once "controller/MantenimientoController.php";
-include_once "controller/ViajeController.php";
-include_once "controller/ClienteController.php";
-include_once "controller/ArrastreController.php";
-include_once "controller/ServiceController.php";
-
-*/
 
 class Configuration
 {

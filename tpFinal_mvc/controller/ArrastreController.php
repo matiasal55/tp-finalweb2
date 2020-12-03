@@ -32,9 +32,7 @@ class ArrastreController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        // Rol 1 y 2
         $this->controlAccesoSupervisor();
-        // Si es Admin, muestra los botones de Editar y Eliminar
         if($_SESSION['rol']==1) {
             $data['botones'] = true;
             $data['botonNuevo'] = true;
@@ -89,7 +87,6 @@ class ArrastreController
     }
 
     public function informe(){
-        // Agregue aca tambien
         $this->controlAccesoSupervisor();
         $patente=$_GET['patente'];
         $resultado=$this->modelo->getArrastre($patente);
@@ -105,7 +102,6 @@ class ArrastreController
         }
     }
 
-    // Agregado
     private function controlAccesoSupervisor(){
         if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
             header("location:../index");

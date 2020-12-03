@@ -27,7 +27,6 @@ class MantenimientoModel
             $id_service=intval($resultado[0]['LAST_INSERT_ID()']);
             $sql="INSERT INTO Mantenimiento VALUES (DEFAULT,'$patente','$inicio','$final','$kilometraje','$costo','$cod_taller','$mecanico','$id_service','$repuestos_cambiados')";
             return $this->database->execute($sql);
-//            return $sql;
         }
         return false;
     }

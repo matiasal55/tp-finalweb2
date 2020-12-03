@@ -55,9 +55,16 @@ class ProformaController
         $this->controlAcceso();
         $proforma = $_GET['numero'];
         $resultado = $this->modelo->getProforma($proforma);
-        $data['info'] = $resultado[0];
         $data['qr'] = md5($proforma);
         $data['titulo_listado'] = "proforma";
+        $data['mapa']=true;
+        $patente=$resultado[0]['patente_vehiculo'];
+        $posicion=$this->modelo->getPosicion($patente);
+        if($resultado[0]['estado']==2)
+            $resultado[0]['posicion_actual']=$posicion[0]['posicion_actual'];
+        $data['posicion']=$posicion[0]['posicion_actual'];
+        $data['mapa']=true;
+        $data['info'] = $resultado[0];
         echo $this->render->render("views/informe.pug", $data);
     }
 

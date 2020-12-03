@@ -47,18 +47,23 @@ class ProformaModel
             else
                 $query .= ",DEFAULT";
         }
-        $sql = "INSERT INTO Viaje VALUES (DEFAULT" . $query . " ,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
+        $sql = "INSERT INTO Viaje VALUES (DEFAULT" . $query . " ,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
         if ($this->database->execute($sql)) {
+            $clave = $this->database->query("SELECT LAST_INSERT_ID()");
+            $clave_viaje = $clave[0]['LAST_INSERT_ID()'];
             $dni=$datos['dni_chofer'];
             $patente=$datos['patente_vehiculo'];
             $celular=$datos['id_celular'];
             $this->asignarVehiculoYCelular($dni,$patente,$celular);
-            $clave = $this->database->query("SELECT LAST_INSERT_ID()");
-            $clave_viaje = $clave[0]['LAST_INSERT_ID()'];
+            $this->cambiarEstado("Vehiculo","patente",$datos['patente_vehiculo']);
+            $this->cambiarEstado("Arrastre","patente",$datos['patente_arrastre']);
+            $this->cambiarEstado("Chofer","dni_chofer",$datos['dni_chofer']);
+            $this->cambiarEstado("Celulares","id",$datos['id_celular']);
             $fecha = $proforma['proforma_fecha'];
             $fee = $proforma['proforma_fee'];
+            $total = $proforma['proforma_total_estimado'];
             $cuit = $proforma['proforma_cuit_cliente'];
-            $sql = "INSERT INTO Proforma VALUES (DEFAULT,'$fecha',' $fee','$cuit','$clave_viaje',DEFAULT)";
+            $sql = "INSERT INTO Proforma VALUES (DEFAULT,'$fecha',' $fee','$total','$cuit','$clave_viaje',DEFAULT,DEFAULT)";
             if($this->database->execute($sql)){
                 $numero=$this->database->query("SELECT LAST_INSERT_ID()");
                 return $numero[0]['LAST_INSERT_ID()'];
@@ -93,7 +98,7 @@ class ProformaModel
 
     public function getVehiculos()
     {
-        $sql = "SELECT `Vehiculo`.`patente`, `Marca`.`nombre`,`Modelo`.`descripcion` FROM Vehiculo,Marca,Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` and `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo`";
+        $sql = "SELECT `Vehiculo`.`patente`, `Marca`.`nombre`,`Modelo`.`descripcion`,`Vehiculo`.`estado` FROM Vehiculo,Marca,Modelo WHERE `Vehiculo`.`cod_marca`=`Marca`.`codigo` and `Vehiculo`.`cod_modelo`=`Modelo`.`cod_modelo`";
         return $this->database->query($sql);
     }
 
@@ -104,13 +109,13 @@ class ProformaModel
 
     public function getArrastres()
     {
-        $sql = "SELECT `Arrastre`.`patente`, `tipoArrastre`.`nombre` FROM Arrastre,tipoArrastre WHERE `Arrastre`.`codigo_tipoArrastre`=`tipoArrastre`.`codigo` ";
+        $sql = "SELECT `Arrastre`.`patente`, `tipoArrastre`.`nombre`, `Arrastre`.`estado` FROM Arrastre,tipoArrastre WHERE `Arrastre`.`codigo_tipoArrastre`=`tipoArrastre`.`codigo` ";
         return $this->database->query($sql);
     }
 
     public function getChoferes()
     {
-        $sql = "SELECT dni,nombre,apellido FROM Usuarios WHERE cod_area= '4'";
+        $sql = "SELECT `Usuarios`.`dni`,`Usuarios`.`nombre`,`Usuarios`.`apellido`,`Chofer`.`estado` FROM Usuarios, Chofer WHERE `Usuarios`.`dni`=`Chofer`.`dni_chofer`";
         return $this->database->query($sql);
     }
 
@@ -157,5 +162,16 @@ class ProformaModel
             return $this->database->execute($sql);
         }
         return false;
+    }
+
+    private function cambiarEstado($tabla,$clave,$patente_vehiculo)
+    {
+        $sql="UPDATE ".$tabla." SET estado='2' WHERE ".$clave."='$patente_vehiculo'";
+        return $this->database->execute($sql);
+    }
+
+    public function getPosicion($patente){
+        $sql="SELECT posicion_actual FROM Vehiculo WHERE patente='$patente'";
+        return $this->database->query($sql);
     }
 }

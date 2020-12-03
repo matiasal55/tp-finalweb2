@@ -6,13 +6,14 @@ h3 Datos del vehiculo
     .form-group.col-md-6
         label(for="patente_vehiculo") Número de patente del vehículo
         select(name="patente_vehiculo" class="form-control" required)
-                  option(value="0" selected disabled) Seleccione la patente
-                  each  vehiculo in vehiculos
-                      if info && vehiculo['patente']==info['patente_vehiculo']
-                          - selected=true
-                      else
-                          - selected=false
-                      option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
+            option(value="0" selected disabled) Seleccione la patente
+            each  vehiculo in vehiculos
+                if info && vehiculo['patente'] == info['patente_vehiculo']
+                    - selected=true
+                else
+                    - selected=false
+                if vehiculo['estado'] != 2
+                    option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
         .invalid-feedback Por favor seleccione el vehículo
 hr
 |
@@ -22,12 +23,13 @@ h3 Datos del Arrastre
         label(for="patente_arrastre") Número de patente del arrastre
         select(name="patente_arrastre" class="form-control" required)
             option(value="0" selected disabled) Seleccione la patente
-            each  arrastre in arrastres
-                if info && arrastre['patente']==info['patente_arrastre']
+            each arrastre in arrastres
+                if info && arrastre['patente'] == info['patente_arrastre']
                     - selected=true
                 else
                     - selected=false
-                option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
+                if arrastre['estado'] != 2
+                    option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
         .invalid-feedback Por favor seleccione el arrastre
 |
 hr
@@ -39,11 +41,12 @@ h3 Datos del chofer
         select(name="dni_chofer" class="custom-select" required)
             option(value="0" selected disabled) Seleccione el nombre y apellido
             each chofer in choferes
-                if info && chofer['dni']==info['dni_chofer']
+                if info && chofer['dni'] == info['dni_chofer']
                     - selected=true
                 else
                     - selected=false
-                option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
+                if chofer['estado'] != 2
+                    option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
         .invalid-feedback Por favor seleccione al chofer
 |
 hr
@@ -55,9 +58,10 @@ h3 Celular asignado
         select(name="id_celular" class="custom-select" required)
             option(selected disabled value="0") Seleccione el número de celular
             each celular in celulares
-                if info && celular['id']==info['id_celular']
+                if info && celular['id'] == info['id_celular']
                     - selected=true
                 else
                     - selected=false
-                option(value=`${celular['id']}` selected=selected) #{celular['numero']}
+                if celular['estado'] != 2
+                    option(value=`${celular['id']}` selected=selected) #{celular['numero']}
         .invalid-feedback Por favor seleccione el celular a asignar al chofer
