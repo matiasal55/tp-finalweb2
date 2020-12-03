@@ -29,7 +29,7 @@ class ViajeModel
     }
 
     public function getViajesPorVehiculo($patente){
-        $sql="SELECT * FROM Viaje WHERE patente_vehiculo='$patente'";
+        $sql="SELECT codigo,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viaje WHERE patente_vehiculo='$patente'";
         return $this->database->query($sql);
     }
 

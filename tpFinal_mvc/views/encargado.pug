@@ -1,0 +1,15 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .d-flex.flex-column
+        h2(class="alert alert-info") Bienvenido:
+            small  #{datos["nombre"]}
+            small  #{datos["apellido"]}
+        .row
+            include ./components/card
+            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar","mantenimiento/nuevo",true)
+            +card("Service","En esta pagina se muestra los service realizados.","service/consultar","service/nuevo",true)
+            +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")

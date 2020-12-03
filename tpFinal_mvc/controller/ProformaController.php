@@ -24,9 +24,9 @@ class ProformaController
         $data['choferes'] = $this->modelo->getChoferes();
         $data['celulares'] = $this->modelo->getCelulares();
         $data['clientes'] = $this->modelo->getClientes();
-        $data['url']="https://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+        $data['url']="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
 
-        $data['datoPrincipal']="numero";
+//        $data['datoPrincipal']="numero";
         echo $this->render->render("views/proforma.pug", $data);
     }
 
@@ -92,7 +92,7 @@ class ProformaController
         $data['choferes'] = $this->modelo->getChoferes();
         $data['celulares'] = $this->modelo->getCelulares();
         $data['editar'] = true;
-        $data['url']="https://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+        $data['url']="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
         echo $this->render->render("views/proforma.pug", $data);
     }
 

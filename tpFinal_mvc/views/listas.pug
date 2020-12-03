@@ -3,9 +3,13 @@ block titulo
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
-    .container-fluid.my-2
-        h2 Listado de #{titulo_listado}
-        // listado
+    .container.my-3
+        .d-flex.justify-content-between
+            h2 Listado de #{titulo_listado}
+            if botonNuevo
+                a(href=`nuevo` class="d-sm-inline-block btn btn-md btn-success ml-auto my-2") Agregar #{sector}
+        small.d-flex.justify-content-center.my-4.text-secondary= mensaje
+            // listado
         if listado.length>0
             .table-responsive
                 table.table
@@ -29,7 +33,5 @@ block body
                                             a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
         else
             h3(class="alert alert-info") No hay información disponible
-    .container
-        if botonNuevo
-            a(href=`nuevo` class="btn btn-success btn-block") Agregar #{sector}
-        small= mensaje
+        div.d-flex.justify-content-center.my-4
+            a(href=`../home` class="d-sm-inline-block btn btn-md btn-info  my-2") Volver
