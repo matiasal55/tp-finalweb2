@@ -1,6 +1,7 @@
 <?php
 
-class ArrastreController
+
+class CelularesController
 {
     private $modelo;
     private $render;
@@ -15,56 +16,62 @@ class ArrastreController
     {
         header("location:consultar");
     }
-
     public function nuevo()
     {
         $this->controlAcceso();
-        $data['tipo_arrastres'] = $this->modelo->getTipoArrastre();
+//        $data['companias'] = $this->modelo->getCelulares();
         $data['accion'] = "Agregar";
-       // $data['nuevo'] = "arrastre";
-
-        echo $this->render->render("views/arrastre.pug", $data);
+        echo $this->render->render("views/celular.pug", $data);
     }
-
     public function consultar()
     {
         if (isset($_SESSION['mensaje'])) {
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
+        // Rol 1 y 2
         $this->controlAccesoSupervisor();
+        // Si es Admin, muestra los botones de Editar y Eliminar
         if($_SESSION['rol']==1) {
             $data['botones'] = true;
             $data['botonNuevo'] = true;
         }
-        $data['cabeceras'] = ['Patente', 'Chasis', 'Tipo de Arrastre'];
-        $data['listado'] = $this->modelo->getArrastres();
-        $data['titulo_listado'] = "arrastres";
-        $data['sector'] = "Arrastre";
-        $data['datoPrincipal'] = "patente";
+        $data['cabeceras'] = ['Id','Número', 'Compañia', 'Estado'];
+        $data['listado'] = $this->modelo->getCelulares();
+        $data['titulo_listado'] = "celulares";
+        $data['sector'] = "Celular";
+        $data['datoPrincipal'] = "id";
         echo $this->render->render("views/listas.pug", $data);
     }
 
+    public function informe(){
+        // Agregue aca tambien
+        $this->controlAccesoSupervisor();
+        $id=$_GET['id'];
+        $resultado=$this->modelo->getcelular($id);
+        $data['info']=$resultado[0];
+        $data['titulo_listado'] = "celular";
+        echo $this->render->render("views/informe.pug",$data);
+    }
     public function editar()
     {
         $this->controlEdicion();
-        $patente = $_GET['patente'];
-        $info = $this->modelo->getArrastre($patente);
+        $id = $_GET['id'];
+        $info = $this->modelo->getcelular($id);
         $data['info'] = $info[0];
-        $data['tipo_arrastres'] = $this->modelo->getTipoArrastre();
         $data['accion'] = "Editar";
         $data['editar'] = true;
-        echo $this->render->render("views/arrastre.pug", $data);
+        echo $this->render->render("views/celular.pug", $data);
     }
 
     public function eliminar()
     {
         $this->controlEdicion();
-        $patente = $_GET['patente'];
-        if ($this->modelo->deleteArrastre($patente))
-            $_SESSION['mensaje'] = "El arrastre se eliminó correctamente";
+        $id = $_GET['id'];
+        if ($this->modelo->deleteCelular($id))
+            $_SESSION['mensaje'] = "El numero de celular se eliminó correctamente";
         else
-            $_SESSION['mensaje'] = "El arrastre no se pudo eliminar";
+            $_SESSION['mensaje'] = "El numero de celular no se pudo eliminar";
         header("location:consultar");
     }
 
@@ -72,8 +79,8 @@ class ArrastreController
     {
         $this->controlAcceso();
         $datos = $_POST;
-        if ($_POST['editar']) {
-            if ($this->modelo->editArrastre($datos))
+        if ($_POST['id']) {
+            if ($this->modelo->editCelular($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
@@ -81,18 +88,9 @@ class ArrastreController
             if ($this->modelo->registrar($datos))
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
-                $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
+                $_SESSION['mensaje'] = "Hubo un error ";
         }
         header("location:consultar");
-    }
-
-    public function informe(){
-        $this->controlAccesoSupervisor();
-        $patente=$_GET['patente'];
-        $resultado=$this->modelo->getArrastre($patente);
-        $data['info']=$resultado[0];
-        $data['titulo_listado'] = "arrastre";
-        echo $this->render->render("views/informe.pug",$data);
     }
 
     private function controlAcceso(){
@@ -101,16 +99,15 @@ class ArrastreController
             die();
         }
     }
-
+    // Agregado
     private function controlAccesoSupervisor(){
         if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
             header("location:../index");
             die();
         }
     }
-
     private function controlEdicion(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['patente'])){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['id'])){
             header("location:../index");
             die();
         }
