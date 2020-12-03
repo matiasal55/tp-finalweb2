@@ -20,12 +20,22 @@ class UsuariosModel{
         $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area')";
         if($cod_area==4){
             if($this->database->execute($sql)){
-                $sql="INSERT INTO Chofer VALUES ('$dni','$licencia',DEFAULT,DEFAULT)";
+                $sql="INSERT INTO Chofer VALUES ('$dni','$licencia',DEFAULT,DEFAULT,DEFAULT)";
                 return $this->database->execute($sql);
             }
             return false;
         }
         return $this->database->execute($sql);
+    }
+
+    public function dniExistente($dni){
+        $sql="SELECT dni FROM Usuarios WHERE dni='$dni'";
+        return $this->database->query($sql);
+    }
+
+    public function emailExistente($email){
+        $sql="SELECT email FROM Usuarios WHERE email='$email'";
+        return $this->database->query($sql);
     }
 
     public function getLogin($email,$password){
@@ -65,7 +75,7 @@ class UsuariosModel{
         $apellido=$datos["apellido"];
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
-        $cod_area=$datos['cod_area'];
+        $cod_area=$datos['area'];
         $licencia=$datos['licencia'];
         $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area',tipo_licencia='$licencia' WHERE dni='$dni'";
         return $this->database->execute($sql);
@@ -73,6 +83,11 @@ class UsuariosModel{
 
     public function editRol($dni,$rol){
         $sql="UPDATE Usuarios SET rol='$rol' WHERE dni='$dni'";
+        return $this->database->execute($sql);
+    }
+
+    public function bloquearUsuario($dni){
+        $sql="UPDATE Usuarios SET rol=0 WHERE dni='$dni'";
         return $this->database->execute($sql);
     }
 }

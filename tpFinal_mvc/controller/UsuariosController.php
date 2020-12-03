@@ -44,14 +44,41 @@ class UsuariosController
     {
         if (isset($_SESSION['iniciada']))
             header("location:home");
-        if (empty($_POST['registrar']))
-            header("location:../");
         $datos=$_POST;
         if ($this->modelo->setRegistro($datos))
             $_SESSION['error']="El registro fue exitoso. Por favor inicie sesión";
         else
             $_SESSION['error']="Hubo problemas con el registro. Intente más tarde";
         header("location:../index");
+    }
+
+    public function api(){
+        $dni=$_GET['dni'];
+        $email=$_GET['email'];
+        $resultadoDni=$this->modelo->dniExistente($dni);
+        $resultadoEmail=$this->modelo->emailExistente($email);
+        $registrar=[];
+        $registrar["registro"]=false;
+        if($resultadoDni){
+            $registrar['registro']=true;
+            if($resultadoDni[0]['dni']==$dni){
+                $registrar['dni']=true;
+            }
+            else {
+                $registrar['dni']=false;
+            }
+        }
+        if($resultadoEmail){
+            $registrar['registro']=true;
+            if($resultadoEmail[0]['email']==$email){
+                $registrar['email']=true;
+            }
+            else {
+                $registrar['email']=false;
+            }
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($registrar);
     }
 
     public function consultar()
@@ -79,6 +106,16 @@ class UsuariosController
         if ($data['rol'] || $data['rol']==0)
             echo $this->render->render("views/rol_usuario.pug", $data);
         else header("location: consultar");
+    }
+
+    public function bloquear(){
+        $this->controlEdicion();
+        $dni=$_GET['dni'];
+        if($this->modelo->bloquearUsuario($dni))
+            $_SESSION['mensaje'] = "Se bloqueó al usuario con éxito";
+        else
+            $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
+        header("location:consultar");
     }
 
     public function modificardatos()
@@ -126,14 +163,7 @@ class UsuariosController
             header("location:consultar");
             die();
         } else {
-            $datos = [
-                "dni" => intval($_POST['dni']),
-                "nombre" => $_POST['nombre'],
-                "apellido" => $_POST['apellido'],
-                "fecha_nacimiento" => $_POST['fecha_nacimiento'],
-                "cod_area" => intval($_POST['area']),
-                "email" => $_POST['email']
-            ];
+            $datos = $_POST;
             if(isset($_POST['tipo_licencia']))
                 $datos['tipo_licencia']=$_POST['tipo_licencia'];
             if ($this->modelo->editDatos($datos))

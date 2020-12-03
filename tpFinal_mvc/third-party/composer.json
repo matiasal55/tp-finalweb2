@@ -1,6 +1,8 @@
 {
     "require": {
         "pug-php/pug": "^3.4",
-        "spipu/html2pdf": "^5.2"
+        "spipu/html2pdf": "^5.2",
+        "ext-gd": "*",
+        "mpdf/mpdf": "^8.0"
     }
 }
