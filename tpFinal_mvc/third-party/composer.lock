@@ -5,7 +5,6 @@
         "This file is @generated automatically"
     ],
     "content-hash": "83e62e8067a18ef0b2d6a3050eec995b",
-   /* "content-hash": "170942d61470292b6f7eb3795651f373",*/
     "packages": [
         {
             "name": "js-phpize/js-phpize",

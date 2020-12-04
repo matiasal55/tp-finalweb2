@@ -32,6 +32,7 @@ class ViajeController
         $data['mapa'] = true;
         $data['info'] = $info[0];
         echo $this->render->render("views/informe.pug", $data);
+
     }
 
     public function procesar()
@@ -65,6 +66,7 @@ class ViajeController
         $data['choferes'] = $this->modelo->getChoferes();
         $data['celulares'] = $this->modelo->getCelulares();
         echo $this->render->render("views/viaje.pug", $data);
+
     }
 
     public function consultar()
@@ -119,8 +121,10 @@ class ViajeController
             die();
         }
         $data['codigo'] = $_GET['codigo'];
-        $data['conceptos']=$this->modelo->getConceptos();
-        echo $this->render->render("views/cargaDatos.pug", $data);
+        $data['conceptos'] = $this->modelo->getConceptos();
+        echo $this->render->render("views/reporteChofer.pug", $data);
+
+
     }
 
     public function procesarReporte()
@@ -134,11 +138,32 @@ class ViajeController
         $resultado = $this->modelo->getPatente($codigo);
         $datos['patente'] = $resultado[0]['patente_vehiculo'];
         if ($this->modelo->registrarReporte($datos)) {
-            header("location:confirmacion");
-        }
-        else {
-            header("location:reportar?codigo=".$codigo);
+            header("location:confirmar?codigo=". $codigo);
+        } else {
+            header("location:reportar?codigo=" . $codigo);
         }
 
     }
+
+    public function confirmar()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
+            header("location:../index");
+            die();
+        }
+        $data['codigo'] = $_GET['codigo'];
+        echo $this->render->render("views/confirmacion.pug",$data);
+
+    }
+    public function gastos()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
+            header("location:../index");
+            die();
+        }
+        $data['codigo'] = $_GET['codigo'];
+        echo $this->render->render("views/listas.pug",$data);
+
+    }
+
 }
