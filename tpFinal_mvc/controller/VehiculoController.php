@@ -65,7 +65,7 @@ class VehiculoController
                 $data['listado']=[];
         }
 
-        $data['titulo_listado'] = "vehículos";
+        $data['titulo_listado'] = "vehiculos";
         $data['sector'] = "Vehículo";
         $data['datoPrincipal'] = "patente";
         echo $this->render->render("views/listas.pug", $data);
@@ -108,19 +108,19 @@ class VehiculoController
         header("location:consultar");
     }
 
-    public function posicion()
-    {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
-            header("location:../index");
-            die();
-        }
-        $patente = $_GET['patente'];
-        $posicion = $this->modelo->getInformacion($patente);
-        $data['posicion'] = $posicion[0]['posicion_actual'];
-        $data['km_totales'] = $posicion[0]['km_totales'];
-        $data['combustible_total'] = $posicion[0]['combustible_total'];
-        echo $this->render->render("views/mapa.pug", $data);
-    }
+//    public function posicion()
+//    {
+//        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
+//            header("location:../index");
+//            die();
+//        }
+//        $patente = $_GET['patente'];
+//        $posicion = $this->modelo->getInformacion($patente);
+//        $data['posicion'] = $posicion[0]['posicion_actual'];
+//        $data['km_totales'] = $posicion[0]['km_totales'];
+//        $data['combustible_total'] = $posicion[0]['combustible_total'];
+//        echo $this->render->render("views/mapa.pug", $data);
+//    }
 
     public function execute()
     {

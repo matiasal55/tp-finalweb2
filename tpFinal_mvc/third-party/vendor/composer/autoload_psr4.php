@@ -6,15 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'Spipu\\Html2Pdf\\' => array($vendorDir . '/spipu/html2pdf/src'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Phug\\' => array($vendorDir . '/phug/phug/src/Phug/Ast', $vendorDir . '/phug/phug/src/Phug/Compiler', $vendorDir . '/phug/phug/src/Phug/DependencyInjection', $vendorDir . '/phug/phug/src/Phug/Event', $vendorDir . '/phug/phug/src/Phug/Formatter', $vendorDir . '/phug/phug/src/Phug/Invoker', $vendorDir . '/phug/phug/src/Phug/Lexer', $vendorDir . '/phug/phug/src/Phug/Parser', $vendorDir . '/phug/phug/src/Phug/Reader', $vendorDir . '/phug/phug/src/Phug/Renderer', $vendorDir . '/phug/phug/src/Phug/Util'),
     'NodejsPhpFallback\\' => array($vendorDir . '/nodejs-php-fallback/nodejs-php-fallback/src/NodejsPhpFallback'),
-    'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),
-    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     '' => array($vendorDir . '/js-transformer/js-transformer/src', $vendorDir . '/pug-php/pug/src'),
 );

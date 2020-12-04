@@ -9,7 +9,8 @@ header.d-print-none
             ul.navbar-nav.justify-content-center.nav-tabs.mx-3
                 each pagina in paginas
                     - var estilo;
-                    if pagina==titulo
+                    - pestana=titulo.indexOf(pagina.toLowerCase());
+                    if pestana!=-1
                         - estilo="active text-dark";
                     else
                         - estilo="text-light";

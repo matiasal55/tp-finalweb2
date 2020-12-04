@@ -1,6 +1,6 @@
 extends ./components/template
 block titulo
-    - titulo="Proforma";
+    - titulo="proforma";
 block body
     include ./components/header
     h1.text-center.mt-3 Proforma
@@ -76,7 +76,7 @@ block body
                             td
                                 input.form-control.w-50#eta_costeo(type="date" readonly value=`${info['ETA']}`)
                             td
-                                input.form-control.w-50(type="number" name="total_eta" value=`${info['eta_real']}` readonly)
+                                input.form-control.w-50(type="number" name="total_eta" value=`${info['eta_real']}`)
                         tr
                             th(scope="row") Viáticos
                             td

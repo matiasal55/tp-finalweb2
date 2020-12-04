@@ -25,8 +25,6 @@ class ProformaController
         $data['celulares'] = $this->modelo->getCelulares();
         $data['clientes'] = $this->modelo->getClientes();
         $data['url']="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
-
-//        $data['datoPrincipal']="numero";
         echo $this->render->render("views/proforma.pug", $data);
     }
 
@@ -70,21 +68,31 @@ class ProformaController
 
     public function generar()
     {
-        $this->controlEdicion();
-        $proforma = $_GET['numero'];
-        $this->pdf->render($proforma);
+        $this->controlAcceso();
+        if(isset($_GET['numero'])){
+            $proforma = $_GET['numero'];
+            $this->pdf->informePdf($proforma,"proforma");
+        }
+        else {
+            $this->pdf->listaPdf("proforma");
+        }
     }
 
     public function pdf(){
-        if(!isset($_GET['numero'])){
-            header("location:../index");
-            die();
+        if(isset($_GET['numero'])) {
+            $proforma = $_GET['numero'];
+            $resultado = $this->modelo->getProforma($proforma);
+            $data['info'] = $resultado[0];
+            $data['qr'] = md5($proforma);
+            echo $this->render->render("views/pdf_template.pug", $data);
         }
-        $proforma=$_GET['numero'];
-        $resultado=$this->modelo->getProforma($proforma);
-        $data['info']=$resultado[0];
-        $data['qr']=md5($proforma);
-        echo $this->render->render("views/pdf_template.pug",$data);
+        else {
+            $data['listado'] = $this->modelo->getProformasInfo();
+            $data['titulo_listado']="proformas";
+            $data['estados']=["No iniciado","En viaje","Finalizado"];
+            $data['cabeceras'] = ['Número', 'Fecha de emision', 'Cuit del cliente', 'Codigo del viaje', 'Fecha del viaje','Localidad de origen','Localidad de destino','Estado','Patente del vehiculo', 'Patente del arrastre','Dni del chofer'];
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
     }
 
     public function editar()
