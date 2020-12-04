@@ -65,7 +65,7 @@ class VehiculoController
                 $data['listado']=[];
         }
 
-        $data['titulo_listado'] = "vehículos";
+        $data['titulo_listado'] = "vehiculos";
         $data['sector'] = "Vehículo";
         $data['datoPrincipal'] = "patente";
         echo $this->render->render("views/listas.pug", $data);
@@ -81,7 +81,7 @@ class VehiculoController
         $resultado = $this->modelo->getVehiculo($patente);
         $data['info'] = $resultado[0];
         $data['mapa']=true;
-        $data['titulo_listado'] = "vehículo";
+        $data['titulo_listado'] = "vehiculo";
         echo $this->render->render("views/informe.pug", $data);
     }
 

@@ -33,7 +33,7 @@ class ClienteController
         $this->controlAcceso();
         $data['cabeceras'] = ['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
         $data['listado'] = $this->modelo->getClientes();
-        $data['titulo_listado'] = "Clientes";
+        $data['titulo_listado'] = "clientes";
         $data['sector'] = "Cliente";
         $data['botones'] = true;
         $data['datoPrincipal'] = "CUIT";

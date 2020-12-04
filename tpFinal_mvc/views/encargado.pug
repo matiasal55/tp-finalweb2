@@ -5,9 +5,11 @@ block body
     include ./components/header
     .container.my-5
         .d-flex.flex-column
-        h2(class="alert alert-info") Bienvenido:
-            small  #{datos["nombre"]}
-            small  #{datos["apellido"]}
+        .alert.alert-info
+            h2 Bienvenido :
+                small  #{datos["nombre"]}
+                small  #{datos["apellido"]}
+            h5 Rol: Encargado de taller
         .row
             include ./components/card
             +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar","mantenimiento/nuevo",true)

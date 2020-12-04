@@ -15,18 +15,19 @@ class Render
         if(isset($_SESSION['datos'])) {
             $data['datos'] = $_SESSION['datos'];
         }
-        $data['rol']=$_SESSION['rol'];
-        $data['paginas']=['Home','Viaje','Proforma'];
-        if($data['rol']==1)
-            $data['paginas']=['Arrastre','Cliente','Celulares','Mantenimiento','Proforma','Service','Usuarios','Vehiculo','Viaje'];
-        else if($data['rol']==2)
-            $data['paginas']=['Arrastre','Cliente','Celulares','Proforma','Usuarios','Vehiculo','Viaje'];
-        else if($data['rol']==3)
-            $data['paginas']=['Mantenimiento','Service','Vehiculo'];
-        else if($data['rol']==4)
-            $data['paginas']=['Service','Mantenimiento','Vehiculo','Viaje'];
-        else
-            $data['paginas']=[];
+        if(isset($_SESSION['rol'])) {
+            $data['rol'] = $_SESSION['rol'];
+            if ($data['rol'] == 1)
+                $data['paginas'] = ['Arrastre', 'Cliente', 'Celulares', 'Mantenimiento', 'Proforma', 'Service', 'Usuarios', 'Vehiculo', 'Viaje'];
+            else if ($data['rol'] == 2)
+                $data['paginas'] = ['Arrastre', 'Cliente', 'Celulares', 'Proforma', 'Vehiculo', 'Viaje'];
+            else if ($data['rol'] == 3)
+                $data['paginas'] = ['Mantenimiento', 'Service', 'Vehiculo'];
+            else if ($data['rol'] == 4)
+                $data['paginas'] = ['Service', 'Mantenimiento', 'Vehiculo', 'Viaje'];
+            else
+                $data['paginas'] = [];
+        }
         return $this->pug->render($content,$data);
     }
 }
