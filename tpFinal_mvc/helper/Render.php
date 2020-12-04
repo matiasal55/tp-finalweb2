@@ -20,7 +20,7 @@ class Render
             if ($data['rol'] == 1)
                 $data['paginas'] = ['Arrastre', 'Cliente', 'Celulares', 'Mantenimiento', 'Proforma', 'Service', 'Usuarios', 'Vehiculo', 'Viaje'];
             else if ($data['rol'] == 2)
-                $data['paginas'] = ['Arrastre', 'Cliente', 'Celulares', 'Proforma', 'Usuarios', 'Vehiculo', 'Viaje'];
+                $data['paginas'] = ['Arrastre', 'Cliente', 'Celulares', 'Proforma', 'Vehiculo', 'Viaje'];
             else if ($data['rol'] == 3)
                 $data['paginas'] = ['Mantenimiento', 'Service', 'Vehiculo'];
             else if ($data['rol'] == 4)

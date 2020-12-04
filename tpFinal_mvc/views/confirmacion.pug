@@ -1,0 +1,13 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        h3(class="alert alert-success") Los datos han sido cargados exitosamente!
+
+    div.d-flex.justify-content-center.my-4
+        a(href=`reportar?codigo=${codigo}` class="d-sm-inline-block btn btn-md btn-success my-2 mr-2") Cargar otro gasto
+        a(href=`../home` class="d-sm-inline-block btn btn-md btn-info  my-2") Volver al home
+
+

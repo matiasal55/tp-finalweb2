@@ -27,7 +27,4 @@ class InformePdf
         $this->pdf->writeHTML($codigo);
         $this->pdf->output("proforma_lista.pdf","I");
     }
-
-
-
 }

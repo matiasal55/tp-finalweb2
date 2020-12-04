@@ -4,10 +4,11 @@ block titulo
 block body
     include ./components/header
     .container.my-5
-        .d-flex.flex-column
-            h2(class="alert alert-info") Bienvenido:
+        .alert.alert-info
+            h2 Bienvenido :
                 small  #{datos["nombre"]}
                 small  #{datos["apellido"]}
+            h5 Rol: Supervisor
         .row
             include ./components/card
             +card("Arrastre","En esta pagina se muestran los usuarios con rol asignado.","arrastre/consultar")

@@ -81,7 +81,7 @@ class VehiculoController
         $resultado = $this->modelo->getVehiculo($patente);
         $data['info'] = $resultado[0];
         $data['mapa']=true;
-        $data['titulo_listado'] = "vehículo";
+        $data['titulo_listado'] = "vehiculo";
         echo $this->render->render("views/informe.pug", $data);
     }
 
