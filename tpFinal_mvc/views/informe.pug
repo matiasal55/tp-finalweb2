@@ -1,7 +1,7 @@
 extends ./components/template
 block titulo
     - titulo=`Informe de ${titulo_listado}`;
-    if mapa
+    if mapa==true && $info['estado']==2 || mapa==true
         link(rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css")
 block body
     include ./components/header
@@ -11,14 +11,13 @@ block body
             span.ml-auto Fecha: #{info['fecha_emision']}
         .d-sm-flex.align-items-center.justify-content-between.my-4
             h1(class="h3 mb-0 text-gray-800") Reporte de #{titulo_listado}
-            if qr
-                .d-print-none.mt-2
-                    button.d-none.d-sm-inline-block.btn.btn-sm.btn-info.shadow-sm.mr-2(onclick="window.print();")
-                        i(class="fas fa-print fa-sm text-white-50")
-                        |  Imprimir
-                    a(href=`generar?numero=${info['numero']}` class="d-sm-inline-block  btn btn-sm btn-primary shadow-sm ")
-                        i(class="fas fa-download fa-sm text-white-50")
-                        |  Generar Reporte
+            .d-print-none.mt-2
+                button.d-none.d-sm-inline-block.btn.btn-sm.btn-info.shadow-sm.mr-2(onclick="window.print();")
+                    i(class="fas fa-print fa-sm text-white-50")
+                    |  Imprimir
+                a(href=`generar?numero=${info['numero']}` class="d-sm-inline-block  btn btn-sm btn-primary shadow-sm ")
+                    i(class="fas fa-download fa-sm text-white-50")
+                    |  Generar Reporte
         .row.mt-5
             .col-md-8
                 table.table.table-striped
@@ -43,7 +42,7 @@ block body
         div.d-print-none.d-flex.justify-content-center.my-4
             a(href=`../home` class="d-sm-inline-block btn btn-md btn-info  my-2") Volver
 block script
-    if mapa == true
+    if mapa==true && $info['estado']==2 || mapa==true
         script(src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8")
         script(src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8")
         script(src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8")
