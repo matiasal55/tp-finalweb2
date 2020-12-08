@@ -83,6 +83,22 @@ class MantenimientoController
         $data['titulo_listado'] = "mantenimiento";
         echo $this->render->render("views/informe.pug",$data);
     }
+    public function generar()
+    {
+        $this->controlAcceso();
+        $this->pdf->listaPdf("mantenimiento");
+    }
+    public function pdf()
+    {
+        if (isset($_GET['codigo'])) {
+            $data['listado'] = $this->modelo->getMantenimientos();
+            $data['titulo_listado'] = "mantenimiento";
+            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service','Repuestos cambiados'];
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        } else {
+            echo $this->render->render("views/listas.pug");
+        }
+    }
 
     public function editar(){
         if(!isset($_GET['codigo'])){

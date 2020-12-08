@@ -25,6 +25,6 @@ class InformePdf
         $ruta="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF'])."/".$seccion."/pdf";
         $codigo=file_get_contents($ruta);
         $this->pdf->writeHTML($codigo);
-        $this->pdf->output("proforma_lista.pdf","I");
+        $this->pdf->output("'.$seccion.'_lista.pdf","I");
     }
 }

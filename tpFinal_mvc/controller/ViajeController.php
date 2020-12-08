@@ -166,4 +166,21 @@ class ViajeController
 
     }
 
+    public function generar()
+    {
+        $this->controlAccesoChofer();
+            $this->pdf->listaPdf("viaje");
+    }
+    public function pdf(){
+        if(isset($_GET['codigo'])) {
+            $data['listado'] = $this->modelo->getViajes();
+            $data['titulo_listado'] = "viajes";
+            $data['estados'] = ["No iniciado", "En viaje", "Finalizado"];
+            $data['cabeceras'] = ['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Localidad de origen', 'Localidad de destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        }else {
+            echo $this->render->render("views/listas.pug");
+        }
+    }
+
 }
