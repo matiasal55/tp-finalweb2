@@ -9,6 +9,22 @@ html(lang="en")
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     body
         block body
+        .container.my-5
+            h3 Services del día de hoy
+            if services.length > 0
+                div.table-responsive
+                    table.table
+                        tr
+                            td Id
+                            td Patente
+                        each service in services
+                            tr
+                                td= service['id']
+                                td= service['patente_vehiculo']
+            else
+                h5.text-center No hay services en el día de la fecha
+            .text-center
+                a(href="service/consultar") Ver todos los services
         footer.text-center.bg-dark.p-5
             span.text-white Transportes La Matanza - Florencio Varela 1903 - B1754 - San Justo - Provincia de Buenos Aires
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

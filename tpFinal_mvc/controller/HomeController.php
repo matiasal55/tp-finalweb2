@@ -16,10 +16,8 @@ class HomeController
             $data['direccion']=".";
             $data['rol']=$_SESSION['rol'];
             $fecha=date('Y-m-d');
-            if($data['rol']==1 || $data['rol']==3){
-                $data['services']=$this->modelo->getServicePorFecha($fecha);
-            }
-            else if($data['rol']==4){
+            $data['services']=$this->modelo->getServicePorFecha($fecha);
+            if($data['rol']==4){
                 $patente=$_SESSION['chofer']['vehiculo_asignado'];
                 $data['services']=$this->modelo->getServicePorFechaYVehiculo($patente,$fecha);
             }

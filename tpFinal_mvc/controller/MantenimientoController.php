@@ -149,7 +149,7 @@ class MantenimientoController
 
     private function controlAcceso()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']==4 || $_SESSION['rol']==0){
             header("location:../index");
             die();
         }
@@ -157,7 +157,7 @@ class MantenimientoController
 
     private function controlAccesoChofer()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']==0 ){
             header("location:../index");
             die();
         }
