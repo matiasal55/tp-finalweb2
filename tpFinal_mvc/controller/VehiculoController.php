@@ -5,11 +5,13 @@ class VehiculoController
 {
     private $modelo;
     private $render;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render, $pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf = $pdf;
     }
 
     public function nuevo()
@@ -47,7 +49,7 @@ class VehiculoController
             $_SESSION['mensaje'] = null;
         }
         $this->controlAccesoUsuarios();
-        $data['cabeceras'] = ['Patente', 'Marca', 'Modelo', 'Año', 'Chasis', 'Motor', 'Kilometraje actual', 'Kilometraje total', 'Posicion actual', 'Estado'];
+        $data['cabeceras'] = $this->getCabeceras();
         if($_SESSION['rol']==1){
             $data['listado'] = $this->modelo->getVehiculos();
             $data['botones'] = true;
@@ -82,6 +84,7 @@ class VehiculoController
         $data['info'] = $resultado[0];
         $data['mapa']=true;
         $data['titulo_listado'] = "vehiculo";
+        $data['datoPrincipal'] = "patente";
         echo $this->render->render("views/informe.pug", $data);
     }
 
@@ -108,19 +111,35 @@ class VehiculoController
         header("location:consultar");
     }
 
-//    public function posicion()
-//    {
-//        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['patente'])) {
-//            header("location:../index");
-//            die();
-//        }
-//        $patente = $_GET['patente'];
-//        $posicion = $this->modelo->getInformacion($patente);
-//        $data['posicion'] = $posicion[0]['posicion_actual'];
-//        $data['km_totales'] = $posicion[0]['km_totales'];
-//        $data['combustible_total'] = $posicion[0]['combustible_total'];
-//        echo $this->render->render("views/mapa.pug", $data);
-//    }
+    public function generar()
+    {
+        $this->controlAccesoUsuarios();
+        if(isset($_GET['patente'])){
+            $patente = $_GET['patente'];
+            $this->pdf->informePdf($patente,"vehiculo","patente");
+        }
+        else {
+            $this->pdf->listaPdf("vehiculo");
+        }
+    }
+
+    public function pdf(){
+        $data['fecha']=date('d-m-Y');
+        if(isset($_GET['patente'])) {
+            $patente = $_GET['patente'];
+            $resultado = $this->modelo->getVehiculo($patente);
+            $data['info'] = $resultado[0];
+            $data['titulo_listado']="Vehículo";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        }
+        else {
+            $data['listado'] = $this->modelo->getVehiculos();
+            $data['titulo_listado']="Vehículos";
+            $data['estados']=["","Disponible","En Viaje","Fuera de servicio"];
+            $data['cabeceras'] = $this->getCabeceras();
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
+    }
 
     public function execute()
     {
@@ -143,20 +162,18 @@ class VehiculoController
         }
     }
 
-//    private function controlSupervisorChofer()
-//    {
-//        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 4) {
-//            header("location:../index");
-//            die();
-//        }
-//    }
-
     private function controlEdicion()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 || !isset($_GET['patente'])) {
             header("location:../index");
             die();
         }
+    }
+
+    private function getCabeceras()
+    {
+        $cabeceras=['Patente', 'Marca', 'Modelo', 'Año', 'Chasis', 'Motor', 'Kilometraje actual', 'Kilometraje total', 'Posicion actual', 'Estado'];
+        return $cabeceras;
     }
 
 }

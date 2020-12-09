@@ -4,11 +4,13 @@ class ArrastreController
 {
     private $modelo;
     private $render;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render,$pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf = $pdf;
     }
 
     public function execute()
@@ -21,7 +23,6 @@ class ArrastreController
         $this->controlAcceso();
         $data['tipo_arrastres'] = $this->modelo->getTipoArrastre();
         $data['accion'] = "Agregar";
-       // $data['nuevo'] = "arrastre";
 
         echo $this->render->render("views/arrastre.pug", $data);
     }
@@ -37,7 +38,7 @@ class ArrastreController
             $data['botones'] = true;
             $data['botonNuevo'] = true;
         }
-        $data['cabeceras'] = ['Patente', 'Chasis', 'Tipo de Arrastre'];
+        $data['cabeceras'] = $this->getCabeceras();
         $data['listado'] = $this->modelo->getArrastres();
         $data['titulo_listado'] = "arrastres";
         $data['sector'] = "Arrastre";
@@ -91,8 +92,39 @@ class ArrastreController
         $patente=$_GET['patente'];
         $resultado=$this->modelo->getArrastre($patente);
         $data['info']=$resultado[0];
+        $data['datoPrincipal']="patente";
         $data['titulo_listado'] = "arrastre";
         echo $this->render->render("views/informe.pug",$data);
+    }
+
+    public function generar()
+    {
+        $this->controlAccesoSupervisor();
+        if(isset($_GET['patente'])){
+            $patente = $_GET['patente'];
+            $this->pdf->informePdf($patente,"arrastre","patente");
+        }
+        else {
+            $this->pdf->listaPdf("arrastre");
+        }
+    }
+
+    public function pdf(){
+        $data['fecha']=date('d-m-Y');
+        if(isset($_GET['patente'])) {
+            $patente = $_GET['patente'];
+            $resultado = $this->modelo->getArrastre($patente);
+            $data['info'] = $resultado[0];
+            $data['titulo_listado']="Arrastre";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        }
+        else {
+            $data['listado'] = $this->modelo->getArrastres();
+            $data['titulo_listado']="Arrastres";
+            $data['estados']=["","Disponible","En Viaje","Fuera de servicio"];
+            $data['cabeceras'] = $this->getCabeceras();
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
     }
 
     private function controlAcceso(){
@@ -114,5 +146,11 @@ class ArrastreController
             header("location:../index");
             die();
         }
+    }
+
+    private function getCabeceras()
+    {
+        $cabeceras=['Patente', 'Chasis', 'Tipo de Arrastre'];
+        return $cabeceras;
     }
 }

@@ -4,11 +4,13 @@ class ServiceController
 {
     private $modelo;
     private $render;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render, $pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf = $pdf;
     }
 
     public function execute()
@@ -19,7 +21,7 @@ class ServiceController
     public function nuevo()
     {
         $this->controlAcceso();
-        $data['vehiculos']=$this->modelo->getVehiculos();
+        $data['vehiculos'] = $this->modelo->getVehiculos();
         $data['accion'] = "Agregar";
         echo $this->render->render("views/service.pug", $data);
     }
@@ -31,19 +33,17 @@ class ServiceController
             $_SESSION['mensaje'] = null;
         }
         $this->controlAccesoChofer();
-        $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
-        if($_SESSION['rol']==1 || $_SESSION['rol']==3) {
+        $data['cabeceras'] = $this->getCabeceras();
+        if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
             $data['listado'] = $this->modelo->getTodoslosService();
-            $data['botones']=true;
-            $data['botonNuevo']=true;
-        }
-        else {
-            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
-                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+            $data['botones'] = true;
+            $data['botonNuevo'] = true;
+        } else {
+            if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente = $_SESSION['chofer']['vehiculo_asignado'];
                 $data['listado'] = $this->modelo->getService($patente);
-            }
-            else
-                $data['listado']=[];
+            } else
+                $data['listado'] = [];
         }
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
@@ -95,25 +95,56 @@ class ServiceController
         header("location:consultar");
     }
 
-    // Ver los datos que muestra al chofer
-    public function informe(){
+    public function informe()
+    {
         $this->controlInforme();
-        $id=$_GET['id'];
-        $resultado=$this->modelo->getServiceYVehiculo($id);
-        $data['info']=$resultado[0];
+        $id = $_GET['id'];
+        $resultado = $this->modelo->getServiceYVehiculo($id);
+        $data['info'] = $resultado[0];
         $data['titulo_listado'] = "service";
-        echo $this->render->render("views/informe.pug",$data);
+        $data['datoPrincipal'] = "id";
+        echo $this->render->render("views/informe.pug", $data);
     }
 
-    private function controlAcceso(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
+    public function generar()
+    {
+        $this->controlAcceso();
+        if (isset($_GET['id'])) {
+            $codigo = $_GET['id'];
+            $this->pdf->informePdf($codigo, "service", "id");
+        } else {
+            $this->pdf->listaPdf("service");
+        }
+    }
+
+    public function pdf()
+    {
+        $data['fecha'] = date('d-m-Y');
+        if (isset($_GET['id'])) {
+            $codigo = $_GET['id'];
+            $resultado = $this->modelo->getServiceYVehiculo($codigo);
+            $data['info'] = $resultado[0];
+            $data['titulo_listado'] = "Service";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        } else {
+            $data['listado'] = $this->modelo->getTodoslosService();
+            $data['titulo_listado'] = "Services";
+            $data['cabeceras'] = $this->getCabeceras();
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        }
+    }
+
+    private function controlAcceso()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3) {
             header("location:../index");
             die();
         }
     }
 
-    private function controlEdicion(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 || !isset($_GET['id'])){
+    private function controlEdicion()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3 || !isset($_GET['id'])) {
             header("location:../index");
             die();
         }
@@ -121,7 +152,7 @@ class ServiceController
 
     private function controlAccesoChofer()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3 && $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
@@ -129,9 +160,15 @@ class ServiceController
 
     private function controlInforme()
     {
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3 && $_SESSION['rol']!=4 || !isset($_GET['id'])){
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3 && $_SESSION['rol'] != 4 || !isset($_GET['id'])) {
             header("location:../index");
             die();
         }
+    }
+
+    private function getCabeceras()
+    {
+        $cabeceras=['Id', 'Patente', 'Fecha'];
+        return $cabeceras;
     }
 }

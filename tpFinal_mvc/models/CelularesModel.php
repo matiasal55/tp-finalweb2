@@ -15,7 +15,7 @@ class CelularesModel
         return $this->database->query($sql);
     }
 
-    public function getcelular($id)
+    public function getCelular($id)
     {
         $sql = "SELECT * FROM Celulares  WHERE id='$id'";
         return $this->database->query($sql);

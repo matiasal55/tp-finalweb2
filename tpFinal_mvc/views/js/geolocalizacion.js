@@ -12,7 +12,7 @@ function getLocation() {
     }
 }
 
-// getLocation();
+getLocation();
 
 window.addEventListener("load",()=>{
     var platform = new H.service.Platform({

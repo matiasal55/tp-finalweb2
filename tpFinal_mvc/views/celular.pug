@@ -13,18 +13,17 @@ block body
                 label(for="compania") Compañia
                 select(name="compania" class="form-control")
                     option(value="0" selected=!info disabled) Seleccione la compañia
-                    - companias= ['Claro','Movistar','Personal']
                     each compania in companias
                         if compania==info['compañia']
                             - selected=true
                         else
                             - selected=false
-                        option(value=`${compania}` selected=selected)= compania
+                        option(value=`${compania['compañia']}` selected=selected)= compania['compañia']
             if editar
                 .form-group
                     label(for="estado") Estado
                     select(name="estado" class="form-control")
-                        - estados=['Seleccione el estado del vehiculo','Disponible','No disponible'];
+                        - estados=['Seleccione el estado del celular','Disponible','No disponible'];
                         each estado, index in estados
                             if index==0
                                 - disabled=true;

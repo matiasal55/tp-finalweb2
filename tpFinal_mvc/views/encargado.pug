@@ -15,3 +15,18 @@ block body
             +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar","mantenimiento/nuevo",true)
             +card("Service","En esta pagina se muestra los service realizados.","service/consultar","service/nuevo",true)
             +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
+        h3 Services del día de hoy
+            if services.length > 0
+                div.table-responsive
+                    table.table
+                        tr
+                            td Id
+                            td Patente
+                        each service in services
+                            tr
+                                td= service['id']
+                                td= service['patente_vehiculo']
+            else
+                h5.text-center No hay services en el día de la fecha
+            .text-center
+                a(href="service/consultar") Ver todos los services

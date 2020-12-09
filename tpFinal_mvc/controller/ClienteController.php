@@ -5,11 +5,13 @@ class ClienteController
 {
     private $modelo;
     private $render;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render,$pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf = $pdf;
     }
 
     public function execute()
@@ -31,7 +33,7 @@ class ClienteController
             $_SESSION['mensaje'] = null;
         }
         $this->controlAcceso();
-        $data['cabeceras'] = ['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
+        $data['cabeceras'] = $this->getCabeceras();
         $data['listado'] = $this->modelo->getClientes();
         $data['titulo_listado'] = "clientes";
         $data['sector'] = "Cliente";
@@ -48,6 +50,7 @@ class ClienteController
         $resultado=$this->modelo->getCliente($cuit);
         $data['info']=$resultado[0];
         $data['titulo_listado'] = "cliente";
+        $data['datoPrincipal'] = "CUIT";
         echo $this->render->render("views/informe.pug", $data);
     }
 
@@ -106,6 +109,35 @@ class ClienteController
         header("location:consultar");
     }
 
+    public function generar()
+    {
+        $this->controlAcceso();
+        if(isset($_GET['CUIT'])){
+            $cuit = $_GET['CUIT'];
+            $this->pdf->informePdf($cuit,"cliente","CUIT");
+        }
+        else {
+            $this->pdf->listaPdf("cliente");
+        }
+    }
+
+    public function pdf(){
+        $data['fecha']=date('d-m-Y');
+        if(isset($_GET['CUIT'])) {
+            $cuit = $_GET['CUIT'];
+            $resultado = $this->modelo->getCliente($cuit);
+            $data['info'] = $resultado[0];
+            $data['titulo_listado']="Cliente";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        }
+        else {
+            $data['listado'] = $this->modelo->getClientes();
+            $data['titulo_listado']="Clientes";
+            $data['cabeceras'] = $this->getCabeceras();
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
+    }
+
     private function controlAcceso()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
@@ -136,5 +168,11 @@ class ClienteController
             header("location:../index");
             die();
         }
+    }
+
+    private function getCabeceras()
+    {
+        $cabeceras=['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
+        return $cabeceras;
     }
 }

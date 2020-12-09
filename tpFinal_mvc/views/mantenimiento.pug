@@ -45,4 +45,5 @@ block body
                 input(type="hidden" name="editar" value=`${info['codigo']}`)
                 input(type="hidden" name="id_service" value=`${info['id_proximo']}`)
             button(type="submit" name="mantenimiento" class="btn btn-success") #{accion} Mantenimiento
-    script(src="views/js/tipo_taller.js")
+block script
+    script(src="../views/js/tipo_taller.js")

@@ -1,88 +1,156 @@
-extends ./components/template
-block titulo
-    - titulo="Detalle del Viaje";
-block body
-    include ./components/header
-    .container.my-5
-        h2.mb-3 Detalle del Viaje
-        .row
-            .col-md-6
-                p
-                    strong Código:
-                    |  #{info['viaje'][0]['codigo']}
-                p
-                    strong Fecha:
-                    |  #{info['viaje'][0]['fecha']}
-                h3.mb-3 Origen
-                p
+div
+    div(style={position: 'absolute', left: '48%',top:'21px', border: '1px solid black', padding: '10px', background: 'white'})
+        h5 A
+    table(style="width:100%;text-align:center")
+        tr
+            td(style="width:50%;border:1px solid black")
+                h5 Transportes La Matanza S.A.
+                small Florencio Varela 1903
+                br
+                small B1754 - San Justo, Provincia de Buenos Aires
+                br
+                small Tel. 11 4254-5474
+                br
+                small IVA Responsable Inscripto
+            td(style="width:50%;border:1px solid black")
+                h5 Número: 0108-01300051
+                h5 ORIGINAL
+                small Buenos Aires #{fecha}
+                br
+                small CUIT: 30-50138716 - 5
+                br
+                small Inicio de Actividades: 01/12/2020
+                br
+                small Ingresos Brutos: 30701607128
+div.cliente(style="font-size:10px")
+    h4 Datos del cliente
+    div
+        strong CUIT:
+        |  #{info['CUIT']}
+    div
+        strong Denominación:
+        |  #{info['denominacion']}
+    div
+        strong Dirección:
+        |  #{info['direccion']}
+    div
+        strong Teléfono:
+        |  #{info['telefono']}
+    div
+        strong Email:
+        |  #{info['email']}
+    div
+        strong Contacto 1:
+        |  #{info['contacto1']}
+    div
+        strong Contacto 2:
+        |  #{info['contacto2']}
+|
+hr
+|
+div(style="font-size:10px")
+    div
+        strong Código de proforma:
+        |  #{info['numero']}
+    div
+        strong Fecha de viaje:
+        |  #{info['fecha_viaje']}
+|
+hr
+|
+h4 Detalle del Viaje
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            th Origen
+            th Destino
+        tr
+            td(style="width:50%")
+                div
                     strong Dirección:
-                    |  #{info['viaje'][0]['direccion_origen']}
-                p
+                    |  #{info['direccion_origen']}
+                div
                     strong Localidad:
-                    |  #{info['viaje'][0]['localidad_origen']}
-                p
+                    |  #{info['localidad_origen']}
+                div
                     strong Provincia:
-                    |  #{info['viaje'][0]['provincia_origen']}
-                p
+                    |  #{info['provincia_origen']}
+                div
                     strong Pais:
-                    |  #{info['viaje'][0]['pais_origen']}
-                h3.mb-3 Destino
-                p
+                    |  #{info['pais_origen']}
+            td(style="width:50%")
+                div
                     strong Dirección:
-                    |  #{info['viaje'][0]['direccion_destino']}
-                p
+                    |  #{info['direccion_destino']}
+                div
                     strong Localidad:
-                    |  #{info['viaje'][0]['localidad_destino']}
-                p
+                    |  #{info['localidad_destino']}
+                div
                     strong Provincia:
-                    |  #{info['viaje'][0]['provincia_destino']}
-                p
+                    |  #{info['provincia_destino']}
+                div
                     strong Pais:
-                    |  #{info['viaje'][0]['pais_destino']}
-                h3.mb-3 Viaje
-                p
-                    strong Estado:
-                    |  #{info['viaje'][0]['estado']}
-                p
-                    strong Peso:
-                    |  #{info['viaje'][0]['peso']}
-                p
+                    |  #{info['pais_destino']}
+|
+hr
+|
+h4 Datos de la carga
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            td(style="width:50%")
+                div
+                    strong Tipo de carga:
+                    |  #{info['tipo_carga']}
+                div
+                    strong Peso Neto:
+                    |  #{info['peso_neto']} kg
+                div
+                    strong IMO Class:
+                    |  #{info['imo_class']}
+                div
+                    strong Temperatura:
+                    |  #{info['temperatura']}
+|
+hr
+|
+h4 Costeo
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            td(style="width:50%")
+                div
+                    strong Kilómetros previstos:
+                    |  #{info['km_previsto']} kms.
+                div
+                    strong Combustible:
+                    |  $ #{info['combustible_previsto']}
+                div
                     strong ETA:
-                    |  #{info['viaje'][0]['eta']}
-                h3.mb-3 Costeo
-                p
-                    strong Km estimados:
-                    |  #{info['viaje'][0]['km_estimado']}
-                p
-                    strong Km totales:
-                    |  #{info['viaje'][0]['km_totales']}
-                p
-                    strong Desviaciones:
-                    |  #{info['viaje'][0]['desviaciones']}
-                p
-                    strong Combustible estimado:
-                    |  #{info['viaje'][0]['combustible_previsto']}
-                p
-                    strong Combustible total:
-                    |  #{info['viaje'][0]['combustible_total']}
-                h3.mb-r Equipos
-                p
-                    strong Patente Vehículo:
-                    |  #{info['viaje'][0]['patente_vehiculo']}
-                p
-                    strong Marca y modelo del vehículo:
-                    |  #{info['marca'][0]['nombre']} #{info['modelo'][0]['descripcion']}
-                p
-                    strong Patente de Arrastre:
-                    |  #{info['viaje'][0]['patente_arrastre']}
-                p
-                    strong Tipo de Arrastre:
-                    |  #{info['tipo_arrastre'][0]['nombre']}
-                h3.mb-r Chofer a Cargo
-                p
-                    strong DNI:
-                    |  #{info['viaje'][0]['dni_chofer']}
-                p
-                    strong Nombre del chofer:
-                    |  #{info['chofer'][0]['nombre']} #{info['chofer'][0]['apellido']}
-        a(href='consultar') Regresar
+                    |  #{info['ETA']}
+                div
+                    strong Viáticos:
+                    |  $ #{info['viaticos_previsto']}
+                div
+                    strong Peajes:
+                    |  $ #{info['peajes_previsto']}
+            td(style="width:50%")
+                div
+                    strong Pesajes:
+                    |  $ #{info['pesajes_previsto']}
+                div
+                    strong Extras:
+                    |  $ #{info['extras_previsto']}
+                div
+                    strong Hazard:
+                    |  $ #{info['hazard_previsto']}
+                div
+                    strong Reefer:
+                    |  $ #{info['reefer_previsto']}
+                div
+                    strong Fee:
+                    |  $ #{info['fee_previsto']}
+div(style="width:100%;border:2px solid black;padding:10px;margin-top:30px")
+    strong Total: $ #{info['total_estimado']}
+div
+    img(src="views/imagenes/barcode.jpeg" style="width:300px;height:100px")

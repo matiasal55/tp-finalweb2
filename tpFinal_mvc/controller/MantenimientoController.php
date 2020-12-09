@@ -6,12 +6,14 @@ class MantenimientoController
     private $modelo;
     private $render;
     private $cod_taller;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render,$pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
         $this->cod_taller=2014125982;
+        $this->pdf=$pdf;
     }
 
     public function execute()
@@ -80,6 +82,7 @@ class MantenimientoController
         $patente=$_GET['codigo'];
         $resultado=$this->modelo->getMantenimiento($patente);
         $data['info']=$resultado[0];
+        $data['datoPrincipal']="codigo";
         $data['titulo_listado'] = "mantenimiento";
         echo $this->render->render("views/informe.pug",$data);
     }
@@ -113,6 +116,35 @@ class MantenimientoController
         else
             $_SESSION['mensaje']="El mantenimiento no se pudo eliminar";
         header("location:consultar");
+    }
+
+    public function generar()
+    {
+        $this->controlAcceso();
+        if(isset($_GET['codigo'])){
+            $codigo = $_GET['codigo'];
+            $this->pdf->informePdf($codigo,"mantenimiento","codigo");
+        }
+        else {
+            $this->pdf->listaPdf("mantenimiento");
+        }
+    }
+
+    public function pdf(){
+        $data['fecha']=date('d-m-Y');
+        if(isset($_GET['codigo'])) {
+            $codigo = $_GET['codigo'];
+            $resultado = $this->modelo->getMantenimiento($codigo);
+            $data['info'] = $resultado[0];
+            $data['titulo_listado']="Mantenimiento";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        }
+        else {
+            $data['listado'] = $this->modelo->getMantenimientos();
+            $data['titulo_listado']="Mantenimientos";
+            $data['cabeceras'] = ['Código', 'Vehículo', 'Fecha Inicio', 'Fecha Final', 'Kilometraje', 'Costo', 'Taller', 'Mecánico','Próximo Service','Repuestos cambiados'];
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
     }
 
     private function controlAcceso()
