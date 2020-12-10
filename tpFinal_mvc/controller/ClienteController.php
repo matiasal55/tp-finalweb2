@@ -164,7 +164,7 @@ class ClienteController
 
     private function controlAccesoSupervisor()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2 || !isset($_GET['cuit'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
             header("location:../index");
             die();
         }

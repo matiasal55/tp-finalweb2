@@ -32,12 +32,14 @@ class ServiceController
             $data['mensaje'] = $_SESSION['mensaje'];
             $_SESSION['mensaje'] = null;
         }
-        $this->controlAccesoChofer();
+        $this->controlAcceso();
         $data['cabeceras'] = $this->getCabeceras();
-        if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 3) {
+        if ($_SESSION['rol'] != 4) {
             $data['listado'] = $this->modelo->getTodoslosService();
             $data['botones'] = true;
             $data['botonNuevo'] = true;
+            if($_SESSION['rol'] != 4)
+                $data['noEliminar'] = true;
         } else {
             if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
                 $patente = $_SESSION['chofer']['vehiculo_asignado'];
@@ -136,7 +138,7 @@ class ServiceController
 
     private function controlAcceso()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 3) {
             header("location:../index");
             die();
         }
@@ -160,7 +162,7 @@ class ServiceController
 
     private function controlInforme()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 3 && $_SESSION['rol'] != 4 || !isset($_GET['id'])) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] == 0 || !isset($_GET['id'])) {
             header("location:../index");
             die();
         }

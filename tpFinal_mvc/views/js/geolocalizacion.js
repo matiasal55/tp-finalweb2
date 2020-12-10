@@ -1,42 +1,44 @@
-var x = document.getElementById("posicion");
-
-function showPosition(position) {
-    x.value = position.coords.latitude + "," + position.coords.longitude;
-}
-
-function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-        x.value = "Geolocation is not supported by this browser.";
+class UserLocation{
+    constructor(callback){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(localizacion=>{
+                this.latitude=localizacion.coords.latitude;
+                this.longitude=localizacion.coords.longitude;
+                var x = document.getElementById("posicion");
+                x.value = this.latitude + "," + this.longitude;
+                callback();
+            })
+        }
+        else document.write("Tu navegador no soporta Geolocalización")
     }
 }
-
-getLocation();
 
 window.addEventListener("load",()=>{
     var platform = new H.service.Platform({
         'apikey': 'yCiUJfZ5REQ1xJgF4UBFTzG-HMoHD16uKKVXxwD9N3k'
     });
-    const posicion=document.getElementById("posicion").value;
-    const valores=posicion.split(",");
-    const latitud=valores[0];
-    const longitud=valores[1];
 
-    const mapOptions={
-        zoom: 17,
-        center: { lat: latitud , lng: longitud }
-    }
+    const user_location=new UserLocation(()=>{
+        const posicion=document.getElementById("posicion").value;
+        const valores=posicion.split(",");
+        const latitud=valores[0];
+        const longitud=valores[1];
 
-    const direccion=document.getElementById("direccion")
+        const mapOptions={
+            zoom: 17,
+            center: { lat: latitud , lng: longitud }
+        }
 
-    var service = platform.getSearchService();
-    service.reverseGeocode({
-        at: `${mapOptions.center.lat},${mapOptions.center.lng}`
-    }, (result) => {
-        const datos=result.items[0].address.label
-        direccion.value=datos
-    });
+        const direccion=document.getElementById("direccion")
+
+        var service = platform.getSearchService();
+        service.reverseGeocode({
+            at: `${mapOptions.center.lat},${mapOptions.center.lng}`
+        }, (result) => {
+            const datos=result.items[0].address.label
+            direccion.value=datos
+        });
+    },alert)
 })
 
 const lista=document.getElementById("concepto");

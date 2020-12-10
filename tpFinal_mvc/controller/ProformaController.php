@@ -50,7 +50,7 @@ class ProformaController
         $this->controlEdicion();
         $numero = $_GET['numero'];
         $viaje = $this->modelo->getCodigoViaje($numero);
-        $viaje = $viaje[0]['cod_viaje'];
+        $viaje = $viaje[0]['cod_viaje'] ?? null;
         $data['listado'] = $this->modelo->getCosteo($viaje);
         $data['titulo_listado'] = "costeo";
         $data['cabeceras'] = ["Código", "Código de viaje", "Número de factura", "Detalles", "Dirección", "Litros de combustible", "Precio", "Conceptos"];
