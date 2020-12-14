@@ -43,7 +43,9 @@ class ViajeController
                 $cuit = $_GET['cuit'];
                 $data['listado'] = $this->modelo->getViajesCliente($cuit);
             } else
-                $data['listado'] = $this->modelo->getNuevoViajeProforma();
+                //$data['listado'] = $this->modelo->getViajeInfo();
+            $data['listado'] = $this->modelo->getViajes();
+
             $data['botones'] = true;
             $data['noEliminar'] = true;
             if ($_SESSION['rol'] == 2) {
@@ -152,7 +154,7 @@ class ViajeController
             $resultado = $this->modelo->getViaje($numero);
             $data['info'] = $resultado[0];
             $data['qr'] = md5($numero);
-            $data['titulo_listado'] = "Proforma";
+            $data['titulo_listado'] = "viajes";
             echo $this->render->render("views/pdf_template.pug", $data);
         } else {
             $data['listado'] = $this->modelo->getProformasInfo();

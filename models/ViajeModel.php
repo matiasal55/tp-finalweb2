@@ -51,7 +51,7 @@ class ViajeModel
         return $this->database->query($sql);
     }
 
-    public function getProformasInfo()
+    public function getViajeInfo()
     {
         $sql = "SELECT numero,fecha_emision,cuit_cliente,codigo,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viajes ";
         return $this->database->query($sql);
