@@ -16,11 +16,9 @@ class ViajeModel
 
             $clave = explode("_", $index);
             if ($clave[0] != "total") {
-                if ($dato == '') {
+                if ($dato == '')
                     $dato = 'DEFAULT';
-                    $query .= $dato . ", ";
-                } else
-                    $query .= "'" . $dato . "', ";
+                $query .= "'" . $dato . "', ";
             }
         }
         $sql = "INSERT INTO Viajes VALUES (DEFAULT, " . $query . " DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
@@ -39,6 +37,7 @@ class ViajeModel
         return $this->database->execute($sql);
     }
 
+//nuevo metodo abarcatodo
     public function getViajes()
     {
         $sql = "SELECT * FROM  Viajes ";
@@ -90,10 +89,9 @@ class ViajeModel
         return $this->database->query($sql);
     }
 
-    public
-    function getPatente($codigo)
+    public  function getPatente($codigo)
     {
-        $sql = "SELECT patente_vehiculo FROM Viaje WHERE codigo='$codigo'";
+        $sql = "SELECT patente_vehiculo FROM Viajes WHERE numero='$codigo'";
         return $this->database->query($sql);
     }
 
@@ -101,7 +99,6 @@ class ViajeModel
     {
         $query = "";
         foreach ($datos as $index => $dato) {
-
             $clave = explode("_", $index);
             if ($clave[0] != "total") {
                 if ($dato != '') {
@@ -115,49 +112,41 @@ class ViajeModel
         return $this->database->execute($sql);
     }
 
-    public
-    function getViajesCliente($cuit)
+
+    public function getViajesCliente($cuit)
     {
-        $sql = "SELECT `Viaje`.`codigo`,`Viaje`.`fecha_viaje`,`Viaje`.`localidad_origen`,`Viaje`.`localidad_destino`,`Viaje`.`estado`,`Viaje`.`patente_vehiculo`,`Viaje`.`patente_arrastre`,`Viaje`.`dni_chofer` FROM Viaje, Proforma WHERE `Viaje`.`codigo`=`Proforma`.`cod_viaje` AND `Proforma`.`cuit_cliente`='$cuit'";
+        $sql = "SELECT numero,fecha_emision,cuit_cliente,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viajes WHERE cuit_cliente='$cuit'";
         return $this->database->query($sql);
     }
 
-    public
-    function getViajesPorVehiculo($patente)
+    public function getViajesPorVehiculo($patente)
     {
-        $sql = "SELECT numero,fecha_emision,cuit_cliente,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viaje WHERE patente_vehiculo='$patente'";
+        $sql = "SELECT numero,fecha_emision,cuit_cliente,fecha_viaje,localidad_origen,localidad_destino,estado,patente_vehiculo,patente_arrastre,dni_chofer FROM Viajes WHERE patente_vehiculo='$patente'";
         return $this->database->query($sql);
     }
 
     public
     function getCodigoViaje($numero)
     {
-        $sql = "SELECT cod_viaje FROM Proforma WHERE numero='$numero'";
+        $sql = "SELECT * FROM Viajes WHERE numero='$numero'";
         return $this->database->query($sql);
     }
 
     public
-    function deleteProforma($numero)
+    function deleteViaje($numero)
     {
-        $resultado = $this->getCodigoViaje($numero);
-        $viaje = $resultado[0]['cod_viaje'];
-        $sql = "DELETE FROM Proforma WHERE numero='$numero'";
-        if ($this->database->execute($sql)) {
-            $sql = "DELETE FROM Viaje WHERE codigo='$viaje'";
-            return $this->database->execute($sql);
-        }
-        return false;
+        $sql = "DELETE FROM Viajes WHERE numero='$numero'";
+        return $this->database->execute($sql);
+
     }
 
-    private
-    function cambiarEstado($tabla, $clave, $valor, $estado)
+    private  function cambiarEstado($tabla, $clave, $valor, $estado)
     {
         $sql = "UPDATE " . $tabla . " SET estado='$estado' WHERE " . $clave . "='$valor'";
         return $this->database->execute($sql);
     }
 
-    public
-    function getPosicion($patente)
+    public function getPosicion($patente)
     {
         $sql = "SELECT posicion_actual FROM Vehiculo WHERE patente='$patente'";
         return $this->database->query($sql);
@@ -186,11 +175,41 @@ class ViajeModel
         return $this->database->query($sql);
     }
 
-    private
-    function buscarConcepto($codigo)
+    private function buscarConcepto($codigo)
     {
         $sql = "SELECT nombre FROM Gastos WHERE codigo='$codigo'";
         return $this->database->query($sql);
     }
-
+    public function registrarReporte($datos)
+    {
+        $patente = $datos['patente'];
+        $posicion_actual = $datos['posicionActual'];
+        $sql = "UPDATE Vehiculo SET posicion_actual='$posicion_actual' WHERE patente='$patente'";
+        $this->database->execute($sql);
+        $codigo_viaje = $datos['codigo'];
+        $factura=$datos['numero_factura'];
+        $detalles=$datos['detalles'];
+        $direccion=$datos['direccion'];
+        $precio=$datos['precio'];
+        $codigo_gastos=$datos['codigo_gastos'];
+        $sql="INSERT INTO Costeo VALUES (DEFAULT,'$codigo_viaje','$factura','$detalles','$direccion',DEFAULT,'$precio','$codigo_gastos')";
+        if ($this->database->execute($sql)) {
+            if($datos['combustible']){
+                $codigo=$this->database->query("SELECT LAST_INSERT_ID()");
+                $codigo_costeo=$codigo[0]['LAST_INSERT_ID()'];
+                $combustible=$datos['combustible'];
+                $sql = "UPDATE Costeo SET litros_combustible='$combustible' WHERE codigo='$codigo_costeo'";
+                $this->database->execute($sql);
+            }
+            $km_total = $datos['km'];
+            $concepto = $this->buscarConcepto($codigo_gastos);
+            $concepto = strtolower($concepto[0]['nombre']);
+            $subsql="(SELECT SUM(precio) FROM Costeo WHERE codigo_viaje='$codigo_viaje')";
+            $sql = "UPDATE Viajes SET km_total='$km_total',".$concepto."_total=`".$concepto."_total`+".$precio.",total_real=".$subsql." WHERE numero='$codigo_viaje'";
+            //var_dump($sql);
+            //die();
+            return $this->database->execute($sql);
+        }
+        return false;
+    }
 }

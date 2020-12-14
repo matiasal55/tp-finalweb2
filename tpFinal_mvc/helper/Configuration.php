@@ -154,6 +154,6 @@ class Configuration
     public function getViajeController()
     {
         $modelo = $this->getViajeModel();
-        return new ViajeController($modelo, $this->getRender(), $this->getPdf());
+        return new ViajeController($modelo, $this->getRender(), $this->getPdf(),$this->getGenQR());
     }
 }

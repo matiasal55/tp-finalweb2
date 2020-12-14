@@ -20,7 +20,11 @@ block body
                 .form-group.col-md-6
                     label(for="dni_cliente") CUIT de cliente
                     if !editar
+<<<<<<< HEAD
                         select.form-control.custom-select#clientes(name="proforma_cuit_cliente" required)
+=======
+                        select.form-control.custom-select#clientes(name="cuit_cliente" required)
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
                             option(value="" selected disabled) Seleccione un cliente
                             each cliente in clientes
                                 option(value=`${cliente['CUIT']}`) #{cliente['CUIT']} #{cliente['denominacion']}
@@ -114,7 +118,11 @@ block body
                         option(value="0" selected disabled) Seleccione tipo de carga
                         - tipo_cargas=['20"','40"',"CarCarrier","Granel","Jaula","Líquida"];
                         each tipo in tipo_cargas
+<<<<<<< HEAD
                             if tipo == info['tipo_carga']
+=======
+                            if tipo==info['tipo_carga']
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
                                 - selected=true;
                             else
                                 - selected=false;
@@ -129,7 +137,11 @@ block body
                     label(for="hazard") Hazard:
                     select.custom-select#select_hazard(required)
                         option(value="0" selected disabled) Seleccione SI/NO
+<<<<<<< HEAD
                         if info['hazard_previsto'] > 0
+=======
+                        if info['hazard_previsto']>0
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
                             - selectedSi=true;
                             - selectedNo=false;
                         else
@@ -158,7 +170,11 @@ block body
                         option(value='') Seleccione un IMO Class
                         - imoClass=["Clase 1","Clase 2","Clase 3","Clase 4.1","Clase 4.2","Clase 4.3","Clase 5.1","Clase 5.2","Clase 6.1","Clase 6.2","Clase 7","Clase 8","Clase 9"];
                         each imo in imoClass
+<<<<<<< HEAD
                             if imo == info['imoClass']
+=======
+                            if imo==info['imoClass']
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
                                 - selected=true;
                             else
                                 - selected=false;
@@ -184,7 +200,11 @@ block body
                             - estados=["","No iniciado","En viaje","Finalizado"];
                             each estado, index in estados
                                 if index>0
+<<<<<<< HEAD
                                     if index == info['estado']
+=======
+                                    if index==info['estado']
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
                                         - selected=true;
                                     else
                                         - selected=false;
@@ -192,7 +212,11 @@ block body
             if editar
                 input(type="hidden" name="viaje_codigo" value=`${info['codigo']}`)
 
+<<<<<<< HEAD
                 //el viaje equipo los datos fk
+=======
+
+>>>>>>> edd367b8688887e6dc3e8af630ecaf44397c99d8
             |
             hr
             |

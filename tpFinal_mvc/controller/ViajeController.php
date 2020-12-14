@@ -68,7 +68,7 @@ class ViajeController
         $this->controlEdicionSupervisor();
         $numero = $_GET['numero'];
         $viaje = $this->modelo->getCodigoViaje($numero);
-        $viaje = $viaje[0]['cod_viaje'] ?? null;
+        $viaje = $viaje[0]['numero'] ?? null;
         $data['listado'] = $this->modelo->getCosteo($viaje);
         $data['titulo_listado'] = "costeo";
         $data['cabeceras'] = ["Código", "Código de viaje", "Número de factura", "Detalles", "Dirección", "Litros de combustible", "Precio", "Conceptos"];
@@ -83,7 +83,7 @@ class ViajeController
         $this->controlEdicionSupervisor();
         $codigo = $_GET['numero'];
         $info = $this->modelo->getViaje($codigo);
-        $data = $this->getEquipo();
+        $data= $this->getEquipo();
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
         $data['editar'] = true;
@@ -95,10 +95,10 @@ class ViajeController
     {
         $this->controlEdicionSupervisor();
         $numero = $_GET['numero'];
-        if ($this->modelo->deleteProforma($numero))
-            $_SESSION['mensaje'] = "La proforma se eliminó correctamente";
+        if ($this->modelo->deleteViaje($numero))
+            $_SESSION['mensaje'] = "El viaje se eliminó correctamente";
         else
-            $_SESSION['mensaje'] = "La proforma no se pudo eliminar";
+            $_SESSION['mensaje'] = "El viaje no se pudo eliminar";
         header("location:consultar");
     }
 
@@ -197,17 +197,47 @@ class ViajeController
         header("location:consultar");
     }
 
+    public function reportar()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4 || !isset($_GET['numero'])) {
+            header("location:../index");
+            die();
+        }
+        $data['codigo'] = $_GET['numero'];
+        $data['conceptos'] = $this->modelo->getConceptos();
+        echo $this->render->render("views/reporteChofer.pug", $data);
 
+
+    }
+
+    public function procesarReporte()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
+            header("location:../index");
+            die();
+        }
+        $datos = $_POST;
+        $codigo = $datos['codigo'];
+        $resultado = $this->modelo->getPatente($codigo);
+        $datos['patente'] = $resultado[0]['patente_vehiculo'];
+        if ($this->modelo->registrarReporte($datos)) {
+            header("location:confirmar?numero=" . $codigo);
+        } else {
+            header("location:reportar?numero=" . $codigo);
+        }
+
+    }
     public function confirmar()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
             header("location:../index");
             die();
         }
-        $data['numero'] = $_GET['numero'];
+        $data['codigo'] = $_GET['numero'];
         echo $this->render->render("views/confirmacion.pug", $data);
 
     }
+
 
     public function gastos()
     {
