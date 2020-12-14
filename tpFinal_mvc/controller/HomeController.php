@@ -2,10 +2,12 @@
 
 class HomeController
 {
+    private $modelo;
     private $render;
 
-    public function __construct($render)
+    public function __construct($modelo,$render)
     {
+        $this->modelo=$modelo;
         $this->render=$render;
     }
 
@@ -13,8 +15,15 @@ class HomeController
         if(isset($_SESSION['iniciada'])) {
             $data['direccion']=".";
             $data['rol']=$_SESSION['rol'];
-            if($data['rol']==1)
+            $fecha=date('Y-m-d');
+            $data['services']=$this->modelo->getServicePorFecha($fecha);
+            if($data['rol']==4){
+                $patente=$_SESSION['chofer']['vehiculo_asignado'];
+                $data['services']=$this->modelo->getServicePorFechaYVehiculo($patente,$fecha);
+            }
+            if($data['rol']==1){
                 echo $this->render->render("views/admin.pug",$data);
+            }
             else if($data['rol']==2)
                 echo $this->render->render("views/supervisor.pug",$data);
             else if($data['rol']==3)

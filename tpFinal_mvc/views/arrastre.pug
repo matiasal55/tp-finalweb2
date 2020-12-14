@@ -4,7 +4,7 @@ block titulo
 block body
     include ./components/header
     .container.my-5
-        h1.text-center Arrastre
+        h1.text-center #{accion} Arrastre
         form(action="procesar" method="POST")
             .form-group
                 label(for="patente") Patente
@@ -14,7 +14,7 @@ block body
                  input(type="text" name="chasis" class="form-control" value=`${info['chasis']}` placeholder="Ingrese el número de chasis")
             .form-group
                 label(for="tipo_arrastre") Tipo de Arrastre
-                select(name="codigo_tipoArrastre" class="CUSTON-SELECT")
+                select(name="codigo_tipoArrastre" class="custom-select")
                     option(value="0" selected=!info disabled) Seleccione el tipo de arrastre
                     each tipo_arrastre in tipo_arrastres
                         if tipo_arrastre['codigo']==info['codigo_tipoArrastre']

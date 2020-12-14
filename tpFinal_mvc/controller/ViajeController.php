@@ -5,11 +5,13 @@ class ViajeController
 {
     private $modelo;
     private $render;
+    private $pdf;
 
-    public function __construct($modelo, $render)
+    public function __construct($modelo, $render, $pdf)
     {
         $this->modelo = $modelo;
         $this->render = $render;
+        $this->pdf = $pdf;
     }
 
     public function execute()
@@ -76,7 +78,7 @@ class ViajeController
             $_SESSION['mensaje'] = null;
         }
         $this->controlAccesoChofer();
-        $data['cabeceras'] = ['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
+        $data['cabeceras'] = $this->getCabeceras();
         if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
             if (isset($_GET['cuit'])) {
                 $cuit = $_GET['cuit'];
@@ -96,6 +98,37 @@ class ViajeController
         $data['sector'] = "Viaje";
         $data['datoPrincipal'] = "codigo";
         echo $this->render->render("views/listas.pug", $data);
+    }
+
+    public function generar()
+    {
+        $this->controlAccesoChofer();
+        if(isset($_GET['codigo'])){
+            $codigo = $_GET['codigo'];
+            $this->pdf->informePdf($codigo,"viaje","codigo");
+        }
+        else {
+            $this->pdf->listaPdf("viaje");
+        }
+    }
+
+    public function pdf(){
+        if(isset($_GET['codigo'])) {
+            $codigo = $_GET['codigo'];
+            $resultado = $this->modelo->getViaje($codigo);
+            $data['info'] = $resultado[0];
+            $data['fecha']=date('d-m-Y');
+            $data['titulo_listado']="Viaje";
+            echo $this->render->render("views/pdf_template.pug", $data);
+        }
+        else {
+            $data['listado'] = $this->modelo->getViajes();
+            $data['titulo_listado']="Viajes";
+            $data['fecha']=date('d-m-Y');
+            $data['estados']=["No Iniciado","En Viaje","Finalizado"];
+            $data['cabeceras'] = $this->getCabeceras();
+            echo $this->render->render("views/pdf_listas.pug",$data);
+        }
     }
 
     private function controlInforme()
@@ -138,7 +171,7 @@ class ViajeController
         $resultado = $this->modelo->getPatente($codigo);
         $datos['patente'] = $resultado[0]['patente_vehiculo'];
         if ($this->modelo->registrarReporte($datos)) {
-            header("location:confirmar?codigo=". $codigo);
+            header("location:confirmar?codigo=" . $codigo);
         } else {
             header("location:reportar?codigo=" . $codigo);
         }
@@ -152,9 +185,10 @@ class ViajeController
             die();
         }
         $data['codigo'] = $_GET['codigo'];
-        echo $this->render->render("views/confirmacion.pug",$data);
+        echo $this->render->render("views/confirmacion.pug", $data);
 
     }
+
     public function gastos()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {
@@ -162,8 +196,13 @@ class ViajeController
             die();
         }
         $data['codigo'] = $_GET['codigo'];
-        echo $this->render->render("views/listas.pug",$data);
+        echo $this->render->render("views/listas.pug", $data);
 
     }
 
+    private function getCabeceras()
+    {
+        $cabeceras=['Código', 'Fecha', 'Localidad de Origen', 'Localidad de Destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
+        return $cabeceras;
+    }
 }

@@ -30,6 +30,16 @@ class ServiceModel
         return $this->database->query($sql);
     }
 
+    public function getServicePorFecha($fecha){
+        $sql="SELECT * FROM Service, Vehiculo WHERE `Vehiculo`.`patente`=`Service`.`patente_vehiculo` AND fecha='$fecha'";
+        return $this->database->query($sql);
+    }
+
+    public function getServicePorFechaYVehiculo($patente,$fecha){
+        $sql="SELECT * FROM Service, Vehiculo WHERE `Vehiculo`.`patente`=`Service`.`patente_vehiculo` AND `Service`.`patente_vehiculo`='$patente' AND `Service`.`fecha`='$fecha' ";
+        return $this->database->query($sql);
+    }
+
     public function registrar($datos){
         $patente=$datos['patente'];
         $fecha=$datos['fecha'];

@@ -76,8 +76,12 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area=$datos['area'];
-        $licencia=$datos['licencia'];
-        $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area',tipo_licencia='$licencia' WHERE dni='$dni'";
+        $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area' WHERE dni='$dni'";
+        if($_SESSION['rol']==4){
+            $licencia=$datos['licencia'];
+            $sql="UPDATE Chofer SET tipo_licencia='$licencia' WHERE dni_chofer='$dni'";
+            $this->database->execute($sql);
+        }
         return $this->database->execute($sql);
     }
 

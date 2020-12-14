@@ -1,6 +1,6 @@
 window.addEventListener("load",()=>{
     var platform = new H.service.Platform({
-        'apikey': 'yCiUJfZ5REQ1xJgF4UBFTzG-HMoHD16uKKVXxwD9N3k'
+        'apikey': '41cx0azEXC6uud3WIi1gIPI3A-nysczi2ogguQ6UQOM'
     });
     var maptypes = platform.createDefaultLayers();
     const posicion=document.getElementById("posicion").value;
@@ -21,12 +21,11 @@ window.addEventListener("load",()=>{
 
     map.addObject(marker);
 
-    const locacion=document.getElementById("locacion")
-
     var service = platform.getSearchService();
     service.reverseGeocode({
         at: `${mapOptions.center.lat},${mapOptions.center.lng}`
     }, (result) => {
+        const locacion=document.getElementById("locacion")
         const datos=result.items[0].address.label
         locacion.innerHTML=datos
     });
