@@ -1,0 +1,60 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} vehiculo`;
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center #{accion} Vehículo
+        form(action="procesar" method="post")
+            .form-group
+                label(for="patente") Patente
+                input(type="text" class="form-control" name="patente" value=`${info['patente']}` placeholder="Ingrese la patente del vehículo")
+            .form-group
+                label(for="marca") Marca
+                select(name="marca" class="form-control")
+                    option(value="0" selected disabled) Seleccione la marca del vehículo
+                    each marca in marcas
+                        if info && marca['codigo']==info['cod_marca']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${marca['codigo']}` selected=selected)= marca['nombre']
+            .form-group
+                label(for="marca") Modelo
+                select(name="modelo" class="form-control")
+                    option(value="0" selected disabled) Seleccione el modelo del vehículo
+                    each modelo in modelos
+                        if info && modelo['cod_modelo'] == info['cod_modelo']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${modelo['cod_modelo']}` selected=selected)= modelo['descripcion']
+            .form-group
+                label(for="año") Año de fabricación:
+                input.form-control(type="number" name="anio_fabricacion" value=`${info['anio_fabricacion']}` placeholder="xxxx")
+            .form-group
+                label(for="patente") Chasis
+                input(type="text" class="form-control" name="chasis" value=`${info['chasis']}` placeholder="Ingrese el número de chasis del vehículo")
+            .form-group
+                label(for="patente") Motor
+                input(type="text" class="form-control" name="motor" value=`${info['motor']}` placeholder="Ingrese el número de motor del vehículo")
+            if !info
+                .form-group
+                    label(for="kilometraje") Kilometraje
+                    input(type="number" class="form-control" name="km_total" value=`${info['km total']}` placeholder="Ingrese el kilometraje que posee el vehículo")
+            if info
+                .form-group
+                    label(for="kilometraje") Estado del Vehículo
+                    select(name="estado" class="form-control")
+                        - estados=["Seleccione el estado del vehículo","Disponible","En viaje","Fuera de servicio","En Mantenimiento"];
+                        each estado, index in estados
+                            if index==0
+                                - disabled=true;
+                            else
+                                - disabled=false;
+                            if index==info['estado']
+                                - selected=true;
+                            else
+                                - selected=false;
+                            option(value=`${index}` disabled=disabled selected=selected)= estado
+            button(type="submit" class="btn btn-success" name="vehiculo") #{accion} Vehículo

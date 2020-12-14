@@ -1,0 +1,19 @@
+page(backtop="30mm")
+    page_header
+        .d-flex
+            img(src=`views/imagenes/logoMatanza.png` width=100)
+            span(style="margin-left:500px;") Fecha: #{info['fecha_emision']}
+    .d-sm-flex.align-items-center.justify-content-between.my-4
+        h2(class="margin:0") Reporte de Proforma
+        .col(style={position:'absolute',right:'100', top:'200'})
+            img(src=`views/qr/proforma_${qr}.png` width=100)
+        .col
+            table
+                tbody
+                    each dato ,index in info
+                        tr
+                            th(scope="row" style={padding:'2px',background:'#2171cc',color:'white'})= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
+                            if !dato
+                                td(style={padding:'5px'}) sin especificar
+                            else
+                                td(style={padding:'5px'})= dato

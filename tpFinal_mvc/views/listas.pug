@@ -1,0 +1,45 @@
+extends ./components/template
+block titulo
+    - titulo=`Lista de ${titulo_listado}`;
+block body
+    include ./components/header
+    .container-sm.my-3
+        .d-flex.justify-content-between
+            h2 Listado de #{titulo_listado}
+            .ml-auto
+                button.d-none.d-md-inline-block.btn.btn-sm.btn-info.shadow-sm.mr-2(onclick="window.print();")
+                    i(class="fas fa-print fa-sm text-white-50")
+                    |  Imprimir
+                a(href=`generar` class="d-sm-inline-block mr-2 btn btn-sm btn-primary shadow-sm ")
+                    i(class="fas fa-download fa-sm text-white-50")
+                    |  Generar Reporte
+                if botonNuevo
+                    a(href=`nuevo` class="d-sm-inline-block btn btn-sm btn-success my-2") Agregar #{sector}
+        small.d-flex.justify-content-center.my-4.text-secondary= mensaje
+        if listado.length>0
+            .table-responsive
+                table.table
+                    tr
+                        each th in cabeceras
+                            th.text-center.align-middle= th
+                        th.text-center.align-middle Acciones
+                    each datos in listado
+                        tr.datos
+                            each dato,index in datos
+                                if !dato
+                                    td.text-center.align-middle Desconocido
+                                else if index=="estado"
+                                    td.text-center.align-middle =estados[dato]
+                                else
+                                    td.text-center.align-middle= dato
+                            td.text-center.align-middle
+                                .d-flex.justify-content-center
+                                    a(href=`informe?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-success mr-2") Ver
+                                    if botones
+                                        a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
+                                        if !noEliminar
+                                            a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
+        else
+            h3(class="alert alert-info") No hay información disponible
+        div.d-flex.justify-content-center.my-4
+            a(href=`../home` class="d-sm-inline-block btn btn-md btn-info  my-2") Volver

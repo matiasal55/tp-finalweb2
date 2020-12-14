@@ -1,0 +1,40 @@
+extends ./components/template
+block titulo
+    - titulo="Reporte de Gastos";
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center.mb-5 Ingrese los datos a reportar
+        form(action="procesarReporte" method="POST")
+            input(type="hidden" id="posicion" name="posicionActual" class="form-control" value="-32.865343,-68.926989")
+            input(type="hidden" name="codigo" value=`${codigo}`)
+            .form-group
+                label(for="factura") Concepto del gasto:
+                select#concepto(name="codigo_gastos" class="custom-select")
+                    option(value="0" selected disabled) Seleccione el tipo de gasto que realizó
+                    each concepto in conceptos
+                        option(value=concepto['codigo'])= concepto['nombre']
+            .form-group
+                label(for="factura") Número de factura:
+                input(type="number" name="numero_factura" class="form-control"  placeholder="Ingrese el número de factura si cuenta con el mismo")
+            .form-group
+                label(for="combustible") Detalles:
+                input(type="text" name="detalles" class="form-control"  placeholder="Ingrese detalles como nombre del lugar, cantidad de cumbustible, etc")
+            .form-group
+                label(for="direccion") Dirección:
+                input(type="text" name="direccion" readonly id="direccion" class="form-control"  placeholder="La dirección se cargará aquí automáticamente")
+            .form-group#combustible.d-none
+                label(for="litros") Cantidad de litros:
+                input(type="number" name="combustible" class="form-control"  placeholder="Ingrese la cantidad de combustible")
+            .form-group
+                label(for="precio") Precio:
+                input(type="number" name="precio" class="form-control"  placeholder="Ingrese el precio del consumo")
+            .form-group
+                label(for="km") Kilometros realizados:
+                    small.text-secondary  Ingrese los kilómetros que figuran en el velocímetro
+                input(type="text" name="km" class="form-control"  placeholder="Ingrese los kilometros realizados")
+            button(type="submit" class="btn btn-success") Enviar
+block script
+    script(src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8")
+    script(src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8")
+    script(src="../views/js/geolocalizacion.js")

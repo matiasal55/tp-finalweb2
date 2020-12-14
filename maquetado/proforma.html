@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proforma</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,700;1,400&display=swap">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a href="home.html">
+                <img src="imagenes/logoMatanza.png" alt="logo" width="100">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarTogglerDemo01">
+                <ul class="navbar-nav justify-content-center nav-tabs mx-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-dark" href="proforma.html">Proforma</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="mapa.html">Mapas</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <h1 class="text-center mt-3">Proforma</h1>
+    <div class="container my-5">
+        <form action="">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="numero">Número</label>
+                    <input class="form-control" type="number" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="fecha">Fecha</label>
+                    <input class="form-control" type="date" name="fecha" />
+                </div>
+            </div>
+            <h3>Datos del cliente</h3>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="dni_cliente">CUIT de cliente</label>
+                    <input class="form-control" type="number" name="cuit_cliente" />
+                    <button class="btn btn-primary mt-2" type="button">Buscar cliente</button>
+                    <button class="btn btn-outline-primary mt-2" type="button">Agregar cliente</button>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="d-flex flex-column"><small>CUIT: 12345678901</small><small>Denominación: Pirulo
+                            S.A.</small><small>Dirección: Florencio Varela 1835 - San Justo</small><small>Teléfono: 11
+                            35857412</small><small>Email: pirulo@hotmail.com</small><small>Contacto 1:
+                            -</small><small>Contacto 2: -</small></div>
+                </div>
+            </div>
+            <h3>Datos de viaje</h3>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="origen">Origen:</label>
+                    <input class="form-control" type="text" name="origen" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="destino">Destino:</label>
+                    <input class="form-control" type="text" name="destino" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="fecha_carga">Fecha de carga:</label>
+                    <input class="form-control" type="date" name="origen" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="ETA">ETA (Estimated Time Arrival):</label>
+                    <input class="form-control" type="date" name="eta" />
+                </div>
+            </div>
+            <h3>Datos de carga</h3>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="tipo">Tipo de carga</label>
+                    <select class="form-control">
+                        <option>20"</option>
+                        <option>40"</option>
+                        <option value="">CarCarrier</option>
+                        <option value="">Granel</option>
+                        <option value="">Jaula</option>
+                        <option value="">Líquida</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="peso_neto">Peso Neto</label>
+                    <input class="form-control" type="number" name="peso_neto" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="hazard">Hazard</label>
+                    <input class="form-control" type="text" name="hazard" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="refeer">Reefer</label>
+                    <input class="form-control" type="text" name="reefer" />
+                </div>
+            </div>
+            <h3>Datos de costeo</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Concepto</th>
+                            <th>Estimado</th>
+                            <th>Real</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Kilometros</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Combustible</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ETD</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">ETA</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Viáticos</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Peajes y Pesajes</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Extras</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Hazard</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Reefer</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Fee</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                        <tr class="table-info">
+                            <th scope="row">Total</th>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                            <td>
+                                <input type="number" name="" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-success" type="submit">Guardar</button>
+            <button class="btn btn-outline-dark" type="reset">Reestablecer</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

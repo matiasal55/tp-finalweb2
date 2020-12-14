@@ -1,0 +1,11 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} viaje`;
+block body
+    include ./components/header
+    .container.my-5
+        - formulario=true;
+        form(action="procesar" method="post")
+            include ./components/viaje_template
+            include ./components/viaje_equipo
+            button(type="submit" class="btn btn-success") #{accion} Viaje

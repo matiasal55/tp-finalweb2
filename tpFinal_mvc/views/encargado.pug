@@ -1,0 +1,17 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .d-flex.flex-column
+        .alert.alert-info
+            h2 Bienvenido :
+                small  #{datos["nombre"]}
+                small  #{datos["apellido"]}
+            h5 Rol: Encargado de taller
+        .row
+            include ./components/card
+            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar","mantenimiento/nuevo",true)
+            +card("Service","En esta pagina se muestra los service realizados.","service/consultar","service/nuevo",true)
+            +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")

@@ -1,0 +1,49 @@
+extends ./components/template
+block titulo
+    - titulo="Registrar";
+block body
+    .col-md-4.mx-auto
+        .row
+            .col-12.text-center
+                img(src="./views/imagenes/logoMatanza.png" alt="" class="mt-3" style="width: 150px")
+            .col-12
+                h1.text-center.mt-2 Registrarse
+                form.needs-validation#form(novalidate action="usuarios/registrar" method="POST")
+                    .form-group
+                        input(type="number" name="dni" id="dni" required class="form-control" aria-describedby="errordni" placeholder="Ingrese su DNI")
+                        .invalid-feedback#errordni Por favor ingrese su dni
+                    .form-group
+                        input(type="text" name="nombre" required class="form-control" placeholder="Ingrese su nombre")
+                        .invalid-feedback Por favor ingrese su nombre
+                    .form-group
+                        input(type="text" name="apellido" required class="form-control" placeholder="Ingrese su apellido")
+                        .invalid-feedback Por favor ingrese su apellido
+                    .form-group
+                        input(type="date" name="fecha_nacimiento" required class="form-control" placeholder="dd/mm/aaaa")
+                        .invalid-feedback Por favor ingrese su fecha de nacimiento
+                    .form-group
+                        select(name="area" class="custom-select" id="area" required)
+                            option(value="0" selected disabled) Seleccione su area
+                            option(value="1") Administrador
+                            option(value="2") Supervisor
+                            option(value="3") Encargado de taller
+                            option(value="4") Chofer
+                        .invalid-feedback Por favor elija el area donde trabaja
+                    .form-group
+                        input(type="text" name="tipo_licencia" class="form-control d-none" id="tipo_licencia" placeholder="Ingrese su tipo de licencia")
+                        .invalid-feedback Por favor ingrese su tipo de licencia
+                    .form-group
+                        input(type="email" name="email" required class="form-control " id="email" aria-describedby="emailHelp" placeholder="Ingrese su email")
+                        .invalid-feedback#erroremail Por favor ingrese su email
+                    .form-group
+                        input(type="password" id="password" name="password" required class="form-control" placeholder="Ingrese su contraseña")
+                        .invalid-feedback Por favor ingrese la password elegida
+                    .form-group
+                        input(type="password" id="re_password" name="rewritePassword" required class="form-control" placeholder="Confirme su contraseña")
+                        .invalid-feedback#errorpassword Por favor reingrese la password elegida
+                    input(type="hidden" id="url" value=url)
+                    button(type="submit" name="registrar" class="btn btn-block  btn-primary") Crear cuenta
+                    a(href="index" class="btn btn-block  btn-outline-primary") Cancelar
+block script
+    script(src="views/js/registrar.js")
+    script(src="views/js/formulario.js")

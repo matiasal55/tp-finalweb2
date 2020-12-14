@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+#    RewriteBase /tp-finalweb2/tpFinal_mvc/
+    RewriteRule ^views/(.*)$ views/$1 [L,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)/(.*)$ index.php?module=$1&action=$2 [L,QSA]
+    RewriteRule ^(.*)$ index.php?module=$1&action=execute [L,QSA]
+</IfModule>
