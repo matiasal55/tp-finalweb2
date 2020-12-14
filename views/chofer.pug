@@ -1,0 +1,19 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .alert.alert-info
+            h2 Bienvenido :
+
+                small  #{datos["nombre"]}
+                small  #{datos["apellido"]}
+            h5 Rol: Chofer
+        .row
+            include ./components/card
+            +card("Service","En esta pagina se muestra los service realizados.","service/consultar")
+            +card("Mantenimiento","En esta pagina se muestran los mantenimientos de cada operación.","mantenimiento/consultar")
+            +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
+            +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar")
+    include ./components/servicehome
