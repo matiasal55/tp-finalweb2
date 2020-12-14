@@ -1,0 +1,20 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        .alert.alert-info
+            h2 Bienvenido :
+                small  #{datos["nombre"]}
+                small  #{datos["apellido"]}
+            h5 Rol: Supervisor
+        .row
+            include ./components/card
+            +card("Arrastre","En esta pagina se muestran los usuarios con rol asignado.","arrastre/consultar")
+            +card("Celulares","En esta pagina se muestra los celulares asignados.","celulares/consultar")
+            +card("Cliente","En esta pagina se muestra los clientes de cada operación.","cliente/consultar")
+            +card("Service","En esta pagina se muestra los service realizados.","service/consultar","service/nuevo",true)
+            +card("Viaje","En esta pagina se muestra los viajes asignados.","viaje/consultar","viaje/nuevo",true)
+            +card("Vehiculo","En esta pagina se muestra el vehiculo asignado.","vehiculo/consultar")
+    include ./components/servicehome

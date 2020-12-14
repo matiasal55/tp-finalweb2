@@ -1,0 +1,37 @@
+extends ./components/template
+block titulo
+    - titulo=`${accion} arrastre`;
+block body
+    include ./components/header
+    .container.my-5
+        h1.text-center #{accion} Arrastre
+        form(action="procesar" method="POST")
+            .form-group
+                label(for="patente") Patente
+                input(type="text" name="patente" class="form-control" value=`${info['patente']}` placeholder="Ingrese la patente del arrastre")
+            .form-group
+                 label(for="chasis") Número de Chasis
+                 input(type="text" name="chasis" class="form-control" value=`${info['chasis']}` placeholder="Ingrese el número de chasis")
+            .form-group
+                label(for="tipo_arrastre") Tipo de Arrastre
+                select(name="codigo_tipoArrastre" class="custom-select")
+                    option(value="0" selected=!info disabled) Seleccione el tipo de arrastre
+                    each tipo_arrastre in tipo_arrastres
+                        if tipo_arrastre['codigo']==info['codigo_tipoArrastre']
+                            - selected=true
+                        else
+                            - selected=false
+                        option(value=`${tipo_arrastre['codigo']}` selected=selected)= tipo_arrastre['nombre']
+            if editar
+                .form-group
+                    label(for="estado") Estado
+                    select(name="estado" class="form-control")
+                        - estados=['Fuera de servicio','Disponible','En viaje'];
+                        each estado, index in estados
+                            if index == info['estado']
+                                - selected=true
+                            else
+                                - selected=false
+                            option(value=`${index}` selected=selected)= estado
+                input(type="hidden" name="editar" value=`${info['patente']}`)
+            button(type="submit" name="enviarArrastre" class="btn btn-success") #{accion} Arrastre

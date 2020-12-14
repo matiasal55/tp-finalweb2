@@ -1,0 +1,156 @@
+div
+    div(style={position: 'absolute', left: '48%',top:'21px', border: '1px solid black', padding: '10px', background: 'white'})
+        h5 A
+    table(style="width:100%;text-align:center")
+        tr
+            td(style="width:50%;border:1px solid black")
+                h5 Transportes La Matanza S.A.
+                small Florencio Varela 1903
+                br
+                small B1754 - San Justo, Provincia de Buenos Aires
+                br
+                small Tel. 11 4254-5474
+                br
+                small IVA Responsable Inscripto
+            td(style="width:50%;border:1px solid black")
+                h5 Número: 0108-01300051
+                h5 ORIGINAL
+                small Buenos Aires #{fecha}
+                br
+                small CUIT: 30-50138716 - 5
+                br
+                small Inicio de Actividades: 01/12/2020
+                br
+                small Ingresos Brutos: 30701607128
+div.cliente(style="font-size:10px")
+    h4 Datos del cliente
+    div
+        strong CUIT:
+        |  #{info['CUIT']}
+    div
+        strong Denominación:
+        |  #{info['denominacion']}
+    div
+        strong Dirección:
+        |  #{info['direccion']}
+    div
+        strong Teléfono:
+        |  #{info['telefono']}
+    div
+        strong Email:
+        |  #{info['email']}
+    div
+        strong Contacto 1:
+        |  #{info['contacto1']}
+    div
+        strong Contacto 2:
+        |  #{info['contacto2']}
+|
+hr
+|
+div(style="font-size:10px")
+    div
+        strong Código de proforma:
+        |  #{info['numero']}
+    div
+        strong Fecha de viaje:
+        |  #{info['fecha_viaje']}
+|
+hr
+|
+h4 Detalle del Viaje
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            th Origen
+            th Destino
+        tr
+            td(style="width:50%")
+                div
+                    strong Dirección:
+                    |  #{info['direccion_origen']}
+                div
+                    strong Localidad:
+                    |  #{info['localidad_origen']}
+                div
+                    strong Provincia:
+                    |  #{info['provincia_origen']}
+                div
+                    strong Pais:
+                    |  #{info['pais_origen']}
+            td(style="width:50%")
+                div
+                    strong Dirección:
+                    |  #{info['direccion_destino']}
+                div
+                    strong Localidad:
+                    |  #{info['localidad_destino']}
+                div
+                    strong Provincia:
+                    |  #{info['provincia_destino']}
+                div
+                    strong Pais:
+                    |  #{info['pais_destino']}
+|
+hr
+|
+h4 Datos de la carga
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            td(style="width:50%")
+                div
+                    strong Tipo de carga:
+                    |  #{info['tipo_carga']}
+                div
+                    strong Peso Neto:
+                    |  #{info['peso_neto']} kg
+                div
+                    strong IMO Class:
+                    |  #{info['imo_class']}
+                div
+                    strong Temperatura:
+                    |  #{info['temperatura']}
+|
+hr
+|
+h4 Costeo
+div(style="font-size:10px")
+    table(style="width:100%")
+        tr
+            td(style="width:50%")
+                div
+                    strong Kilómetros previstos:
+                    |  #{info['km_previsto']} kms.
+                div
+                    strong Combustible:
+                    |  $ #{info['combustible_previsto']}
+                div
+                    strong ETA:
+                    |  #{info['ETA']}
+                div
+                    strong Viáticos:
+                    |  $ #{info['viaticos_previsto']}
+                div
+                    strong Peajes:
+                    |  $ #{info['peajes_previsto']}
+            td(style="width:50%")
+                div
+                    strong Pesajes:
+                    |  $ #{info['pesajes_previsto']}
+                div
+                    strong Extras:
+                    |  $ #{info['extras_previsto']}
+                div
+                    strong Hazard:
+                    |  $ #{info['hazard_previsto']}
+                div
+                    strong Reefer:
+                    |  $ #{info['reefer_previsto']}
+                div
+                    strong Fee:
+                    |  $ #{info['fee_previsto']}
+div(style="width:100%;border:2px solid black;padding:10px;margin-top:30px")
+    strong Total: $ #{info['estimado_total']}
+div
+    img(src="views/imagenes/barcode.jpeg" style="width:300px;height:100px")

@@ -136,9 +136,24 @@ class ServiceController
         }
     }
 
-    private function controlAcceso()
+  public function generar()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 && $_SESSION['rol'] != 3) {
+        $this->controlAcceso();
+        $this->pdf->listaPdf("service");
+    }
+    public function pdf()
+    {
+        if (isset($_GET['cuit'])) {
+            $data['listado'] = $this->modelo->getTodoslosService();
+            $data['titulo_listado'] = "service";
+            $data['cabeceras'] = ['Id', 'Patente', 'Fecha'];
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        } else {
+            echo $this->render->render("views/listas.pug");
+        }
+    }
+    private function controlAcceso(){
+        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=3){
             header("location:../index");
             die();
         }

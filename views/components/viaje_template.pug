@@ -1,0 +1,143 @@
+h1.text-center #{accion} Viaje
+.row
+    .form-group.col-md-6
+        label(for="fecha") Fecha
+        input(type="date" name="fecha_viaje" class="form-control" required value=`${info['fecha_viaje']}` placeholder="Ingrese la fecha del viaje")
+        .invalid-feedback Por favor especifique la fecha de partida
+    .form-group.col-md-6
+        label(for="eta") ETA:
+            small (Fecha Estimada de Arribo)
+        input#eta(type="date" name="ETA" class="form-control" required value=`${info['ETA']}` placeholder="dd/mm/aaaa")
+        .invalid-feedback Por favor especifique la fecha estimada de llegada
+|
+hr
+|
+h2 Origen
+.row
+    .form-group.col-md-6
+        label(for="direccion_origen") Dirección
+        input(type="text" name="direccion_origen" required class="form-control" value=`${info['direccion_origen']}` placeholder="Ingrese la dirección del origen")
+        .invalid-feedback Por favor ingrese una dirección
+    .form-group.col-md-6
+        label(for="localidad_origen") Localidad
+        input(type="text" name="localidad_origen" required class="form-control" value=`${info['localidad_origen']}` placeholder="Ingrese la localidad del origen")
+        .invalid-feedback Por favor ingrese una localidad
+.row
+    .form-group.col-md-6
+        label(for="provincia_origen") Provincia
+        input(type="text" name="provincia_origen" required class="form-control" value=`${info['provincia_origen']}` placeholder="Ingrese la provincia del origen")
+        .invalid-feedback Por favor ingrese una provincia
+    .form-group.col-md-6
+        label(for="pais_origen") Pais
+        input(type="text" name="pais_origen" required class="form-control" value=`${info['pais_origen']}` placeholder="Ingrese el país de origen")
+        .invalid-feedback Por favor ingrese un país
+|
+hr
+|
+h2 Destino
+.row
+    .form-group.col-md-6
+        label(for="direccion_origen") Dirección
+        input(type="text" name="direccion_destino" required class="form-control" value=`${info['direccion_destino']}` placeholder="Ingrese la dirección del destino")
+        .invalid-feedback Por favor ingrese una dirección
+    .form-group.col-md-6
+        label(for="localidad_origen") Localidad
+        input(type="text" name="localidad_destino" required class="form-control" value=`${info['localidad_destino']}` placeholder="Ingrese la localidad del destino")
+        .invalid-feedback Por favor ingrese una localidad
+.row
+    .form-group.col-md-6
+        label(for="provincia_origen") Provincia
+        input(type="text" name="provincia_destino" required class="form-control" value=`${info['provincia_destino']}` placeholder="Ingrese la provincia del destino")
+        .invalid-feedback Por favor ingrese una provincia
+    .form-group.col-md-6
+        label(for="pais_origen") Pais
+        input(type="text" name="pais_destino" required class="form-control" value=`${info['pais_destino']}` placeholder="Ingrese el país de destino")
+        .invalid-feedback Por favor ingrese un país
+|
+hr
+|
+h3 Datos de carga
+.row
+    .form-group.col-md-6
+        label(for="tipo") Tipo de carga:
+        select.custom-select#tipo_carga(name="tipo_carga" required)
+            option(value="0" selected disabled) Seleccione tipo de carga
+            - tipo_cargas=['20"','40"',"CarCarrier","Granel","Jaula","Líquida"];
+            each tipo in tipo_cargas
+                if tipo==info['tipo_carga']
+                    - selected=true;
+                else
+                    - selected=false;
+                option(value=`${tipo}` selected=selected)= tipo
+        .invalid-feedback Por favor seleccione un tipo de carga
+    .form-group.col-md-6
+        label(for="peso_neto") Peso Neto (kg):
+        input.form-control(type="number" required value=`${info['peso_neto']}` name="peso_neto")
+        .invalid-feedback Por favor ingrese el peso neto de la carga en kg.
+.row
+    .form-group.col-md-6
+        label(for="hazard") Hazard:
+        select.custom-select#select_hazard(required)
+            option(value="0" selected disabled) Seleccione SI/NO
+            if info['hazard_previsto']>0
+                - selectedSi=true;
+                - selectedNo=false;
+            else
+                - selectedSi=false;
+                - selectedNo=true;
+            option(value="si" selected=selectedSi) Si
+            option(value="no" selected=selectedNo) No
+        .invalid-feedback Por favor seleccione si precisa Hazard
+    .form-group.col-md-6
+        label(for="refeer") Reefer:
+        select.custom-select#select_reefer(required)
+            option(value="0" selected disabled) Seleccione SI/NO
+            if info['reefer_previsto'] > 0
+                - selectedSi=true;
+                - selectedNo=false;
+            else
+                - selectedSi=false;
+                - selectedNo=true;
+            option(value="si" selected=selectedSi) Si
+            option(value="no" selected=selectedNo) No
+        .invalid-feedback Por favor seleccione si precisa Reefer
+.row
+    .form-group.col-md-6
+        label(for="imo_class") IMO Class:
+        select.form-control#imoClass(name="imoClass" disabled)
+            option(value="0" selected disabled) Seleccione un IMO Class
+            - imoClass=["Clase 1","Clase 2","Clase 3","Clase 4.1","Clase 4.2","Clase 4.3","Clase 5.1","Clase 5.2","Clase 6.1","Clase 6.2","Clase 7","Clase 8","Clase 9"];
+            each imo in imoClass
+                if imo==info['imoClass']
+                    - selected=true;
+                else
+                    - selected=false;
+                option(value=`${imo}` selected=selected)= imo
+    .form-group.col-md-6
+        label(for="temperatura") Temperatura:
+        input.form-control(type="text" disabled id="temperatura" value=`${info['temperatura'] || 0}` name="temperatura" placeholder="°C")
+if info
+    |
+    hr
+    |
+    .row
+        .form-group.col-md-6
+            label(for="desviaciones") Desviaciones
+            if info['km_totales']-info['km_previsto']<0
+                - desviaciones=0;
+            else
+                - desviaciones=info['km_totales']-info['km_previsto'];
+            input.form-control(type="number" value=desviaciones name="total_desviaciones" disabled)
+        .form-group.col-md-6
+            label(for="desviaciones") Estado
+            select.form-control(name="estado")
+                - estados=["No iniciado","En viaje","Finalizado"];
+                each estado, index in estados
+                    if index==info['estado']
+                        - selected=true;
+                    else
+                        - selected=false;
+                    option(value=`${index}` selected=selected)= estado
+if editar
+    input(type="hidden" name="viaje_codigo" value=`${info['codigo']}`)
+

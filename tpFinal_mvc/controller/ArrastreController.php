@@ -96,6 +96,22 @@ class ArrastreController
         $data['titulo_listado'] = "arrastre";
         echo $this->render->render("views/informe.pug",$data);
     }
+    public function generar()
+    {
+        $this->controlAcceso();
+        $this->pdf->listaPdf("arrastre");
+    }
+    public function pdf()
+    {
+        if (isset($_GET['patente'])) {
+            $data['listado'] = $this->modelo->getArrastres();
+            $data['titulo_listado'] = "arrastre";
+            $data['cabeceras'] = ['Patente', 'Chasis', 'Tipo de Arrastre'];
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        } else {
+            echo $this->render->render("views/listas.pug");
+        }
+    }
 
     public function generar()
     {
@@ -134,13 +150,13 @@ class ArrastreController
         }
     }
 
-    private function controlAccesoSupervisor(){
-        if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 && $_SESSION['rol']!=2){
-            header("location:../index");
-            die();
+    private function controlAccesoSupervisor()
+        {
+            if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2) {
+                header("location:../index");
+                die();
+            }
         }
-    }
-
     private function controlEdicion(){
         if(!isset($_SESSION['iniciada']) || $_SESSION['rol']!=1 || !isset($_GET['patente'])){
             header("location:../index");

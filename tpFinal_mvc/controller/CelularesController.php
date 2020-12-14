@@ -57,6 +57,24 @@ class CelularesController
         echo $this->render->render("views/informe.pug", $data);
     }
 
+    public function generar()
+    {
+        $this->controlAcceso();
+        $this->pdf->listaPdf("celular");
+    }
+    public function pdf()
+    {
+        if (isset($_GET['id'])) {
+            $data['listado'] = $this->modelo->getCelulares();
+            $data['titulo_listado'] = "celular";
+            $data['estados'] = ["Disponible", "No Disponible"];
+            $data['cabeceras'] = ['Id', 'Número', 'Compañia','Estado'];
+            echo $this->render->render("views/pdf_listas.pug", $data);
+        } else {
+            echo $this->render->render("views/listas.pug");
+        }
+    }
+  
     public function editar()
     {
         $this->controlEdicion();

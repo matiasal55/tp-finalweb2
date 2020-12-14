@@ -3,7 +3,7 @@ block titulo
     - titulo=`Lista de ${titulo_listado}`;
 block body
     include ./components/header
-    .container.my-3
+    .container-sm.my-3
         .d-flex.justify-content-between
             h2 Listado de #{titulo_listado}
             .ml-auto
@@ -27,9 +27,11 @@ block body
                             th.text-center.align-middle Acciones
                     each datos in listado
                         tr.datos
-                            each dato in datos
+                            each dato,index in datos
                                 if !dato
                                     td.text-center.align-middle Desconocido
+                                else if index=="estado"
+                                    td.text-center.align-middle =estados[dato]
                                 else
                                     td.text-center.align-middle= dato
                             td.text-center.align-middle

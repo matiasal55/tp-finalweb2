@@ -11,7 +11,7 @@ page(backtop="30mm" footer="page")
                 tbody
                     each dato ,index in info
                         tr
-                            th(scope="row" style={padding:'5px',background:'#2171cc',color:'white'})= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
+                            th(scope="row" style={padding:'2px',background:'#2171cc',color:'white'})= index.charAt(0).toUpperCase()+index.substr(1).replace("_"," ")
                             if !dato
                                 td(style={padding:'5px'}) sin especificar
                             else

@@ -1,0 +1,7 @@
+extends ./components/template
+block titulo
+    - titulo="Home";
+block body
+    include ./components/header
+    .container.my-5
+        h3(class="alert alert-danger") Usted no tiene asignado un rol, comuniquese con el administrador!
