@@ -43,8 +43,8 @@ class ViajeController
                 $cuit = $_GET['cuit'];
                 $data['listado'] = $this->modelo->getViajesCliente($cuit);
             } else
-                $data['listado'] = $this->modelo->getViajeInfo();
-            // $data['listado'] = $this->modelo->getViajes();
+             $data['listado'] = $this->modelo->getViajeInfo();
+           // $data['listado'] = $this->modelo->getViajes();
 
             $data['botones'] = true;
             $data['noEliminar'] = true;
