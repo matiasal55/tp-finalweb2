@@ -217,7 +217,6 @@ class ViajeController
             die();
         }
         $data['numero'] = $_GET['numero'];
-        //$data['codigo'] = $_GET['codigo'];
         echo $this->render->render("views/listas.pug", $data);
 
     }
