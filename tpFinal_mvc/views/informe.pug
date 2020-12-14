@@ -1,8 +1,9 @@
 extends ./components/template
 block titulo
     - titulo=`Informe de ${titulo_listado}`;
-    if titulo_listado=="proforma" || titulo_listado=="vehiculo" || titulo_listado=="viaje"
-        link(rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css")
+    if  mapa==true
+        if info['estado']==2
+            link(rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css")
 block body
     include ./components/header
     .container.my-5.mx-auto
@@ -13,7 +14,7 @@ block body
             h1(class="h3 mb-0 text-gray-800") Reporte de #{titulo_listado}
             .d-print-none.mt-2
                 if qr
-                    a(href=`costeo?numero=${info['cod_viaje']}` class="d-sm-inline-block mr-2 btn btn-sm btn-success shadow-sm ") Ver gastos
+                    a(href=`costeo?numero=${info['numero']}` class="d-sm-inline-block mr-2 btn btn-sm btn-success shadow-sm ") Ver gastos
                 button.d-none.d-sm-inline-block.btn.btn-sm.btn-info.shadow-sm.mr-2(onclick="window.print();")
                     i(class="fas fa-print fa-sm text-white-50")
                     |  Imprimir
@@ -42,16 +43,18 @@ block body
             if qr
                 .col-md-4
                     img(src=`../views/qr/proforma_${qr}.png` width=200)
-            if titulo_listado=="proforma" || titulo_listado=="vehiculo" || titulo_listado=="viaje"
-                input(type="hidden" id="posicion" value=`${info['posicion_actual'] || posicion}`)
-                .col-md-4.text-center.p-2.d-print-none#mapContainer(style="height:500px;")
+            if  mapa==true
+               if info['estado']==2
+                    input(type="hidden" id="posicion" value=`${info['posicion_actual'] || posicion}`)
+                    .col-md-4.text-center.p-2.d-print-none#mapContainer(style="height:500px;")
         div.d-print-none.d-flex.justify-content-center.my-4
             a(href=`consultar` class="d-sm-inline-block btn btn-md btn-info  my-2") Volver
 block script
-    if titulo_listado=="proforma" || titulo_listado=="vehiculo" || titulo_listado=="viaje"
-        script(src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8")
-        script(src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8")
-        script(src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8")
-        script(src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8")
-        script(src="../views/js/mapa.js")
+    if mapa==true
+        if info['estado']==2
+            script(src="https://js.api.here.com/v3/3.1/mapsjs-core.js" type="text/javascript" charset="utf-8")
+            script(src="https://js.api.here.com/v3/3.1/mapsjs-service.js" type="text/javascript" charset="utf-8")
+            script(src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js" type="text/javascript" charset="utf-8")
+            script(src="https://js.api.here.com/v3/3.1/mapsjs-ui.js" type="text/javascript" charset="utf-8")
+            script(src="../views/js/mapa.js")
 
