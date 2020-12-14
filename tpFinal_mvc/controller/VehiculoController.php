@@ -54,14 +54,17 @@ class VehiculoController
             $data['listado'] = $this->modelo->getVehiculos();
             $data['botones'] = true;
             $data['botonNuevo'] = true;
-        } else if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3) {
+        }
+        else if($_SESSION['rol']==2 || $_SESSION['rol']==3){
             $data['listado'] = $this->modelo->getVehiculos();
-        } else {
-            if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
-                $patente = $_SESSION['chofer']['vehiculo_asignado'];
+        }
+        else {
+            if(isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente=$_SESSION['chofer']['vehiculo_asignado'];
                 $data['listado'] = $this->modelo->getVehiculo($patente);
-            } else
-                $data['listado'] = [];
+            }
+            else
+                $data['listado']=[];
         }
 
         $data['titulo_listado'] = "vehiculos";
@@ -79,32 +82,11 @@ class VehiculoController
         $patente = $_GET['patente'];
         $resultado = $this->modelo->getVehiculo($patente);
         $data['info'] = $resultado[0];
-        $data['mapa'] = true;
+        $data['mapa']=true;
         $data['titulo_listado'] = "vehiculo";
         $data['datoPrincipal'] = "patente";
         echo $this->render->render("views/informe.pug", $data);
     }
-
-    public function generar()
-    {
-        $this->controlAcceso();
-                   $this->pdf->listaPdf("vehiculo");
-
-    }
-
-    public function pdf()
-    {
-        if (isset($_GET['patente'])) {
-            $data['listado'] = $this->modelo->getVehiculos();
-            $data['titulo_listado'] = "vehiculo";
-            $data['estados'] = ["No iniciado", "En viaje", "Finalizado"];
-            $data['cabeceras'] = ['Patente', 'Marca', 'Modelo', 'Año', 'Chasis', 'Motor', 'Kilometraje actual', 'Kilometraje total', 'Posicion actual', 'Estado'];
-            echo $this->render->render("views/pdf_listas.pug", $data);
-        }else {
-            echo $this->render->render("views/listas.pug");
-        }
-        }
-
 
     public function editar()
     {

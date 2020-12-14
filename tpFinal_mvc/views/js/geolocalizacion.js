@@ -15,7 +15,7 @@ class UserLocation{
 
 window.addEventListener("load",()=>{
     var platform = new H.service.Platform({
-        'apikey': 'yCiUJfZ5REQ1xJgF4UBFTzG-HMoHD16uKKVXxwD9N3k'
+        'apikey': '41cx0azEXC6uud3WIi1gIPI3A-nysczi2ogguQ6UQOM'
     });
 
     const user_location=new UserLocation(()=>{
