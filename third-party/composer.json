@@ -1,7 +1,0 @@
-{
-    "require": {
-        "pug-php/pug": "^3.4",
-        "ext-gd": "*",
-        "spipu/html2pdf": "^5.2"
-    }
-}

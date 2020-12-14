@@ -54,22 +54,6 @@ class ClienteController
         echo $this->render->render("views/informe.pug", $data);
     }
 
-    public function generar()
-    {
-        $this->controlAcceso();
-        $this->pdf->listaPdf("arrastre");
-    }
-    public function pdf()
-    {
-        if (isset($_GET['cuit'])) {
-            $data['listado'] = $this->modelo->getClientes();
-            $data['titulo_listado'] = "cliente";
-            $data['cabeceras'] = ['CUIT', 'Denominación', 'Dirección', 'Teléfono', 'Email', 'Contacto 1', 'Contacto 2'];
-            echo $this->render->render("views/pdf_listas.pug", $data);
-        } else {
-            echo $this->render->render("views/listas.pug");
-        }
-    }
     public function editar()
     {
         $this->controlEdicion();
