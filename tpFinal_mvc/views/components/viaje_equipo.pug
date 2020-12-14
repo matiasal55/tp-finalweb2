@@ -12,7 +12,7 @@ h3 Datos del vehiculo
                     - selected=true
                 else
                     - selected=false
-                if vehiculo['estado'] != 2
+                if vehiculo['patente']==info['patente_vehiculo'] ||vehiculo['estado'] != 2
                     option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
         .invalid-feedback Por favor seleccione el vehículo
 hr
@@ -28,7 +28,7 @@ h3 Datos del Arrastre
                     - selected=true
                 else
                     - selected=false
-                if arrastre['estado'] != 2
+                if arrastre['patente']==info['patente_arrastre'] || arrastre['estado'] != 2
                     option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
         .invalid-feedback Por favor seleccione el arrastre
 |
@@ -45,7 +45,7 @@ h3 Datos del chofer
                     - selected=true
                 else
                     - selected=false
-                if chofer['estado'] != 2
+                if chofer['dni']==info['dni_chofer'] || chofer['estado'] != 2
                     option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
         .invalid-feedback Por favor seleccione al chofer
 |
@@ -62,6 +62,6 @@ h3 Celular asignado
                     - selected=true
                 else
                     - selected=false
-                if celular['estado'] != 2
+                if celular['id']==info['id_celular'] || celular['estado'] != 2
                     option(value=`${celular['id']}` selected=selected) #{celular['numero']}
         .invalid-feedback Por favor seleccione el celular a asignar al chofer

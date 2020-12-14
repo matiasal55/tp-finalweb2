@@ -1,7 +1,8 @@
-page(orientation="landscape" backtop="30mm")
+page(orientation="landscape" backtop="30mm" footer="page")
     page_header
         .d-flex
             img(src=`views/imagenes/logoMatanza.png` width=100)
+            span(style="margin-left:500px;") Fecha: #{fecha}
     h2 Listado de #{titulo_listado}
     .table-responsive
         table.table(style="font-size:11px")

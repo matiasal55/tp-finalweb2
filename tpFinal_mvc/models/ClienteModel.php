@@ -29,8 +29,8 @@ class ClienteModel
                 $dato=0;
             $query.="'".$dato."', ";
         }
-
-        $sql="INSERT INTO Cliente VALUES (".$query." DEFAULT)";
+        $query = rtrim($query, ", ");
+        $sql="INSERT INTO Cliente VALUES (".$query.")";
         return $this->database->execute($sql);
     }
 

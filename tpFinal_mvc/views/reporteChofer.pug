@@ -6,7 +6,7 @@ block body
     .container.my-5
         h1.text-center.mb-5 Ingrese los datos a reportar
         form(action="procesarReporte" method="POST")
-            input(type="hidden" id="posicion" name="posicionActual" class="form-control" value="-32.865343,-68.926989")
+            input(type="hidden" id="posicion" name="posicionActual" class="form-control")
             input(type="hidden" name="codigo" value=`${codigo}`)
             .form-group
                 label(for="factura") Concepto del gasto:
