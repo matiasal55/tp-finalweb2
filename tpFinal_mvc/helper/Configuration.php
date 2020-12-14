@@ -121,18 +121,6 @@ class Configuration
         return new MantenimientoController($modelo, $this->getRender(), $this->getPdf());
     }
 
-    public function getProformaModel()
-    {
-        $database = $this->getDatabase();
-        return new ProformaModel($database);
-    }
-
-    public function getProformaController()
-    {
-        $modelo = $this->getProformaModel();
-        return new ProformaController($modelo, $this->getRender(), $this->getPdf(), $this->getGenQR());
-    }
-
     public function getServiceModel()
     {
         $database = $this->getDatabase();

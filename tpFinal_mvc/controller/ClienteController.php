@@ -103,7 +103,7 @@ class ClienteController
                 $_SESSION['mensaje'] = "Los datos han sido agregados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la carga de datos";
-            header("location:../proforma/nuevo");
+            header("location:../viaje/nuevo");
             die();
         }
         header("location:consultar");

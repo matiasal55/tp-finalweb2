@@ -23,7 +23,7 @@ class InformePdf
 
     public function generarFactura($numero){
         $this->pdf->pdf->SetDisplayMode('fullpage');
-        $ruta="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF'])."/proforma/pdfFactura?numero=".$numero;
+        $ruta="http://".$_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF'])."/viaje/pdfFactura?numero=".$numero;
         $codigo=file_get_contents($ruta);
         $this->pdf->writeHTML($codigo);
         $this->pdf->output("factura_".md5($numero).".pdf","I");

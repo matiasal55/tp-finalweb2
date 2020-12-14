@@ -1,6 +1,5 @@
 <?php
 
-
 class ViajeController
 {
     private $modelo;
@@ -44,8 +43,6 @@ class ViajeController
                 $data['listado'] = $this->modelo->getViajesCliente($cuit);
             } else
                 $data['listado'] = $this->modelo->getViajeInfo();
-            // $data['listado'] = $this->modelo->getViajes();
-
             $data['botones'] = true;
             $data['noEliminar'] = true;
             if ($_SESSION['rol'] == 2) {
@@ -85,13 +82,13 @@ class ViajeController
     {
         $this->controlEdicionSupervisor();
         $codigo = $_GET['numero'];
-        $info = $this->modelo->getNuevoViajeProforma($codigo);
+        $info = $this->modelo->getViaje($codigo);
+        $data = $this->getEquipo();
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
-        $data = $this->getEquipo();
         $data['editar'] = true;
         $data['url'] = $this->getUrl();
-        echo $this->render->render("views/proforma.pug", $data);
+        echo $this->render->render("views/viaje.pug", $data);
     }
 
     public function eliminar()
@@ -182,7 +179,7 @@ class ViajeController
         $this->controlAccesoSupervisor();
         $datos = $_POST;
         if (isset($_POST['numero'])) {
-            if ($this->modelo->editProforma($datos))
+            if ($this->modelo->editViaje($datos))
                 $_SESSION['mensaje'] = "Los datos han sido editados correctamente";
             else
                 $_SESSION['mensaje'] = "Hubo un error en la edición de datos";
@@ -241,7 +238,7 @@ class ViajeController
 
     private function getCabeceras()
     {
-        $cabeceras = ['Número', 'Fecha de emision', 'Cuit del cliente', 'Codigo del viaje', 'Fecha del viaje', 'Localidad de origen', 'Localidad de destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
+        $cabeceras = ['Número', 'Fecha de emision', 'Cuit del cliente', 'Fecha del viaje', 'Localidad de origen', 'Localidad de destino', 'Estado', 'Patente del vehiculo', 'Patente del arrastre', 'Dni del chofer'];
         return $cabeceras;
     }
 

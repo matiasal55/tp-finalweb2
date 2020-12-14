@@ -91,7 +91,7 @@ class ViajeController
         $data = $this->getEquipo();
         $data['editar'] = true;
         $data['url'] = $this->getUrl();
-        echo $this->render->render("views/proforma.pug", $data);
+        echo $this->render->render("views/viaje.pug", $data);
     }
 
     public function eliminar()
