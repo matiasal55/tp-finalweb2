@@ -18,7 +18,7 @@ class ProformaController
 
     public function nuevo()
     {
-        $this->controlAcceso();
+        $this->controlAccesoSupervisor();
         $data['datoPrincipal'] = "numero";
         $data = $this->getEquipo();
         $data['url'] = $this->getUrl();
@@ -37,17 +37,15 @@ class ProformaController
         $data['titulo_listado'] = "proformas";
         $data['sector'] = "Proforma";
         $data['datoPrincipal'] = "numero";
-        $data['botones'] = true;
-        $data['botonNuevo'] = true;
         if ($_SESSION['rol'] == 2) {
-            $data['noEliminar'] = true;
+            $data['botonNuevo'] = true;
         }
         echo $this->render->render("views/listas.pug", $data);
     }
 
     public function costeo()
     {
-        $this->controlEdicion();
+        $this->controlEdicionSupervisor();
         $numero = $_GET['numero'];
         $viaje = $this->modelo->getCodigoViaje($numero);
         $viaje = $viaje[0]['cod_viaje'] ?? null;
@@ -62,7 +60,7 @@ class ProformaController
 
     public function editar()
     {
-        $this->controlEdicion();
+        $this->controlEdicionSupervisor();
         $codigo = $_GET['numero'];
         $info = $this->modelo->getProforma($codigo);
         $data['info'] = $info[0];
@@ -75,7 +73,7 @@ class ProformaController
 
     public function eliminar()
     {
-        $this->controlEdicion();
+        $this->controlEdicionSupervisor();
         $numero = $_GET['numero'];
         if ($this->modelo->deleteProforma($numero))
             $_SESSION['mensaje'] = "La proforma se eliminó correctamente";
@@ -161,7 +159,7 @@ class ProformaController
 
     public function procesar()
     {
-        $this->controlAcceso();
+        $this->controlAccesoSupervisor();
         $datos = $_POST;
         if (isset($_POST['proforma_numero'])) {
             if ($this->modelo->editProforma($datos))
@@ -194,7 +192,7 @@ class ProformaController
 
     private function getUrl()
     {
-        $url = "http://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
+        $url = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['PHP_SELF']);
         return $url;
     }
 
@@ -212,7 +210,15 @@ class ProformaController
         }
     }
 
-    private function controlEdicion()
+    private function controlAccesoSupervisor()
+    {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 2) {
+            header("location:../index");
+            die();
+        }
+    }
+
+    private function controlEdicionSupervisor()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 1 && $_SESSION['rol'] != 2 || !isset($_GET['numero'])) {
             header("location:../index");

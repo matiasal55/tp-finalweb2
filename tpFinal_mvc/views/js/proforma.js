@@ -33,29 +33,6 @@ eta.addEventListener("change", () => {
     eta_costeo.value = eta.value;
 })
 
-const tipo_carga = document.getElementById("tipo_carga");
-const imoClass = document.getElementById("imoClass");
-const temperatura = document.getElementById("temperatura");
-
-tipo_carga.addEventListener("change", () => {
-    if (tipo_carga.value == "Líquida") {
-        select_hazard.value = "si";
-        select_reefer.value = "si";
-        imoClass.disabled = false;
-        temperatura.disabled = false;
-    } else if (tipo_carga.value == '40"') {
-        select_hazard.value = "0";
-        select_reefer.value = "0";
-        imoClass.disabled = false;
-        temperatura.disabled = true;
-    } else {
-        select_hazard.value = "0";
-        select_reefer.value = "0";
-        imoClass.disabled = true;
-        temperatura.disabled = true;
-    }
-})
-
 const select_hazard = document.getElementById("select_hazard");
 const select_reefer = document.getElementById("select_reefer");
 const campo_hazard = document.getElementById("campo_hazard");
@@ -81,7 +58,6 @@ const totales = document.getElementsByClassName("reales");
 const total_estimado = document.getElementById("totalEstimado");
 
 for (let valor of estimados) {
-    // valor.value=0;
     valor.addEventListener("change", () => {
         let sumaEstimado = 0;
         for (let estimado of estimados) {
