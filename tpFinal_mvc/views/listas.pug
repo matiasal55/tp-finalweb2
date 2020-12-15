@@ -40,6 +40,12 @@ block body
                                             a(href=`editar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-primary") Editar
                                             if !noEliminar
                                                 a(href=`eliminar?${datoPrincipal.toLowerCase()}=${datos[datoPrincipal]}` class="btn btn-danger ml-2") Eliminar
+            if costeo
+                |
+                hr
+                |
+                h4 Total:$ #{total}
+
         else
             h3(class="alert alert-info") No hay información disponible
         div.d-flex.justify-content-center.my-4

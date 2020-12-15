@@ -207,8 +207,7 @@ block body
                                 - selected=true
                             else
                                 - selected=false
-                            if vehiculo['estado'] != 2
-                                option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
+                            option(value=`${vehiculo['patente']}` selected=selected) #{vehiculo['patente']} - #{vehiculo['nombre']} - #{vehiculo['descripcion']}
                     .invalid-feedback Por favor seleccione el vehículo
             hr
             |
@@ -223,8 +222,7 @@ block body
                                 - selected=true
                             else
                                 - selected=false
-                            if arrastre['estado'] != 2
-                                option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
+                            option(value=`${arrastre['patente']}` selected=selected) #{arrastre['patente']} - #{arrastre['nombre']}
                     .invalid-feedback Por favor seleccione el arrastre
             |
             hr
@@ -236,12 +234,11 @@ block body
                     select(name="dni_chofer" class="custom-select" required)
                         option(value="0" selected disabled) Seleccione el nombre y apellido
                         each chofer in choferes
-                            if info && chofer['dni'] == info['dni_chofer']
+                            if info && chofer['dni_chofer'] == info['dni_chofer']
                                 - selected=true
                             else
                                 - selected=false
-                            if chofer['estado'] != 2
-                                option(value=`${chofer['dni']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
+                            option(value=`${chofer['dni_chofer']}` selected=selected) #{chofer['nombre']} #{chofer['apellido']}
                     .invalid-feedback Por favor seleccione al chofer
             |
             hr
