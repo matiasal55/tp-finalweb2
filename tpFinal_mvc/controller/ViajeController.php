@@ -76,6 +76,9 @@ class ViajeController
         $data['reportes'] = true;
         $data['acciones'] = true;
         $data['sector'] = "Costeo";
+        $data['costeo']= true;
+        $total= $this->modelo->getTotalCosteo($numero);
+        $data['total']=$total[0]["SUM(precio)"];
         echo $this->render->render("views/listas.pug", $data);
     }
 
@@ -84,7 +87,7 @@ class ViajeController
         $this->controlEdicionSupervisor();
         $codigo = $_GET['numero'];
         $info = $this->modelo->getViaje($codigo);
-        $data= $this->getEquipo();
+        $data = $this->getEquipo();
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
         $data['editar'] = true;
@@ -155,7 +158,7 @@ class ViajeController
             $data['titulo_listado'] = "viajes";
             echo $this->render->render("views/pdf_template.pug", $data);
         } else {
-            $data['listado'] = $this->modelo->getProformasInfo();
+            $data['listado'] = $this->modelo->getViajeInfo();
             $data['titulo_listado'] = "Viajes";
             $data['estados'] = ["No iniciado", "En viaje", "Finalizado"];
             $data['cabeceras'] = $this->getCabeceras();
@@ -204,10 +207,14 @@ class ViajeController
             header("location:../index");
             die();
         }
-        $data['codigo'] = $_GET['numero'];
-        $data['conceptos'] = $this->modelo->getConceptos();
-        echo $this->render->render("views/reporteChofer.pug", $data);
-
+        $viaje = $this->modelo->getViaje($_GET['numero']);
+        $chofer = $viaje[0]['dni_chofer'];
+        if ($chofer == $_SESSION['chofer']['dni_chofer']) {
+            $data['codigo'] = $_GET['numero'];
+            $data['conceptos'] = $this->modelo->getConceptos();
+            echo $this->render->render("views/reporteChofer.pug", $data);
+        }
+        else header("location:../index");
 
     }
 
@@ -228,6 +235,7 @@ class ViajeController
         }
 
     }
+
     public function confirmar()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {

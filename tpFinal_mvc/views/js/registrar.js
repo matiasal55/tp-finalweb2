@@ -14,3 +14,5 @@ listaRoles.addEventListener("change", () => {
     campo_licencia();
 })
 
+campo_licencia();
+
