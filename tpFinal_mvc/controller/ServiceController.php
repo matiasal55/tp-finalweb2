@@ -171,7 +171,7 @@ class ServiceController
 
     private function getCabeceras()
     {
-        $cabeceras=['Id', 'Patente', 'Fecha'];
+        $cabeceras = ['Id', 'Patente', 'Fecha'];
         return $cabeceras;
     }
 }

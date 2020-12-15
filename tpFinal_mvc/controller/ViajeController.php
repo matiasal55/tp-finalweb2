@@ -87,7 +87,7 @@ class ViajeController
         $this->controlEdicionSupervisor();
         $codigo = $_GET['numero'];
         $info = $this->modelo->getViaje($codigo);
-        $data= $this->getEquipo();
+        $data = $this->getEquipo();
         $data['info'] = $info[0];
         $data['accion'] = "Editar";
         $data['editar'] = true;
@@ -234,6 +234,7 @@ class ViajeController
         }
 
     }
+
     public function confirmar()
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4) {

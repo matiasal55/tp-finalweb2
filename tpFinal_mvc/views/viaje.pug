@@ -230,7 +230,7 @@ block body
                     select(name="dni_chofer" class="custom-select" required)
                         option(value="0" selected disabled) Seleccione el nombre y apellido
                         each chofer in choferes
-                            if info && chofer['dni'] == info['dni_chofer']
+                            if info && chofer['dni_chofer'] == info['dni_chofer']
                                 - selected=true
                             else
                                 - selected=false
