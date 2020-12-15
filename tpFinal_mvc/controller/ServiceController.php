@@ -37,19 +37,17 @@ class ServiceController
         if ($_SESSION['rol'] != 4) {
             $data['listado'] = $this->modelo->getTodoslosService();
             $data['botones'] = true;
-            if ($_SESSION['rol'] != 2) {
-                $data['noEliminar'] = true;
+            if($_SESSION['rol'] != 2) {
                 $data['botonNuevo'] = true;
-
+                $data['noEliminar'] = true;
             }
-        }else {
-                if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
-                    $patente = $_SESSION['chofer']['vehiculo_asignado'];
-                    $data['listado'] = $this->modelo->getService($patente);
-                } else
-                    $data['listado'] = [];
-            }
-
+        } else {
+            if (isset($_SESSION['chofer']['vehiculo_asignado'])) {
+                $patente = $_SESSION['chofer']['vehiculo_asignado'];
+                $data['listado'] = $this->modelo->getService($patente);
+            } else
+                $data['listado'] = [];
+        }
         $data['titulo_listado'] = "service";
         $data['sector'] = "Service";
         $data['datoPrincipal'] = "id";
@@ -157,7 +155,7 @@ class ServiceController
 
     private function controlAccesoChofer()
     {
-        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 0) {
+        if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] == 0) {
             header("location:../index");
             die();
         }

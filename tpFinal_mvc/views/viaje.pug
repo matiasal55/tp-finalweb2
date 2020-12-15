@@ -46,8 +46,6 @@ block body
                             span#contacto1
                         small Contacto 2:
                             span#contacto2
-
-                //aqui en viaje template
             h1.text-center #{accion} Viaje
             .row
                 .form-group.col-md-6
@@ -114,7 +112,7 @@ block body
                         option(value="0" selected disabled) Seleccione tipo de carga
                         - tipo_cargas=['20"','40"',"CarCarrier","Granel","Jaula","Líquida"];
                         each tipo in tipo_cargas
-                            if tipo==info['tipo_carga']
+                            if tipo == info['tipo_carga']
                                 - selected=true;
                             else
                                 - selected=false;
@@ -129,7 +127,7 @@ block body
                     label(for="hazard") Hazard:
                     select.custom-select#select_hazard(required)
                         option(value="0" selected disabled) Seleccione SI/NO
-                        if info['hazard_previsto']>0
+                        if info['hazard_previsto'] > 0
                             - selectedSi=true;
                             - selectedNo=false;
                         else
@@ -158,7 +156,7 @@ block body
                         option(value='') Seleccione un IMO Class
                         - imoClass=["Clase 1","Clase 2","Clase 3","Clase 4.1","Clase 4.2","Clase 4.3","Clase 5.1","Clase 5.2","Clase 6.1","Clase 6.2","Clase 7","Clase 8","Clase 9"];
                         each imo in imoClass
-                            if imo==info['imoClass']
+                            if imo == info['imo_class']
                                 - selected=true;
                             else
                                 - selected=false;
@@ -173,7 +171,7 @@ block body
                 .row
                     .form-group.col-md-6
                         label(for="desviaciones") Desviaciones
-                        if info['km_totales']-info['km_previsto']<0
+                        if info['km_totales'] - info['km_previsto'] < 0
                             - desviaciones=0;
                         else
                             - desviaciones=info['km_totales']-info['km_previsto'];
@@ -184,15 +182,13 @@ block body
                             - estados=["","No iniciado","En viaje","Finalizado"];
                             each estado, index in estados
                                 if index>0
-                                    if index==info['estado']
+                                    if index == info['estado']
                                         - selected=true;
                                     else
                                         - selected=false;
                                     option(value=`${index}` selected=selected)= estado
             if editar
                 input(type="hidden" name="viaje_codigo" value=`${info['codigo']}`)
-
-
             |
             hr
             |
@@ -254,8 +250,7 @@ block body
                                 - selected=true
                             else
                                 - selected=false
-                            if celular['estado'] != 2
-                                option(value=`${celular['id']}` selected=selected) #{celular['numero']}
+                            option(value=`${celular['id']}` selected=selected) #{celular['numero']}
                     .invalid-feedback Por favor seleccione el celular a asignar al chofer
             |
             hr

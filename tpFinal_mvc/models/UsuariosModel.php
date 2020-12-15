@@ -77,7 +77,7 @@ class UsuariosModel{
         $email=$datos["email"];
         $cod_area=$datos['area'];
         if($_SESSION['rol']==4){
-            $licencia=$datos['licencia'];
+            $licencia=$datos['tipo_licencia'];
             $sql="UPDATE Chofer SET tipo_licencia='$licencia' WHERE dni_chofer='$dni'";
             $this->database->execute($sql);
         }
