@@ -16,7 +16,7 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area =$datos['area'];
-        $licencia=$datos['licencia'];
+        $licencia=$datos['tipo_licencia'];
         $sql="INSERT INTO Usuarios VALUES ('$dni','$nombre','$apellido','$fecha_nacimiento','$email','$encriptada',DEFAULT,'$cod_area')";
         if($cod_area==4){
             if($this->database->execute($sql)){
@@ -76,12 +76,12 @@ class UsuariosModel{
         $fecha_nacimiento=$datos["fecha_nacimiento"];
         $email=$datos["email"];
         $cod_area=$datos['area'];
-        $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area' WHERE dni='$dni'";
         if($_SESSION['rol']==4){
-            $licencia=$datos['licencia'];
+            $licencia=$datos['tipo_licencia'];
             $sql="UPDATE Chofer SET tipo_licencia='$licencia' WHERE dni_chofer='$dni'";
             $this->database->execute($sql);
         }
+        $sql="UPDATE Usuarios SET nombre='$nombre',apellido='$apellido',`fecha de nacimiento`='$fecha_nacimiento',email='$email',cod_area='$cod_area' WHERE dni='$dni'";
         return $this->database->execute($sql);
     }
 

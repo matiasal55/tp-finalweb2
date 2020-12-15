@@ -1,5 +1,6 @@
 <?php
 
+
 class ViajeController
 {
     private $modelo;
@@ -74,7 +75,10 @@ class ViajeController
         $data['cabeceras'] = ["Código", "Código de viaje", "Número de factura", "Detalles", "Dirección", "Litros de combustible", "Precio", "Conceptos"];
         $data['reportes'] = true;
         $data['acciones'] = true;
+        $data['costeo'] = true;
         $data['sector'] = "Costeo";
+        $total = $this->modelo->getTotalCosteo($numero);
+        $data['total']=$total[0]["SUM(precio)"];
         echo $this->render->render("views/listas.pug", $data);
     }
 
@@ -154,7 +158,7 @@ class ViajeController
             $data['titulo_listado'] = "viajes";
             echo $this->render->render("views/pdf_template.pug", $data);
         } else {
-            $data['listado'] = $this->modelo->getProformasInfo();
+            $data['listado'] = $this->modelo->getViajeInfo();
             $data['titulo_listado'] = "Viajes";
             $data['estados'] = ["No iniciado", "En viaje", "Finalizado"];
             $data['cabeceras'] = $this->getCabeceras();
@@ -201,13 +205,16 @@ class ViajeController
     {
         if (!isset($_SESSION['iniciada']) || $_SESSION['rol'] != 4 || !isset($_GET['numero'])) {
             header("location:../index");
-            die();
+            exit();
         }
-        $data['codigo'] = $_GET['numero'];
-        $data['conceptos'] = $this->modelo->getConceptos();
-        echo $this->render->render("views/reporteChofer.pug", $data);
-
-
+        $viaje=$this->modelo->getViaje($_GET['numero']);
+        $chofer=$viaje[0]['dni_chofer'];
+        if($chofer==$_SESSION['chofer']['dni_chofer']) {
+            $data['codigo'] = $_GET['numero'];
+            $data['conceptos'] = $this->modelo->getConceptos();
+            echo $this->render->render("views/reporteChofer.pug", $data);
+        }
+        else header("location:../index");
     }
 
     public function procesarReporte()

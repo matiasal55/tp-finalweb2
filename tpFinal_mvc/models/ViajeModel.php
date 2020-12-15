@@ -16,13 +16,18 @@ class ViajeModel
 
             $clave = explode("_", $index);
             if ($clave[0] != "total") {
-                if ($dato == '')
+                if ($dato == '') {
                     $dato = 'DEFAULT';
-                $query .= "'" . $dato . "', ";
+                    $query.=$dato.",";
+                }
+                else
+                    $query .= "'" . $dato . "', ";
             }
         }
         $sql = "INSERT INTO Viajes VALUES (DEFAULT, " . $query . " DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT)";
         if ($this->database->execute($sql)) {
+            $this->cambiarEstados($datos,2);
+            $this->asignarVehiculoYCelular($datos['dni_chofer'],$datos['patente_vehiculo'],$datos['id_celular']);
             $clave = $this->database->query("SELECT LAST_INSERT_ID()");
             $clave_viaje = $clave[0]['LAST_INSERT_ID()'];
             return $clave_viaje;
@@ -37,7 +42,6 @@ class ViajeModel
         return $this->database->execute($sql);
     }
 
-//nuevo metodo abarcatodo
     public function getViajes()
     {
         $sql = "SELECT * FROM  Viajes ";
@@ -95,6 +99,11 @@ class ViajeModel
         return $this->database->query($sql);
     }
 
+    public function getTotalCosteo($numero){
+        $sql="SELECT SUM(precio) FROM Costeo WHERE codigo_viaje='$numero'";
+        return $this->database->query($sql);
+    }
+
     public function editViaje($datos)
     {
         $query = "";
@@ -105,6 +114,9 @@ class ViajeModel
                     $query.=$index."='".$dato."',";
                 }
             }
+        }
+        if($datos['estado']==3){
+            $this->cambiarEstados($datos,1);
         }
         $query=rtrim($query,",");
         $numero=$datos['numero'];
@@ -206,8 +218,6 @@ class ViajeModel
             $concepto = strtolower($concepto[0]['nombre']);
             $subsql="(SELECT SUM(precio) FROM Costeo WHERE codigo_viaje='$codigo_viaje')";
             $sql = "UPDATE Viajes SET km_total='$km_total',".$concepto."_total=`".$concepto."_total`+".$precio.",total_real=".$subsql." WHERE numero='$codigo_viaje'";
-            //var_dump($sql);
-            //die();
             return $this->database->execute($sql);
         }
         return false;
